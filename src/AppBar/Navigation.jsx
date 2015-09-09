@@ -107,7 +107,7 @@ class AppNav extends React.Component {
       return (
         <div className="app-nav-course-dropdown">
           <span className='app-nav-link'
-                onClick={this._toggleCourseDropdown}>Learn
+                onClick={this._toggleCourseDropdown}>Courses
             <Icon className='app-nav-link-down-arrow' name='navigatedown' />
           </span>
           <div onMouseEnter={this._handleMouseEnter}
