@@ -115,7 +115,7 @@ const AvailabilityGrid = React.createClass({
 
 
     // precalculate the slot names one time
-    let formatString = 'ha';
+    let formatString = 'h a';
     if (this.props.slotsHour > 1) {
       formatString = 'h:mma';
     }
@@ -320,12 +320,12 @@ const AvailabilityGrid = React.createClass({
           onMouseDown={this.onMouseDown}
           onMouseUp={this.onMouseUp} >
         <div
-            className="availability-grid-days">
-          {dayNodes}
-        </div>
-        <div
             className="availability-grid-slot-names">
           {slotNames.slice(minSlot, maxSlot)}
+        </div>
+        <div
+            className="availability-grid-days">
+          {dayNodes}
         </div>
         {this.props.onPost && (
           <input
