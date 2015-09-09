@@ -1,6 +1,7 @@
 @import "~tfstyleguide/vars";
 
 .availability-grid {
+  .body-text-small;
   width: 620px;
   margin: 0 auto 30px auto;
   -webkit-user-select: none;  /* Chrome all / Safari all */
@@ -34,8 +35,11 @@
 }
 
 .availability-grid-slot-name {
-  line-height: 29px;
-  padding-left: 15px;
+  position: relative;
+  top: -8px;
+  text-align: right;
+  line-height: 30px;
+  padding-right: 10px;
 }
 
 .availability-grid-days {
@@ -47,20 +51,37 @@
 
 .availability-grid-day {
   display: inline-block;
-  width: 59px;
+  width: 60px;
   line-height: 30px;
+  margin-left: -1px;
 }
 
 .availability-grid-slot {
-  width: 59px;
-  height: 29px;
-  margin: 0;
-  background-color: @gray15;
-  border: @gray5 1px solid;
-  border-width: 1px 0px 0px 1px;
+  position: relative;
+  width: 60px;
+  height: 31px;
+  margin-top: -1px;
+  background-color: @gray5;
+  border: mix(@gray25, @gray50, 70%) 1px solid;
   cursor: pointer;
+  z-index: 1;
 
   &.selected {
-    background-color: @blue50;
+    z-index: 2;
+    background-color: @green;
+    border-color: @gray75;
+  }
+
+  .availability-grid-day:first-child &:first-of-type {
+    border-radius: 3px 0 0 0;
+  }
+  .availability-grid-day:last-child &:first-of-type {
+    border-radius: 0 3px 0 0;
+  }
+  .availability-grid-day:last-child &:last-of-type {
+    border-radius: 0 0 3px 0;
+  }
+  .availability-grid-day:first-child &:last-of-type {
+    border-radius: 0 0 0 3px;
   }
 }
