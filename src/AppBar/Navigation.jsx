@@ -6,6 +6,7 @@ const uniqueId = require('lodash/utility/uniqueId');
 const {Icon} = require('../Icon');
 const {Gravatar} = require('../Gravatar');
 const {NavLink} = require('./NavLink');
+const {CourseLink} = require('./CourseLink');
 const linkSet = require('./linkSet');
 
 
@@ -114,64 +115,51 @@ class AppNav extends React.Component {
                className={dropdownContentClasses}>
             <div className="subheading">Career Path</div>
             <div className="app-nav-courses">
-              <a className="app-nav-courses-link" href="//www.thinkful.com/courses/frontend-development-career-path">
-                <img className="app-nav-courses-icon" src="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/career.svg" />
-                <span>Frontend Career Path</span>
-              </a>
+              <CourseLink href="//www.thinkful.com/courses/frontend-development-career-path"
+                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/career.svg"
+                          name="Frontend Career Path" />
             </div>
             <div className="subheading">1-on-1 Courses</div>
             <div className="app-nav-courses">
-              <a className="app-nav-courses-link" href="//www.thinkful.com/courses/learn-web-development-online">
-                <img className="app-nav-courses-icon" src="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/frontend.svg" />
-                <span>Frontend Development</span>
-              </a>
-              <a className="app-nav-courses-link" href="//www.thinkful.com/courses/learn-ux-online">
-                <img className="app-nav-courses-icon" src="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/uxd.svg" />
-                <span>User Experience Design</span>
-              </a>
-              <a className="app-nav-courses-link" href="//www.thinkful.com/courses/learn-angularjs-online">
-                <img className="app-nav-courses-icon" src="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/angular.svg" />
-                <span>Frontend in AngularJS</span>
-              </a>
-              <a className="app-nav-courses-link" href="//www.thinkful.com/courses/learn-web-design-online">
-                <img className="app-nav-courses-icon" src="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/design.svg" />
-                <span>Modern Web Design</span>
-              </a>
-              <a className="app-nav-courses-link" href="//www.thinkful.com/courses/learn-python-online">
-                <img className="app-nav-courses-icon" src="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/python.svg" />
-                <span>Programming in Python</span>
-              </a>
-              <a className="app-nav-courses-link" href="//www.thinkful.com/courses/learn-swift-programming-online">
-                <img className="app-nav-courses-icon" src="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/swift.svg" />
-                <span>iOS Programming in Swift</span>
-              </a>
-              <a className="app-nav-courses-link" href="//www.thinkful.com/courses/learn-ruby-on-rails-online">
-                <img className="app-nav-courses-icon" src="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/ruby.svg" />
-                <span>Web Development in Rails</span>
-              </a>
-              <a className="app-nav-courses-link" href="//www.thinkful.com/courses/learn-android-programming-online">
-                <img className="app-nav-courses-icon" src="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/android.svg" />
-                <span>Android Mobile Development</span>
-              </a>
-              <a className="app-nav-courses-link" href="//www.thinkful.com/courses/learn-nodejs-online">
-                <img className="app-nav-courses-icon" src="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/node.svg" />
-                <span>Backend in Node.js</span>
-              </a>
-              <a className="app-nav-courses-link" href="//www.thinkful.com/courses/learn-data-science-online">
-                <img className="app-nav-courses-icon" src="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/data.svg" />
-                <span>Data Science in Python</span>
-              </a>
+              <CourseLink href="//www.thinkful.com/courses/learn-web-development-online"
+                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/frontend.svg"
+                          name="Frontend Development" />
+              <CourseLink href="//www.thinkful.com/courses/learn-ux-online"
+                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/uxd.svg"
+                          name="User Experience Design" />
+              <CourseLink href="//www.thinkful.com/courses/learn-angularjs-online"
+                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/angular.svg"
+                          name="Frontend in AngularJS" />
+              <CourseLink href="//www.thinkful.com/courses/learn-web-design-online"
+                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/design.svg"
+                          name="Modern Web Design" />
+              <CourseLink href="//www.thinkful.com/courses/learn-python-online"
+                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/python.svg"
+                          name="Programming in Python" />
+              <CourseLink href="//www.thinkful.com/courses/learn-swift-programming-online"
+                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/swift.svg"
+                          name="iOS Programming in Swift" />
+              <CourseLink href="//www.thinkful.com/courses/learn-ruby-on-rails-online"
+                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/ruby.svg"
+                          name="Web Development in Rails" />
+              <CourseLink href="//www.thinkful.com/courses/learn-android-programming-online"
+                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/android.svg"
+                          name="Android Mobile Development" />
+              <CourseLink href="//www.thinkful.com/courses/learn-nodejs-online"
+                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/node.svg"
+                          name="Backend in Node.js" />
+              <CourseLink href="//www.thinkful.com/courses/learn-data-science-online"
+                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/data.svg"
+                          name="Data Science in Python" />
             </div>
             <div className="subheading">Engineer Workshops</div>
             <div className="app-nav-courses">
-              <a className="app-nav-courses-link" href="//projects.thinkful.com/library/node.js/introduction/">
-                <img className="app-nav-courses-icon" src="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/node.svg" />
-                <span>Node.js Library</span>
-              </a>
-              <a className="app-nav-courses-link" href="//projects.thinkful.com/library/react/">
-                <img className="app-nav-courses-icon" src="https://tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/react.svg" />
-                <span>React Library</span>
-              </a>
+              <CourseLink href="//projects.thinkful.com/library/node.js/introduction/"
+                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/node.svg"
+                          name="Node.js Library" />
+              <CourseLink href="//projects.thinkful.com/library/react/"
+                          icon="https://tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/react.svg"
+                          name="React Library" />
             </div>
           </div>
         </div>);
