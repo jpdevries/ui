@@ -5,7 +5,7 @@ const mapValues = require('lodash/object/mapValues');
 
 let user = global.__env.user;
 let config = {
-    officeHours: {
+    workshops: {
         icon: 'users'
     },
     library: {
@@ -32,7 +32,7 @@ else {
     main.push(home);
     if (/admin|mentor/.test(user.role)) {
         menu.push(config.activity);
-        main.push(config.officeHours);
+        main.push(config.workshops);
         main.push(config.library);
         menu.push(config.takeStudent);
         defaults(home, config.dashboard);
@@ -42,7 +42,7 @@ else {
         }
     }
     else { // Student links
-        main.push(config.officeHours);
+        main.push(config.workshops);
         if (/core/.test(user.student_type)) {
             defaults(home, config.dashboard);
             main.push(config.library);
