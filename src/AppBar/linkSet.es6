@@ -3,7 +3,11 @@ const assign = require('lodash/object/assign');
 const defaults = require('lodash/object/defaults');
 const mapValues = require('lodash/object/mapValues');
 
-let user = global.__env.user;
+let user;
+if (global.__env) {
+    user  = global.__env.user;
+}
+
 let config = {
     workshops: {
         icon: 'users'
@@ -12,9 +16,11 @@ let config = {
         icon: 'book'
     }
 }
-
-config = mapValues(global.__env.config,
-    (link, key) => assign({}, link, config[key]));
+if (global.__env) {
+    config = mapValues(
+        global.__env.config,
+        (link, key) => assign({}, link, config[key]));
+}
 
 let home = {displayName: 'Home', icon: 'home'};
 let main = [];
