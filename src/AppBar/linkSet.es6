@@ -9,11 +9,11 @@ if (global.__env) {
 }
 
 let config = {
-    officeHours: {
+    workshops: {
         icon: 'users'
     },
-    activity: {
-        icon: 'user'
+    library: {
+        icon: 'book'
     }
 }
 if (global.__env) {
