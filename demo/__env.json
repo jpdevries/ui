@@ -118,6 +118,11 @@
         "token": "9b75yuar0r"
       }
     },
+    "workshops": {
+      "displayName": "Workshops",
+      "host": "t.ful:5008",
+      "url": "//t.ful:5008"
+    },
     "wow": {
       "host": "t.ful:5016",
       "url": "//t.ful:5016"

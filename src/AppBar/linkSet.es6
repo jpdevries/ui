@@ -30,10 +30,12 @@ let insertCourseDropdown = false;
 if(! user) {
     defaults(home, config.www);
     insertCourseDropdown = true;
+    menu.push(config.workshops);
     menu.push(config.mentors);
     menu.push(config.pricing);
-    menu.push(config.signIn)
+    menu.push(config.signIn);
 }
+
 else {
     main.push(home);
     if (/admin|mentor/.test(user.role)) {
