@@ -108,21 +108,12 @@ class AppNav extends React.Component {
       return (
         <div className="app-nav-course-dropdown">
           <span className='app-nav-link'
-                onClick={this._toggleCourseDropdown}>Courses
+                onClick={this._toggleCourseDropdown}>1-on-1 Courses
             <Icon className='app-nav-link-down-arrow' name='navigatedown' />
           </span>
           <div onMouseEnter={this._handleMouseEnter}
                className={dropdownContentClasses}>
-            <div className="subheading">Workshops</div>
-            <div className="app-nav-courses">
-              <CourseLink href="//open-sessions.thinkful.com/workshops/node.js/"
-                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/node.svg"
-                          name="Node.js" />
-              <CourseLink href="//open-sessions.thinkful.com/workshops/react/"
-                          icon="https://tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/react.svg"
-                          name="React" />
-            </div>
-            <div className="subheading">Part-time 1-on-1</div>
+            <div className="subheading">Part-time</div>
             <div className="app-nav-courses">
               <CourseLink href="//www.thinkful.com/courses/learn-web-development-online"
                           icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/frontend.svg"
@@ -155,7 +146,7 @@ class AppNav extends React.Component {
                           icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/data.svg"
                           name="Data Science in Python" />
             </div>
-            <div className="subheading">Full-time 1-on-1</div>
+            <div className="subheading">Full-time</div>
             <div className="app-nav-courses">
               <CourseLink href="//www.thinkful.com/courses/frontend-development-career-path"
                           icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/career.svg"
