@@ -108,18 +108,12 @@ class AppNav extends React.Component {
       return (
         <div className="app-nav-course-dropdown">
           <span className='app-nav-link'
-                onClick={this._toggleCourseDropdown}>Courses
+                onClick={this._toggleCourseDropdown}>1-on-1 Courses
             <Icon className='app-nav-link-down-arrow' name='navigatedown' />
           </span>
           <div onMouseEnter={this._handleMouseEnter}
                className={dropdownContentClasses}>
-            <div className="subheading">Career Path</div>
-            <div className="app-nav-courses">
-              <CourseLink href="//www.thinkful.com/courses/frontend-development-career-path"
-                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/career.svg"
-                          name="Frontend Career Path" />
-            </div>
-            <div className="subheading">1-on-1 Courses</div>
+            <div className="subheading">Part-time</div>
             <div className="app-nav-courses">
               <CourseLink href="//www.thinkful.com/courses/learn-web-development-online"
                           icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/frontend.svg"
@@ -152,14 +146,16 @@ class AppNav extends React.Component {
                           icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/data.svg"
                           name="Data Science in Python" />
             </div>
-            <div className="subheading">Engineer Workshops</div>
+            <div className="subheading">Full-time</div>
             <div className="app-nav-courses">
-              <CourseLink href="//projects.thinkful.com/library/node.js/introduction/"
-                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/node.svg"
-                          name="Node.js Library" />
-              <CourseLink href="//projects.thinkful.com/library/react/"
-                          icon="https://tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/react.svg"
-                          name="React Library" />
+              <CourseLink href="//www.thinkful.com/courses/frontend-development-career-path"
+                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/career.svg"
+                          name="Frontend Career Path" />
+            </div>
+            <div className="app-nav-courses app-nav-courses__center">
+              <CourseLink href="//www.thinkful.com/courses/"
+                          name="See details"
+                          arrow={true} />
             </div>
           </div>
         </div>);
