@@ -11,15 +11,17 @@ class CourseLink extends React.Component {
     static propTypes = {
       href: React.PropTypes.string,
       icon: React.PropTypes.string,
-      name: React.PropTypes.string
+      name: React.PropTypes.string,
+      arrow: React.PropTypes.boolean
     }
 
     render() {
-      const {href, icon, name} = this.props;
+      const {href, icon, name, arrow} = this.props;
 
       return (<a className="app-nav-courses-link" href={href + '?rel=nav'}>
-        <img className="app-nav-courses-icon" src={icon} />
-        <span>{name}</span>
+        {icon && <img className="app-nav-courses-icon" src={icon} />}
+        <span className="app-nav-courses-link-text">{name}</span>
+        {arrow && <span className="icon-navigateright" />}
       </a>)
     }
 }
