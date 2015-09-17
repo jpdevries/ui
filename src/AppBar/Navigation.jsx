@@ -152,6 +152,11 @@ class AppNav extends React.Component {
                           icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/career.svg"
                           name="Frontend Career Path" />
             </div>
+            <div className="app-nav-courses app-nav-courses__center">
+              <CourseLink href="//www.thinkful.com/courses/"
+                          name="See details"
+                          arrow={true} />
+            </div>
           </div>
         </div>);
     }

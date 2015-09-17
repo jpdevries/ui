@@ -323,6 +323,10 @@
   margin-bottom: 15px;
   white-space: normal;
   .grid-container();
+
+  &.app-nav-courses__center {
+    text-align: center;
+  }
 }
 
 .app-nav-courses-link {
@@ -339,12 +343,17 @@
     color: @blue;
     background-color: @gray15;
   }
-
-  span {
-    .body-text-small();
-    display: inline-block;
-    vertical-align: middle;
+  .icon-navigateright {
+    position: relative;
+    top: 2px;
+    padding-left: 3px;
   }
+}
+
+.app-nav-courses-link-text {
+  .body-text-small();
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .app-nav-courses-icon {
