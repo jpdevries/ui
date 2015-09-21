@@ -2,6 +2,7 @@ const {AppBar} = require('./AppBar');
 const {AvailabilityGrid} = require('./AvailabilityGrid');
 const {DatePicker} = require('./DatePicker');
 const {Dropdown} = require('./Dropdown');
+const {Footer} = require('./Footer');
 const {FourOhFour} = require('./FourOhFour');
 const {Gravatar} = require('./Gravatar');
 const {Icon} = require('./Icon');
@@ -15,6 +16,7 @@ module.exports = {
   AvailabilityGrid,
   DatePicker,
   Dropdown,
+  Footer,
   FourOhFour,
   Gravatar,
   Icon,
