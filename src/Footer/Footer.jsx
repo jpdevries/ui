@@ -11,12 +11,21 @@ const linkSet = [
     'location': `${CONFIG.www.url}/mentors`
   },
   {
+    'name': 'Student reviews',
+    'location': `${CONFIG.www.url}/reviews`
+  },
+  {
     'name': 'Pricing',
     'location': `${CONFIG.www.url}/pricing`
   },
   {
-    'name': 'Team',
-    'location': `${CONFIG.www.url}/about`
+    'name': 'About us',
+    'location': `${CONFIG.www.url}/about`,
+    'subLink':
+      {
+        'name': "We're hiring!",
+        'location': `${CONFIG.www.url}/about/#opportunities`
+      }
   },
   {
     'name': 'Learning resources',
@@ -31,6 +40,10 @@ const linkSet = [
     'location': `${CONFIG.www.url}/bootcamp-prep`
   },
   {
+    'name': 'Workshops and office hours',
+    'location': `${CONFIG.officeHours.url}/workshops`
+  },
+  {
     'name': 'Blog',
     'location': `//blog.thinkful.com`
   }
@@ -42,7 +55,7 @@ class Footer extends React.Component {
       <div className="footer">
         <div className="footer-centered">
           <div className="footer-site-links">
-            <div className="social-links">
+            <div className="social-links social-links__mobile">
               <a
                   className="footer-link-social"
                   href="https://www.facebook.com/thinkfulschool"
@@ -61,22 +74,48 @@ class Footer extends React.Component {
                 href={`${CONFIG.accounts.url}/login`}>
               Sign in
             </a>
-            {linkSet.map(link => <a
-                className="footer-link"
-                href={link.location}>{link.name}</a>)
+            {linkSet.map(link => {
+              return (
+                <div className="footer-link">
+                  <a className="footer-main-link" href={link.location}>{link.name}</a>
+                  {link.subLink &&
+                    <a className="footer-sub-link" href={link.subLink.location}>{link.subLink.name}</a>}
+                </div>
+                )
+              })
             }
+            <div className="social-links social-links__desktop">
+              <a
+                  className="footer-link-social"
+                  href="https://www.facebook.com/thinkfulschool"
+                  target="_blank">
+                <Icon name="facebook"/>
+              </a>
+              <a
+                  className="footer-link-social"
+                  href="https://twitter.com/thinkful"
+                  target="_blank">
+                <Icon name="twitter"/>
+              </a>
+            </div>
           </div>
           <div className="footer-contact-links">
             <a
-                className="footer-link"
-                href="tel:+18583673232">Call us +1 (858) 367-3232</a>
+                className="footer-main-link mobile-hidden"
+                href="mailto:hello@thinkful.com">
+              Email us: hello@thinkful.com
+            </a>
             <a
-                className="footer-link"
+                className="footer-main-link phone-link"
+                href="tel:+18583673232">Call us +1 (858) 367-3232</a>
+            <div className="copyright mobile-hidden">&copy; 2015 Thinkful, Inc.</div>
+            <a
+                className="footer-main-link"
                 href="https://www.thinkful.com/static/pdfs/Privacy-Policy.pdf">
               Privacy policy
             </a>
             <a
-                className="footer-link"
+                className="footer-main-link"
                 href="https://www.thinkful.com/static/pdfs/Terms-of-Service.pdf">
               Terms of service
             </a>
