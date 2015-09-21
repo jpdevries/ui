@@ -1,0 +1,50 @@
+@import "~tfstyleguide/vars";
+
+.footer {
+  width: 100%;
+  background-color: @black;
+
+  .button {
+    text-transform: uppercase;
+    text-align: center;
+  }
+}
+
+.footer-centered {
+  max-width: @grid-width;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  text-align: center;
+}
+
+.footer-site-links {
+  margin-bottom: 20px;
+}
+
+.social-links {
+  .footer-link-social + .footer-link-social {
+    margin-left: 1em;
+  }
+  .tui-icon {
+    font-size: 30px;
+    color: @white;
+
+    &:hover {
+      color: @blue50;
+    }
+  }
+}
+
+.footer-link {
+  .subheading-text;
+  color: @white;
+  display: block;
+}
+
+.footer-contact-links {
+  .footer-link {
+    color: @gray50;
+  }
+}
