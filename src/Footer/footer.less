@@ -7,6 +7,8 @@
   .button {
     text-transform: uppercase;
     text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 
     @media @nonmobile {
       display: none;
@@ -21,36 +23,37 @@
   padding-top: 40px;
   padding-bottom: 40px;
   text-align: center;
-  display: flex;
-  flex-direction: column;
 
   @media @nonmobile {
     .centered-container;
     .grid-container;
     text-align: left;
-    flex-direction: row;
-    justify-content: space-between;
-    padding-top: 80px;
-    padding-bottom: 80px;
+    padding-top: 75px;
+    padding-bottom: 75px;
   }
 }
 
 .footer-site-links {
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
   @media @nonmobile {
-    flex-basis: (@column-px * 3) + (@gutter-px * 2);
-    flex-shrink: 0;
+    .col-width(3);
   }
 }
 
 .footer-contact-links {
   @media @nonmobile {
-    flex-basis: (@column-px * 3) + (@gutter-px * 2);
+    .col-width(3);
+    .gutter-offset(6);
   }
 
   .footer-main-link {
     color: @gray50;
     display: block;
+    &:hover {
+      color: @blue50;
+    }
     @media @nonmobile {
       color: @white;
       .body-text-small;
@@ -88,11 +91,12 @@
   }
 }
 
-.social-links {
-  .footer-link-social {
+.footer-social-links {
+  order: -1;
+  .footer-social-link {
     display: inline-block;
   }
-  .footer-link-social + .footer-link-social {
+  .footer-social-link + .footer-social-link {
     margin-left: 10px;
   }
   .tui-icon {
@@ -101,19 +105,6 @@
     &:hover {
       color: @blue50;
     }
-  }
-}
-
-.social-links__mobile {
-  @media @nonmobile {
-    display: none;
-  }
-}
-
-.social-links__desktop {
-  display: none;
-  @media @nonmobile {
-    display: block;
   }
 }
 

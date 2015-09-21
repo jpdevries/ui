@@ -55,20 +55,6 @@ class Footer extends React.Component {
       <div className="footer">
         <div className="footer-centered">
           <div className="footer-site-links">
-            <div className="social-links social-links__mobile">
-              <a
-                  className="footer-link-social"
-                  href="https://www.facebook.com/thinkfulschool"
-                  target="_blank">
-                <Icon name="facebook"/>
-              </a>
-              <a
-                  className="footer-link-social"
-                  href="https://twitter.com/thinkful"
-                  target="_blank">
-                <Icon name="twitter"/>
-              </a>
-            </div>
             <a
                 className="button button__white"
                 href={`${CONFIG.accounts.url}/login`}>
@@ -84,15 +70,15 @@ class Footer extends React.Component {
                 )
               })
             }
-            <div className="social-links social-links__desktop">
+            <div className="footer-social-links">
               <a
-                  className="footer-link-social"
+                  className="footer-social-link"
                   href="https://www.facebook.com/thinkfulschool"
                   target="_blank">
                 <Icon name="facebook"/>
               </a>
               <a
-                  className="footer-link-social"
+                  className="footer-social-link"
                   href="https://twitter.com/thinkful"
                   target="_blank">
                 <Icon name="twitter"/>
