@@ -1,6 +1,6 @@
 const cx = require('classnames');
 const React = require('react');
-const NotificationItem = require('./NotificationItem');
+const {NotificationItem} = require('./NotificationItem');
 
 require('./notifications.less')
 
@@ -15,12 +15,12 @@ class NotificationView extends React.Component {
   expand() {
   }
 
-  _handleItemClick(e) {
-    this.props.handleItemClick && this.props.handleItemClick(e);
+  _handleItemClick(e, id) {
+    this.props.handleItemClick && this.props.handleItemClick(e, id);
   }
 
-  _handleItemDismiss(e) {
-    this.props.handleItemDismiss && this.props.handleItemDismiss(e);
+  _handleItemDismiss(e, id) {
+    this.props.handleItemDismiss && this.props.handleItemDismiss(e, id);
   }
 
   renderItem(notification) {
@@ -37,9 +37,13 @@ class NotificationView extends React.Component {
       <a onClick={this.expand} className="tui-notification-toggle">
         {unseenCount}
       </a>
-      <ul className="tui-notification-list">
-        {notifications.map((notification) => this.renderItem(notification))}
-      </ul>
+      <div className="tui-notification-list-container">
+        <ul className="tui-notification-list">
+          {notifications.map((notification) => this.renderItem(notification))}
+        </ul>
+      </div>
     </div>)
   }
 }
+
+module.exports = {NotificationView};
