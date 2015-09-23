@@ -93,6 +93,7 @@ class AppNav extends React.Component {
                                     className="app-nav-link__in-menu"
                                     {...link}/></li>)}
                     </ul>
+                    <Notifications />
                     <a className="app-nav-link app-nav-link__toggle" onClick={this._toggleMenu}>
                         <span alt="Menu" className="app-nav-burger"></span>
                         <Gravatar className="app-nav-gravatar" email={user.tf_login} size={120}/>
@@ -190,7 +191,6 @@ class AppNav extends React.Component {
                         <span alt='Menu' className='app-nav-burger'></span>
                     </a>
                 </nav>
-                <Notifications />
             </div>
         )
     }

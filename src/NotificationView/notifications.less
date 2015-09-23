@@ -1,23 +1,40 @@
 @import "~tfstyleguide/vars";
 
 .tui-notification-view {
-  position: relative;
+  position: absolute;
+  right: 160px;
+  top: 0;
 }
 
 .tui-notification-toggle {
+  z-index: 1;
   .proxima-bold;
   display: inline-block;
+  width: 46px;
+  height: 46px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  text-align: center;
+  user-select: none;
+
+  &:hover {
+    color: @black;
+  }
+}
+
+.tui-notification-count {
+  display: inline-block;
   color: @gray75;
-  background-color: @yellow;
   width: 30px;
   height: 30px;
   line-height: 30px;
   border-radius: 100%;
   text-align: center;
+  background-color: @yellow;
 
-  &:hover {
-    color: @black;
+  .tui-notification-toggle:hover & {
     background-color: @yellow75;
+    color: @black;
   }
 }
 
@@ -25,19 +42,21 @@
   position: absolute;
   z-index: 5;
   top: 100%;
-  padding-top: 15px;
+  padding-top: 0;
   max-height: 0;
   overflow: hidden;
   opacity: 0;
-  transform: translate(0, -8px);
-  transition: transform 0.22s ease,
+  transform: translate(-50%, -8px);
+  transition: padding-top 0.22s ease,
+              transform 0.22s ease,
               opacity 0.22s ease,
               max-height 0.15s ease;
 
   &.tui-notification-list-container__visible {
     opacity: 1;
+    padding-top: 15px;
     max-height: (60px * 5 + 16px);
-    transform: translate(0, 0);
+    transform: translate(-50%, 0);
   }
 }
 
@@ -53,7 +72,7 @@
     border-right: 7px solid transparent;
     border-left: 7px solid transparent;
     border-bottom: 11px solid @gray25;
-    left: 50%;
+    left: 56.4%;
     transform: translate(-50%, 0);
   }
 
@@ -64,7 +83,7 @@
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
     border-bottom: 10px solid @white;
-    left: 50%;
+    left: 56.4%;
     transform: translate(-50%, 0);
   }
 }

@@ -141,5 +141,11 @@
     "debug": true,
     "hotload": true
   },
-  "user": null
+  "user": {
+    "tf_login": "tholex@gmail.com",
+    "name": "Olex P",
+    "first_name": "Olex",
+    "last_name": "X",
+    "id": 1
+  }
 }

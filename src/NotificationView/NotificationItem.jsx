@@ -7,6 +7,7 @@ class NotificationItem extends React.Component {
   constructor(props) {
     super(props);
     this._handleClick = this._handleClick.bind(this);
+    this._handleDismiss = this._handleDismiss.bind(this);
   }
 
   _handleClick(e) {
@@ -19,6 +20,7 @@ class NotificationItem extends React.Component {
 
   render() {
     const timeDifference = moment(this.props.time).fromNow();
+    const debugThis = false;
 
     return (<li className="tui-notification-item">
       <a onClick={this._handleDismiss} className="tui-notification-item-dismiss">
@@ -26,6 +28,7 @@ class NotificationItem extends React.Component {
       </a>
       <a onClick={this._handleClick} className="tui-notification-content">
         <time className="tui-notification-time">{timeDifference}</time>
+        {debugThis && <pre>{JSON.stringify(this.props)}</pre>}
         <p className="tui-notification-message">{this.props.message}</p>
       </a>
     </li>);

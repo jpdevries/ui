@@ -56,9 +56,14 @@ class DemoPage extends React.Component {
         <div className="tui-demo-page">
           <h1>Thinkful UI</h1>
           <h3>NotificationView</h3>
-          <NotificationView
-            notifications={sampleNotifications}
-            unseenCount={sampleUnseenCount} />
+          <div style={{
+            'position': 'relative',
+            'height': '46px'
+          }}>
+            <NotificationView
+              notifications={sampleNotifications}
+              unseenCount={sampleUnseenCount} />
+          </div>
 
           <h3>Gravatar</h3>
           <Demo

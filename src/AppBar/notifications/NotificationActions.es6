@@ -15,7 +15,7 @@ const client = stream.connect(
   CONFIG.vendor.getstream.apiKey, null, CONFIG.vendor.getstream.appId);
 const userFeed = client.feed(
   'navbar_notifications',
-  (USER? USER.id : 1).toString(),
+  (USER ? USER.id : 1).toString(),
   CONFIG.vendor.getstream.userFeedToken);
 
 const LIMIT = 10;

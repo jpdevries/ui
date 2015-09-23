@@ -15,10 +15,14 @@ class NotificationView extends React.Component {
   }
 
   toggle() {
+    if (!this.state.visible) {
+      this.props.handleSeen && this.props.handleSeen();
+    }
     this.setState({visible: !this.state.visible});
   }
 
   expand() {
+    this.props.handleSeen && this.props.handleSeen();
     this.setState({visible: true});
   }
 
@@ -50,7 +54,9 @@ class NotificationView extends React.Component {
 
     return (<div className="tui-notification-view">
       <a onClick={this.toggle} className="tui-notification-toggle">
+        <span className="tui-notification-count">
         {unseenCount}
+        </span>
       </a>
       <div className={containerClasses}>
         <ul className="tui-notification-list">
