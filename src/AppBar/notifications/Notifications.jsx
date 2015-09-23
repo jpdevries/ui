@@ -1,7 +1,7 @@
 const cx = require('classnames');
 const React = require('react');
 
-const notificationStore = require('./notificationStore');
+const {notificationStore} = require('./notificationStore');
 
 
 /**
@@ -20,17 +20,18 @@ class Notifications extends React.Component {
             unseenCount: 0,
             notifications: [],
         });
+        this.onStatusChange = this.onStatusChange.bind(this);
     }
 
-    componentDidMount: function() {
+    componentDidMount() {
         this.unsubscribe = notificationStore.listen(this.onStatusChange);
-    },
+    }
 
-    componentWillUnmount: function() {
+    componentWillUnmount() {
         this.unsubscribe();
-    },
+    }
 
-    onStatusChange: function(notifications) {
+    onStatusChange(notifications) {
         console.log("Status change!!!!");
         console.log(notifications);
         this.setState({
@@ -38,7 +39,7 @@ class Notifications extends React.Component {
             unseenCount: 4,
             notifications: [],
         });
-    },
+    }
 
     render() {
       //const {href, icon, name, arrow} = this.props;
@@ -55,7 +56,7 @@ class Notifications extends React.Component {
                     textAlign: 'center',
                 }}>
                 <a class="app-nav-link__in-menu app-nav-link">
-                    {this.state.unreadCount }
+                    {this.state? this.state.unreadCount : 0 }
                 </a>
             </div>)
     }

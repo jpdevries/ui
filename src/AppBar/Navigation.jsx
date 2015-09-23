@@ -6,7 +6,7 @@ const uniqueId = require('lodash/utility/uniqueId');
 const {Icon} = require('../Icon');
 const {Gravatar} = require('../Gravatar');
 const {NavLink} = require('./NavLink');
-const {Notifications} = require('./Notifications');
+const {Notifications} = require('./notifications/Notifications');
 const {CourseLink} = require('./CourseLink');
 const linkSet = require('./linkSet');
 
