@@ -2,8 +2,16 @@
 
 .tui-notification-view {
   position: absolute;
-  right: 160px;
+  right: 130px;
   top: 0;
+
+  @media @tablet {
+    right: 160px;
+  }
+
+  @media @bigger {
+    right: 130px;
+  }
 }
 
 .tui-notification-toggle {
