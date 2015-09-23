@@ -6,6 +6,7 @@ const uniqueId = require('lodash/utility/uniqueId');
 const {Icon} = require('../Icon');
 const {Gravatar} = require('../Gravatar');
 const {NavLink} = require('./NavLink');
+const {Notifications} = require('./Notifications');
 const {CourseLink} = require('./CourseLink');
 const linkSet = require('./linkSet');
 
@@ -184,6 +185,7 @@ class AppNav extends React.Component {
                                 <NavLink
                                     className='app-nav-link__in-menu'
                                     {...link}/></li>)}
+                        <Notifications />
                     </ul>
                     <a className='app-nav-link app-nav-link__toggle' onClick={this._toggleMenu}>
                         <span alt='Menu' className='app-nav-burger'></span>

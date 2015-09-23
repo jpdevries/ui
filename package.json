@@ -1,6 +1,6 @@
 {
   "name": "thinkful-ui",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "description": "Shared navigation and UI resources for Thinkful.",
   "main": "src/index.es6",
   "scripts": {
@@ -15,16 +15,12 @@
     "Thinkful"
   ],
   "author": "Thinkful <engineering@thinkful.com>",
-  "license": "Apache-2.0",
+  "license": "Copyright",
   "bugs": {
     "url": "https://github.com/Thinkful/ui/issues"
   },
   "homepage": "https://github.com/Thinkful/ui",
   "contributors": [
-    {
-      "email": "evanrs@gmail.com",
-      "name": "Evan Schneider"
-    },
     {
       "email": "learykara@gmail.com",
       "name": "Kara Leary"
@@ -57,6 +53,7 @@
     "eslint-loader": "^0.12.0",
     "extract-text-webpack-plugin": "^0.8.1",
     "file-loader": "^0.8.4",
+    "getstream": "^2.2.2",
     "html-loader": "^0.3.0",
     "json-loader": "^0.5.2",
     "less": "^2.5.1",
@@ -64,6 +61,7 @@
     "node-libs-browser": "^0.5.2",
     "node-notifier": "^4.2.1",
     "react-hot-loader": "^1.2.7",
+    "reflux": "^0.2.12",
     "remarkable-loader": "^0.1.0",
     "style-loader": "^0.12.3",
     "webpack": "^1.9.10",
