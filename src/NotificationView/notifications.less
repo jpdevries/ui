@@ -1,0 +1,132 @@
+@import "~tfstyleguide/vars";
+
+.tui-notification-view {
+  position: relative;
+}
+
+.tui-notification-toggle {
+  .proxima-bold;
+  display: inline-block;
+  color: @gray75;
+  background-color: @yellow;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 100%;
+  text-align: center;
+
+  &:hover {
+    color: @black;
+    background-color: @yellow75;
+  }
+}
+
+.tui-notification-list-container {
+  position: absolute;
+  z-index: 5;
+  top: 100%;
+  padding-top: 15px;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translate(0, -8px);
+  transition: transform 0.22s ease,
+              opacity 0.22s ease,
+              max-height 0.15s ease;
+
+  &.tui-notification-list-container__visible {
+    opacity: 1;
+    max-height: (60px * 5 + 16px);
+    transform: translate(0, 0);
+  }
+}
+
+.tui-notification-list {
+  position: relative;
+  margin-bottom: 0;
+  border: 1px solid @gray25;
+
+  &:before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    border-right: 7px solid transparent;
+    border-left: 7px solid transparent;
+    border-bottom: 11px solid @gray25;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 10px solid @white;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+}
+
+.tui-notification-item {
+  z-index: 5;
+  position: relative;
+  list-style: none;
+  margin-left: 0;
+  margin-bottom: 0;
+  padding: 9px 15px 10px;
+  width: 330px;
+  max-width: 100%;
+  background-color: @white;
+
+  + .tui-notification-item {
+    border-top: 1px solid @gray25;
+  }
+
+  &:hover {
+    background: @gray5;
+  }
+}
+
+.tui-notification-item-dismiss {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  color: @gray50;
+
+  &:hover {
+    color: @gray75;
+  }
+
+  .icon-close {
+    font-size: 24px;
+  }
+}
+
+.tui-notification-content {
+  display: block;
+  color: @black;
+
+  &:hover {
+    color: @black;
+  }
+}
+
+.tui-notification-time {
+  display: block;
+  font-size: 12px;
+  line-height: 20px;
+  color: @gray50;
+  text-transform: uppercase;
+}
+
+.tui-notification-message {
+  margin-bottom: 0;
+  line-height: 20px;
+  font-size: 14.5px;
+}
