@@ -185,11 +185,11 @@ class AppNav extends React.Component {
                                 <NavLink
                                     className='app-nav-link__in-menu'
                                     {...link}/></li>)}
-                        <Notifications />
                     </ul>
                     <a className='app-nav-link app-nav-link__toggle' onClick={this._toggleMenu}>
                         <span alt='Menu' className='app-nav-burger'></span>
                     </a>
+                    <Notifications />
                 </nav>
             </div>
         )

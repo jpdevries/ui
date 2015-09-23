@@ -1,5 +1,6 @@
 const Reflux = require('reflux');
 const stream = require('getstream');
+const _ = require('lodash');
 
 const CONFIG = global.__env.config;
 const USER = global.__env.user;
@@ -20,13 +21,36 @@ const userFeed = client.feed(
 const LIMIT = 10;
 
 const processFetch = function (error, response, body) {
+    debugger;
   if (!response || response.status === 200) {
     console.log(body);
+    let unread = body.unread;
+    let unseen = body.unseen;
+    let notifications = _.sortBy(
+      _.merge(
+        _.flatten(_.pluck(body.results, 'activities')),
+        _.map(body.results, function(item) {
+          return _.pick(item, ['is_seen', 'is_read']) })),
+      'time')
+    /* Sample result
+        actor: "Thinkful"
+        foreign_id: null
+        id: "9fc56050-61a1-11e5-8080-8001719413bb"
+        is_read: false
+        is_seen: false
+        message: "Have opinions? Take our satisfaction survey!"
+        object: "Core NPS survey"
+        origin: null
+        target: null
+        time: "2015-09-23T03:17:30.280968"
+        verb: "request-nps"
+    */
+
     this.completed({
-      unreadCount: 1,
-      unseenCount: 1,
-      notifications: [
-        {'actor': 'Thinkful', 'verb': 'request-nps', 'object': 'Pretty please'}]})
+      unreadCount: unread,
+      unseenCount: unseen,
+      notifications: notifications})
+
   } else {
     console.log("Failure processing Streams");
     console.log(error);
@@ -51,8 +75,26 @@ NotificationActions.markNotifications.listen(
 
 NotificationActions.processEvent.listen(
   function (data) {
-    console.log("Processing push event...");
-    processFetch(data);
+    console.log("Processing push event..." + data);
+    let unread = data.unread;
+    let unseen = data.unseen;
+    let deleted = _.sortBy(
+      _.merge(
+        _.flatten(_.pluck(data.deleted, 'activities')),
+        _.map(data.deleted, function(item) {
+          return _.pick(item, ['is_seen', 'is_read']) })),
+      'time')
+    let added = _.sortBy(
+      _.merge(
+        _.flatten(_.pluck(data.new, 'activities')),
+        _.map(data.new, function(item) {
+          return _.pick(item, ['is_seen', 'is_read']) })),
+      'time')
+    this.completed({
+      unreadCount: unread,
+      unseenCount: unseen,
+      added: added,
+      deleted: deleted});
 });
 
 module.exports = {NotificationActions, userFeed};

@@ -10,6 +10,8 @@ const notificationStore = Reflux.createStore({
   init() {
     this.listenTo(
       NotificationActions.fetchNotifications.completed, this._onFetchCompleted);
+    this.listenTo(
+      NotificationActions.processEvent.completed, this._onUpdateReceived);
 
     NotificationActions.fetchNotifications();
 
@@ -19,11 +21,13 @@ const notificationStore = Reflux.createStore({
   _onFetchCompleted(notifications) {
     console.log("Fetch completed");
     console.log(notifications);
+    this.trigger(notifications);
   },
 
   _onUpdateReceived(update) {
     console.log("Update received");
     console.log(update);
+    this.trigger(update);
   },
 
   _onError(error) {

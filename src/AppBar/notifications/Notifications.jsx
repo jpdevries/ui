@@ -9,18 +9,17 @@ const notificationStore = require('./notificationStore');
  * @property blob
  */
 class Notifications extends React.Component {
-    static displayName = "Notifications";
-    static propTypes = {
-        blob: React.PropTypes.object
-    }
+    //  static propTypes = {
+    //      blob: React.PropTypes.object
+    //  }
 
     constructor(props) {
         super();
-        this.state = {
+        this.setState({
             unreadCount: 0,
             unseenCount: 0,
             notifications: [],
-        }
+        });
     }
 
     componentDidMount: function() {
@@ -32,34 +31,33 @@ class Notifications extends React.Component {
     },
 
     onStatusChange: function(notifications) {
+        console.log("Status change!!!!");
+        console.log(notifications);
         this.setState({
-            unreadCount: notifications.unreadCount,
-            unseenCount: notifications.unseenCount,
-            notifications: notifications.notifications,
-        }
-);
+            unreadCount: 4,
+            unseenCount: 4,
+            notifications: [],
+        });
     },
 
     render() {
       //const {href, icon, name, arrow} = this.props;
 
         return (
-            <li>
-                <div
-                    style={{
-                        width: '30px',
-                        height: '30px',
-                        background: '#FFFF99',
-                        borderRadius: '50%',
-                        verticalAlign: 'center',
-                        margin: '0 auto',
-                        textAlign: 'center',
-                    }}>
-                    <a class="app-nav-link__in-menu app-nav-link">
-                        {this.state.unreadCount }
-                    </a>
-                </div>
-            </li>)
+            <div
+                style={{
+                    width: '30px',
+                    height: '30px',
+                    background: '#FFFF99',
+                    borderRadius: '50%',
+                    verticalAlign: 'center',
+                    margin: '0 auto',
+                    textAlign: 'center',
+                }}>
+                <a class="app-nav-link__in-menu app-nav-link">
+                    {this.state.unreadCount }
+                </a>
+            </div>)
     }
 }
 
