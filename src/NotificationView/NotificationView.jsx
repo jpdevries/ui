@@ -7,12 +7,23 @@ require('./notifications.less')
 class NotificationView extends React.Component {
   constructor(props) {
     super(props);
-    this.expand = this.expand.bind(this);
+    this.state = { visible: false };
+
+    this.toggle = this.toggle.bind(this);
     this._handleItemClick = this._handleItemClick.bind(this);
     this._handleItemDismiss = this._handleItemDismiss.bind(this);
   }
 
+  toggle() {
+    this.setState({visible: !this.state.visible});
+  }
+
   expand() {
+    this.setState({visible: true});
+  }
+
+  collapse() {
+    this.setState({visible: false});
   }
 
   _handleItemClick(e, id) {
@@ -32,12 +43,16 @@ class NotificationView extends React.Component {
 
   render() {
     const {notifications, unseenCount} = this.props;
+    const containerClasses = cx(
+      "tui-notification-list-container",
+      {"tui-notification-list-container__visible" : this.state.visible }
+    )
 
     return (<div className="tui-notification-view">
-      <a onClick={this.expand} className="tui-notification-toggle">
+      <a onClick={this.toggle} className="tui-notification-toggle">
         {unseenCount}
       </a>
-      <div className="tui-notification-list-container">
+      <div className={containerClasses}>
         <ul className="tui-notification-list">
           {notifications.map((notification) => this.renderItem(notification))}
         </ul>

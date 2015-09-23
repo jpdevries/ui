@@ -23,12 +23,27 @@
 
 .tui-notification-list-container {
   position: absolute;
+  z-index: 5;
   top: 100%;
   padding-top: 15px;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translate(0, -8px);
+  transition: transform 0.22s ease,
+              opacity 0.22s ease,
+              max-height 0.15s ease;
+
+  &.tui-notification-list-container__visible {
+    opacity: 1;
+    max-height: (60px * 5 + 16px);
+    transform: translate(0, 0);
+  }
 }
 
 .tui-notification-list {
   position: relative;
+  margin-bottom: 0;
   border: 1px solid @gray25;
 
   &:before {
