@@ -35,9 +35,9 @@ class Notifications extends React.Component {
         console.log("Status change!!!!");
         console.log(notifications);
         this.setState({
-            unreadCount: 4,
-            unseenCount: 4,
-            notifications: [],
+            unreadCount: notifications.unreadCount,
+            unseenCount: notifications.unseenCount,
+            notifications: notifications.notifications,
         });
     }
 
