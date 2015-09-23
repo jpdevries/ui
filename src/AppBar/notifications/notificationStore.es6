@@ -8,6 +8,7 @@ const USER = global.__env.user;
 
 const notificationStore = Reflux.createStore({
   init() {
+    this.notifications = [];
     this.listenTo(
       NotificationActions.fetchNotifications.completed, this._onFetchCompleted);
     this.listenTo(
@@ -21,13 +22,25 @@ const notificationStore = Reflux.createStore({
   _onFetchCompleted(notifications) {
     console.log("Fetch completed");
     console.log(notifications);
-    this.trigger(notifications);
+    this.notifications = notifications;
+    this.trigger(this.notifications);
   },
 
   _onUpdateReceived(update) {
     console.log("Update received");
     console.log(update);
-    this.trigger(update);
+    debugger;
+    this.notifications = {
+        unreadCount: update.unreadCount,
+        unseenCount: update.unseenCount,
+        notifications: _.sortBy(
+            _.filter(
+                _(this.notifications.notifications).concat(update.added).value(),
+                function(item) {
+                    return _.findIndex(
+                        _.pluck(update.deleted, 'id'), item.id) === -1 })
+            , 'time')}
+    this.trigger(this.notifications);
   },
 
   _onError(error) {

@@ -21,7 +21,6 @@ const userFeed = client.feed(
 const LIMIT = 10;
 
 const processFetch = function (error, response, body) {
-    debugger;
   if (!response || response.status === 200) {
     console.log(body);
     let unread = body.unread;
