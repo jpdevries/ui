@@ -6,45 +6,63 @@ const {NotificationActions, userFeed} = require('./NotificationActions');
 
 const USER = global.__env.user;
 
+/**
+ * This store connects with GetStream and holds a bundle that contains
+ * the count of unread and unseen notifications, as well as an array of
+ * notification objects. The Notification Component will listen to it to
+ * obtain updates in order to display accurate information.
+ *
+ */
 const notificationStore = Reflux.createStore({
   init() {
-    this.notifications = [];
+    this.bundle = [];
+
+    // We listen to complete pulls of the latest notifications
     this.listenTo(
       NotificationActions.fetchNotifications.completed, this._onFetchCompleted);
+
+    // We listen to push updates
     this.listenTo(
       NotificationActions.processEvent.completed, this._onUpdateReceived);
 
-    NotificationActions.fetchNotifications();
+    // Manually trigger the initial pull to fill up the store
+    NotificationActions.fetchNotifications();  // This is so fetch
 
-    userFeed.subscribe(NotificationActions.processEvent).then(()=>{}, this._onError);
+    // This opens a websocket with GetStream and passes a callback to the store
+    // so that we can process push updates.
+    userFeed.subscribe(NotificationActions.processEvent).then(
+        ()=>{}, this._onError);
   },
 
-  _onFetchCompleted(notifications) {
-    console.log("Fetch completed");
-    console.log(notifications);
-    this.notifications = notifications;
-    this.trigger(this.notifications);
+  _onFetchCompleted(bundle) {
+    console.log("[notificationStore] Fetch completed");
+    this.bundle = bundle;
+    this.trigger(this.bundle);
   },
 
   _onUpdateReceived(update) {
-    console.log("Update received");
-    console.log(update);
-    debugger;
-    this.notifications = {
+    console.log("[notificationStore] Push update received");
+      this.bundle = {
         unreadCount: update.unreadCount,
         unseenCount: update.unseenCount,
+        // A push update contains only new and deleted notifications, so we:
+        //   1. Add the new ones to the ones we had
+        //   2. Filter the matching deleted ids in the local store
+        //   3. Re-sort them
         notifications: _.sortBy(
-            _.filter(
-                _(this.notifications.notifications).concat(update.added).value(),
-                function(item) {
-                    return _.findIndex(
-                        _.pluck(update.deleted, 'id'), item.id) === -1 })
-            , 'time')}
-    this.trigger(this.notifications);
+          _.filter(
+            _(this.bundle.notifications).concat(update.added).value(),
+            function(item) {
+              return _.findIndex(
+                _.pluck(update.deleted, 'id'), item.id) === -1 })
+                , 'time').reverse()}
+      this.trigger(this.bundle);
   },
 
   _onError(error) {
-    console.log("An error happened while processing notifications: " + error);
+      console.log(
+        "[notificationStore] An error happened while processing " +
+        "notifications: " + error);
   }
 
 });

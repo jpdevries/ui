@@ -189,8 +189,8 @@ class AppNav extends React.Component {
                     <a className='app-nav-link app-nav-link__toggle' onClick={this._toggleMenu}>
                         <span alt='Menu' className='app-nav-burger'></span>
                     </a>
-                    <Notifications />
                 </nav>
+                <Notifications />
             </div>
         )
     }

@@ -30,7 +30,7 @@ const processFetch = function (error, response, body) {
         _.flatten(_.pluck(body.results, 'activities')),
         _.map(body.results, function(item) {
           return _.pick(item, ['is_seen', 'is_read']) })),
-      'time')
+      'time').reverse()
     /* Sample result
         actor: "Thinkful"
         foreign_id: null
@@ -51,7 +51,7 @@ const processFetch = function (error, response, body) {
       notifications: notifications})
 
   } else {
-    console.log("Failure processing Streams");
+    console.log("[NotificationActions][processFetch] Failure processing...");
     console.log(error);
     console.log(response);
     console.log(body);
