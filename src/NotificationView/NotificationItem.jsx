@@ -19,7 +19,7 @@ class NotificationItem extends React.Component {
   }
 
   render() {
-    const timeDifference = moment(this.props.time).fromNow();
+    const timeDifference = moment.utc(this.props.time).fromNow();
     const debugThis = false;
 
     return (<li className="tui-notification-item">
