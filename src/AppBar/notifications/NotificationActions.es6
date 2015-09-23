@@ -38,7 +38,7 @@ const processFetch = function (error, response, body) {
 
 NotificationActions.fetchNotifications.listen(
   function () {
-    userFeed.get({limit: LIMIT}, processFetch);
+    userFeed.get({limit: LIMIT}, processFetch.bind(this));
   });
 
 
@@ -46,7 +46,7 @@ NotificationActions.markNotifications.listen(
   function (markRead, markSeen) {
       userFeed.get(
           {limit: LIMIT, mark_read: markRead, mark_seen: markSeen},
-          processFetch);
+          processFetch.bind(this));
 });
 
 NotificationActions.processEvent.listen(
