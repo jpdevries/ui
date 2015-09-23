@@ -23,6 +23,31 @@ class DemoPage extends React.Component {
       { value: 'felafel', displayName: "I'm feelin Falafel"},
       { value: 'bose', displayName: "No highs no lows, must be Bose"}
     ];
+    const sampleNotifications = [
+      {
+        id: "9fc56050-61a1-11e5-8080-8001719413bb",
+        message: "Have opinions? Take our satisfaction survey!",
+        time: "2015-09-23T03:17:30.280968",
+        is_seen: false,
+        is_read: false
+      },
+      {
+        id: "9fc56050-61a1-11e5-8080-8001719413bb",
+        message: "Have opinions? Take our satisfaction survey!",
+        time: "2015-09-21T03:17:30.280968",
+        is_seen: false,
+        is_read: false
+      },
+      {
+
+        id: "9fc56050-61a1-11e5-8080-8001719413bb",
+        message: "Have opinions? Take our satisfaction survey!",
+        time: "2015-09-23T03:17:30.280968",
+        is_seen: true,
+        is_read: true
+      }
+    ]
+    const sampleUnseenCount = 3;
 
     return (
       <div className="tui-demo-page-container">
