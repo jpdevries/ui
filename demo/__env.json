@@ -116,6 +116,11 @@
       },
       "segment": {
         "token": "9b75yuar0r"
+      },
+      "getstream": {
+        "appId": 5879,
+        "apiKey": "ntspgkvhnxgw",
+        "userFeedToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3Rpb24iOiJyZWFkIiwiZmVlZF9pZCI6Im5hdmJhcl9ub3RpZmljYXRpb25zMSIsInJlc291cmNlIjoiKiJ9.VOXl_V7_Fgy7NomN8gz8tIeaD4Wt-GzkDUSP4BEpL7A"
       }
     },
     "workshops": {
@@ -136,5 +141,12 @@
     "debug": true,
     "hotload": true
   },
-  "user": null
+  "user": {
+    "tf_login": "tholex@gmail.com",
+    "name": "Abe Z",
+    "first_name": "Abe",
+    "last_name": "X",
+    "id": 1,
+    "access": ["navbar-notifcations"]
+  }
 }

@@ -1,6 +1,6 @@
 {
   "name": "thinkful-ui",
-  "version": "1.1.9",
+  "version": "1.1.11",
   "description": "Shared navigation and UI resources for Thinkful.",
   "main": "src/index.es6",
   "scripts": {
@@ -15,16 +15,12 @@
     "Thinkful"
   ],
   "author": "Thinkful <engineering@thinkful.com>",
-  "license": "Apache-2.0",
+  "license": "Copyright",
   "bugs": {
     "url": "https://github.com/Thinkful/ui/issues"
   },
   "homepage": "https://github.com/Thinkful/ui",
   "contributors": [
-    {
-      "email": "evanrs@gmail.com",
-      "name": "Evan Schneider"
-    },
     {
       "email": "learykara@gmail.com",
       "name": "Kara Leary"
@@ -36,36 +32,43 @@
     {
       "email": "robert@rkuykendall.com",
       "name": "Robert Kuykendall"
+    },
+    {
+      "email": "saul@thinkful.com",
+      "name": "Saul Diez-Guerra"
     }
   ],
   "dependencies": {
-    "classnames": "^2.1.1",
-    "lodash": "^3.9.3",
-    "moment": "^2.10.3",
-    "moment-timezone": "^0.4.0",
-    "react": "^0.13.3",
-    "spark-md5": "0.0.5",
-    "tfstyleguide": "^3.0.0",
     "autoprefixer-loader": "^2.0.0",
     "babel-core": "^5.4.7",
     "babel-eslint": "^3.1.15",
     "babel-loader": "^5.1.3",
     "babel-runtime": "^5.4.7",
+    "browser-request": "^0.3.3",
+    "classnames": "^2.1.1",
     "css-loader": "^0.14.4",
     "debug": "^2.2.0",
     "eslint": "^0.22.1",
     "eslint-loader": "^0.12.0",
     "extract-text-webpack-plugin": "^0.8.1",
     "file-loader": "^0.8.4",
+    "getstream": "^2.2.2",
     "html-loader": "^0.3.0",
     "json-loader": "^0.5.2",
     "less": "^2.5.1",
     "less-loader": "^2.2.0",
+    "lodash": "^3.9.3",
+    "moment": "^2.10.3",
+    "moment-timezone": "^0.4.0",
     "node-libs-browser": "^0.5.2",
     "node-notifier": "^4.2.1",
+    "react": "^0.13.3",
     "react-hot-loader": "^1.2.7",
+    "reflux": "^0.2.12",
     "remarkable-loader": "^0.1.0",
+    "spark-md5": "0.0.5",
     "style-loader": "^0.12.3",
+    "tfstyleguide": "^3.0.0",
     "webpack": "^1.9.10",
     "webpack-dev-server": "^1.9.0"
   },
