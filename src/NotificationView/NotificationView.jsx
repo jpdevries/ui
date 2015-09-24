@@ -14,8 +14,7 @@ class NotificationView extends React.Component {
   }
 
   toggle() {
-    if (this.props.unseenCount === 0) {
-      console.log("Should return");
+    if (this.props.unreadCount === 0) {
       return;
     }
     if (!this.state.visible) {
@@ -60,7 +59,8 @@ class NotificationView extends React.Component {
       </a>
       <div className={containerClasses}>
         <ul className="tui-notification-list">
-          {notifications.map((notification) => this.renderItem(notification))}
+          {notifications.map((notification) => (
+            !!notification.is_read ? '' : this.renderItem(notification)))}
         </ul>
       </div>
     </div>)

@@ -46,19 +46,21 @@ class Notifications extends React.Component {
     _handleItemClick(event, id) {
       const notification = _.find(this.state.notifications, {id: id});
       console.log("[Notifications] Clicked on notification:", notification);
-      if (notification.message_hyperlink !== null) {
+      if (notification.message_hyperlink !== undefined) {
         window.open(notification.message_hyperlink, '_blank');
       }
     }
 
     _handleItemDismiss(event, id) {
       console.log("[Notifications] Dismissed notification:", id);
-      NotificationActions.markNotifications([id], false);
+      NotificationActions.markRead([id]).then(
+        () => {NotificationActions.fetchNotifications();});
     }
 
     _handleSeen() {
       console.log("[Notifications] Seen all!");
-      NotificationActions.markNotifications(false, true);
+      NotificationActions.markSeen(true).then(
+        () => {NotificationActions.fetchNotifications();});
     }
 
     render() {

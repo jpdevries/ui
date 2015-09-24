@@ -7,7 +7,8 @@ const USER = global.__env.user;
 
 const NotificationActions = Reflux.createActions({
   fetchNotifications: {asyncResult: true},
-  markNotifications: {asyncResult: true},
+  markSeen: {asyncResult: true},
+  markRead: {asyncResult: true},
   processEvent: {asyncResult: true},
 });
 
@@ -28,7 +29,7 @@ const processFetch = function (error, response, body) {
       _.merge(
         _.flatten(_.pluck(body.results, 'activities')),
         _.map(body.results, function(item) {
-          return _.pick(item, ['is_seen', 'is_read']) })),
+          return _.pick(item, ['is_seen', 'is_read', 'id']) })),
       'time').reverse()
     /* Sample result
         actor: "Thinkful"
@@ -64,29 +65,36 @@ NotificationActions.fetchNotifications.listen(
   });
 
 
-NotificationActions.markNotifications.listen(
-  function (markRead, markSeen) {
+NotificationActions.markSeen.listen(
+  function (markSeen) {
       userFeed.get(
-          {limit: LIMIT, mark_read: markRead, mark_seen: markSeen},
+          {limit: LIMIT, mark_seen: markSeen},
+          processFetch.bind(this));
+});
+
+NotificationActions.markRead.listen(
+  function (markRead) {
+      userFeed.get(
+          {limit: LIMIT, mark_read: markRead},
           processFetch.bind(this));
 });
 
 NotificationActions.processEvent.listen(
   function (data) {
-    console.log("Processing push event..." + data);
+    console.log("Processing push event...", data);
     let unread = data.unread;
     let unseen = data.unseen;
     let deleted = _.sortBy(
       _.merge(
         _.flatten(_.pluck(data.deleted, 'activities')),
         _.map(data.deleted, function(item) {
-          return _.pick(item, ['is_seen', 'is_read']) })),
+          return _.pick(item, ['is_seen', 'is_read', 'id']) })),
       'time')
     let added = _.sortBy(
       _.merge(
         _.flatten(_.pluck(data.new, 'activities')),
         _.map(data.new, function(item) {
-          return _.pick(item, ['is_seen', 'is_read']) })),
+          return _.pick(item, ['is_seen', 'is_read', 'id']) })),
       'time')
     this.completed({
       unreadCount: unread,
