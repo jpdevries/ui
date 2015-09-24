@@ -10,8 +10,6 @@ class NotificationView extends React.Component {
     this.state = { visible: false };
 
     this.toggle = this.toggle.bind(this);
-    this._handleItemClick = this._handleItemClick.bind(this);
-    this._handleItemDismiss = this._handleItemDismiss.bind(this);
   }
 
   toggle() {
@@ -30,19 +28,11 @@ class NotificationView extends React.Component {
     this.setState({visible: false});
   }
 
-  _handleItemClick(e, id) {
-    this.props.handleItemClick && this.props.handleItemClick(e, id);
-  }
-
-  _handleItemDismiss(e, id) {
-    this.props.handleItemDismiss && this.props.handleItemDismiss(e, id);
-  }
-
   renderItem(notification) {
     return (<NotificationItem
               {...notification}
-              handleClick={this._handleItemClick}
-              handleDismiss={this._handleItemDismiss} />);
+              handleClick={this.props.handleItemClick}
+              handleDismiss={this.props.handleItemDismiss} />);
   }
 
   render() {

@@ -4,6 +4,7 @@ const _ = require('lodash');
 
 const {NotificationView} = require('../../NotificationView');
 const {notificationStore} = require('./notificationStore');
+const {NotificationActions} = require('./NotificationActions');
 
 /**
  * Notifications
@@ -44,28 +45,29 @@ class Notifications extends React.Component {
 
     _handleItemClick(event, id) {
       const notification = _.find(this.state.notifications, {id: id});
-      console.log("Clicked:", notification);
-      // Do something if notification has an associated action
+      console.log("[Notifications] Clicked on notification:", notification);
+      if (notification.message_hyperlink !== null) {
+        window.open(notification.message_hyperlink, '_blank');
+      }
     }
 
     _handleItemDismiss(event, id) {
-      console.log("Dismissed:", id);
-      // NotificationsActions.markNotifications([id], null);
+      console.log("[Notifications] Dismissed notification:", id);
+      NotificationActions.markNotifications([id], false);
     }
 
     _handleSeen() {
-      const seenNotificationIds = _.take(
-        this.state.notifications, 5).map((n) => n.id);
-      // NotificationsActions.markNotifications(null, seenNotificationIds);
+      console.log("[Notifications] Seen all!");
+      NotificationActions.markNotifications(false, true);
     }
 
     render() {
-        return (<NotificationView
-          unseenCount={this.state.unseenCount}
-          notifications={this.state.notifications}
-          handleSeen={this._handleSeen}
-          handleItemClick={this._handleItemClick}
-          handleItemDismiss={this._handleItemDismiss} /> );
+      return (<NotificationView
+        unseenCount={this.state.unseenCount}
+        notifications={this.state.notifications}
+        handleSeen={this._handleSeen}
+        handleItemClick={this._handleItemClick}
+        handleItemDismiss={this._handleItemDismiss} /> );
     }
 }
 

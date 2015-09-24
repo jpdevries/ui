@@ -18,11 +18,10 @@ const userFeed = client.feed(
   (USER ? USER.id : 1).toString(),
   CONFIG.vendor.getstream.userFeedToken);
 
-const LIMIT = 10;
+const LIMIT = 5;
 
 const processFetch = function (error, response, body) {
   if (!response || response.status === 200) {
-    console.log(body);
     let unread = body.unread;
     let unseen = body.unseen;
     let notifications = _.sortBy(
