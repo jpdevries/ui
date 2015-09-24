@@ -146,6 +146,7 @@
     "name": "Abe Z",
     "first_name": "Abe",
     "last_name": "X",
-    "id": 1
+    "id": 1,
+    "access": ["navbar-notifcations"]
   }
 }
