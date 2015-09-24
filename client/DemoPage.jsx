@@ -10,6 +10,7 @@ const {
   Footer,
   Gravatar,
   Icon,
+  NotificationView,
   Loader
 } = require('../src')
 
@@ -24,10 +25,46 @@ class DemoPage extends React.Component {
       { value: 'bose', displayName: "No highs no lows, must be Bose"}
     ];
 
+    const sampleNotifications = [
+      {
+        id: "9fc56050-61a1-11e5-8080-8001719413bb",
+        message: "Have opinions? Take our satisfaction survey!",
+        time: "2015-09-23T03:17:30.280968",
+        is_seen: false,
+        is_read: false
+      },
+      {
+        id: "9fc56050-61a1-11e5-8080-8001719413bb",
+        message: "Have opinions? Take our satisfaction survey!",
+        time: "2015-09-21T03:17:30.280968",
+        is_seen: false,
+        is_read: false
+      },
+      {
+
+        id: "9fc56050-61a1-11e5-8080-8001719413bb",
+        message: "Have opinions? Take our satisfaction survey!",
+        time: "2015-09-23T03:17:30.280968",
+        is_seen: true,
+        is_read: true
+      }
+    ]
+    const sampleUnseenCount = 2;
+
     return (
       <div className="tui-demo-page-container">
         <div className="tui-demo-page">
           <h1>Thinkful UI</h1>
+          <h3>NotificationView</h3>
+          <div style={{
+            'position': 'relative',
+            'height': '46px'
+          }}>
+            <NotificationView
+              notifications={sampleNotifications}
+              unseenCount={sampleUnseenCount} />
+          </div>
+
           <h3>Gravatar</h3>
           <Demo
             target={Gravatar}

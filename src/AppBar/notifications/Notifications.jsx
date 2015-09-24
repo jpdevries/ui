@@ -1,8 +1,10 @@
 const cx = require('classnames');
 const React = require('react');
+const _ = require('lodash');
 
+const {NotificationView} = require('../../NotificationView');
 const {notificationStore} = require('./notificationStore');
-
+const {NotificationActions} = require('./NotificationActions');
 
 /**
  * Notifications
@@ -17,6 +19,9 @@ class Notifications extends React.Component {
             notifications: [],
         }
         this.onStatusChange = this.onStatusChange.bind(this);
+        this._handleSeen = this._handleSeen.bind(this);
+        this._handleItemClick = this._handleItemClick.bind(this);
+        this._handleItemDismiss = this._handleItemDismiss.bind(this);
     }
 
     componentDidMount() {
@@ -38,67 +43,34 @@ class Notifications extends React.Component {
         });
     }
 
-    render() {
-      return (
-        <div>
-            <NotificationsCounter count={this.state.unseenCount} />
-            <NotificationsDropdown notifications={this.state.notifications} />
-        </div>)
-    }
-}
-
-
-class NotificationsCounter extends React.Component {
-    static propTypes: {
-        count: React.PropTypes.number.isRequired
+    _handleItemClick(event, id) {
+      const notification = _.find(this.state.notifications, {id: id});
+      console.log("[Notifications] Clicked on notification:", notification);
+      if (notification.message_hyperlink !== undefined) {
+        window.open(notification.message_hyperlink, '_blank');
+      }
     }
 
-    render() {
-        return (
-            <div
-                style={{
-                    width: '30px',
-                    height: '30px',
-                    background: '#FFFF99',
-                    borderRadius: '50%',
-                    verticalAlign: 'center',
-                    margin: '0 auto',
-                    textAlign: 'center',
-                }}>
-                <a class="app-nav-link__in-menu app-nav-link">
-                    {this.props.count }
-                </a>
-            </div>)
-    }
-}
-
-
-class NotificationsDropdown extends React.Component {
-    static propTypes: {
-        notifications: React.PropTypes.array.isRequired
+    _handleItemDismiss(event, id) {
+      console.log("[Notifications] Dismissed notification:", id);
+      NotificationActions.markRead([id]).then(
+        () => {NotificationActions.fetchNotifications();});
     }
 
-
-    render() {
-        return (
-            <div>
-                { this.props.notifications.map(function(item, idx) {
-                    return <NotificationRow notification={item} />;
-                })}
-            </div>)
-    }
-}
-
-
-class NotificationRow extends React.Component {
-    static propTypes: {
-        notification: React.PropTypes.object.isRequired
+    _handleSeen() {
+      console.log("[Notifications] Seen all!");
+      NotificationActions.markSeen(true).then(
+        () => {NotificationActions.fetchNotifications();});
     }
 
     render() {
-        return <h1>{this.props.notification.object}</h1>;
+      return (<NotificationView
+        unseenCount={this.state.unseenCount}
+        notifications={this.state.notifications}
+        handleSeen={this._handleSeen}
+        handleItemClick={this._handleItemClick}
+        handleItemDismiss={this._handleItemDismiss} /> );
     }
 }
-
 
 module.exports = {Notifications}

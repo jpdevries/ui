@@ -1,6 +1,6 @@
 {
   "name": "thinkful-ui",
-  "version": "1.1.10",
+  "version": "1.1.11",
   "description": "Shared navigation and UI resources for Thinkful.",
   "main": "src/index.es6",
   "scripts": {
@@ -32,6 +32,10 @@
     {
       "email": "robert@rkuykendall.com",
       "name": "Robert Kuykendall"
+    },
+    {
+      "email": "saul@thinkful.com",
+      "name": "Saul Diez-Guerra"
     }
   ],
   "dependencies": {

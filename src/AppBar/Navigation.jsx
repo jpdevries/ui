@@ -1,5 +1,6 @@
 const cx = require('classnames');
 const React = require('react');
+const _ = require('lodash');
 const uniqueId = require('lodash/utility/uniqueId');
 
 // TUI Components
@@ -93,6 +94,13 @@ class AppNav extends React.Component {
                                     className="app-nav-link__in-menu"
                                     {...link}/></li>)}
                     </ul>
+                    { (
+                        global.__env &&
+                        global.__env.user &&
+                        global.__env.user.access &&
+                        _.indexOf(global.__env.user.access, 'navbar-notifcations') !== -1) ?
+                        <Notifications /> : ''
+                    }
                     <a className="app-nav-link app-nav-link__toggle" onClick={this._toggleMenu}>
                         <span alt="Menu" className="app-nav-burger"></span>
                         <Gravatar className="app-nav-gravatar" email={user.tf_login} size={120}/>
@@ -190,7 +198,6 @@ class AppNav extends React.Component {
                         <span alt='Menu' className='app-nav-burger'></span>
                     </a>
                 </nav>
-                <Notifications />
             </div>
         )
     }
