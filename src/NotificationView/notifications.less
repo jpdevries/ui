@@ -40,9 +40,26 @@
   text-align: center;
   background-color: @yellow;
 
+  .icon-notification  {
+    position: relative;
+    font-size: 28px;
+    top: 1px;
+  }
+
   .tui-notification-toggle:hover & {
     background-color: @yellow75;
     color: @black;
+  }
+
+  &.tui-notification-count__clear {
+    background-color: transparent;
+    color: @blue75;
+
+    .tui-notification-toggle:hover & {
+      background-color: transparent;
+      color: @blue75;
+      cursor: default;
+    }
   }
 }
 

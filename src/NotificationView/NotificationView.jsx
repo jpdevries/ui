@@ -1,6 +1,7 @@
 const cx = require('classnames');
 const React = require('react');
 const {NotificationItem} = require('./NotificationItem');
+const {Icon} = require('../Icon');
 
 require('./notifications.less')
 
@@ -13,6 +14,10 @@ class NotificationView extends React.Component {
   }
 
   toggle() {
+    if (this.props.unseenCount === 0) {
+      console.log("Should return");
+      return;
+    }
     if (!this.state.visible) {
       this.props.handleSeen && this.props.handleSeen();
     }
@@ -42,10 +47,15 @@ class NotificationView extends React.Component {
       {"tui-notification-list-container__visible" : this.state.visible }
     )
 
+    const countClasses = cx(
+      "tui-notification-count",
+      {"tui-notification-count__clear" : unseenCount === 0 }
+    )
+
     return (<div className="tui-notification-view">
       <a onClick={this.toggle} className="tui-notification-toggle">
-        <span className="tui-notification-count">
-        {unseenCount}
+        <span className={countClasses}>
+        {unseenCount || <Icon name="notification" />}
         </span>
       </a>
       <div className={containerClasses}>
