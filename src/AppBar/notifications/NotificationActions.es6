@@ -12,12 +12,18 @@ const NotificationActions = Reflux.createActions({
   processEvent: {asyncResult: true},
 });
 
-const client = stream.connect(
-  CONFIG.vendor.getstream.apiKey, null, CONFIG.vendor.getstream.appId);
-const userFeed = client.feed(
-  'navbar_notifications',
-  (USER ? USER.id : 1).toString(),
-  CONFIG.vendor.getstream.userFeedToken);
+let client = null;
+let userFeed = null;
+
+if (CONFIG.vendor.getstream.userFeedToken) {
+    client = stream.connect(
+      CONFIG.vendor.getstream.apiKey, null, CONFIG.vendor.getstream.appId);
+    userFeed = client.feed(
+      'navbar_notifications',
+      (USER ? USER.contact_id : 1).toString(),
+      CONFIG.vendor.getstream.userFeedToken);
+} else {
+}
 
 const LIMIT = 5;
 
@@ -61,22 +67,25 @@ const processFetch = function (error, response, body) {
 
 NotificationActions.fetchNotifications.listen(
   function () {
+    if (!userFeed) return;
     userFeed.get({limit: LIMIT}, processFetch.bind(this));
   });
 
 
 NotificationActions.markSeen.listen(
   function (markSeen) {
-      userFeed.get(
-          {limit: LIMIT, mark_seen: markSeen},
-          processFetch.bind(this));
+    if (!userFeed) return;
+    userFeed.get(
+      {limit: LIMIT, mark_seen: markSeen},
+      processFetch.bind(this));
 });
 
 NotificationActions.markRead.listen(
   function (markRead) {
-      userFeed.get(
-          {limit: LIMIT, mark_read: markRead},
-          processFetch.bind(this));
+    if (!userFeed) return;
+    userFeed.get(
+      {limit: LIMIT, mark_read: markRead},
+      processFetch.bind(this));
 });
 
 NotificationActions.processEvent.listen(

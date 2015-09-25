@@ -30,6 +30,7 @@ const notificationStore = Reflux.createStore({
 
     // This opens a websocket with GetStream and passes a callback to the store
     // so that we can process push updates.
+    if (!userFeed) return;
     userFeed.subscribe(NotificationActions.processEvent).then(
         ()=>{}, this._onError);
   },

@@ -147,6 +147,7 @@
     "first_name": "Abe",
     "last_name": "X",
     "id": 1,
+    "contact_id": 1,
     "access": ["navbar-notifcations"]
   }
 }
