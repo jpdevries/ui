@@ -60,9 +60,9 @@ class Footer extends React.Component {
                 href={`${CONFIG.accounts.url}/login`}>
               Sign in
             </a>
-            {linkSet.map(link => {
+            {linkSet.map((link, idx) => {
               return (
-                <div className="footer-link">
+                <div className="footer-link" key={idx}>
                   <a className="footer-main-link" href={link.location}>{link.name}</a>
                   {link.subLink &&
                     <a className="footer-sub-link" href={link.subLink.location}>{link.subLink.name}</a>}
