@@ -4,8 +4,6 @@ const {Icon} = require('../Icon');
 require('./footer.less');
 
 function generateLinkSet(config) {
-  config = config || global.__env.config;
-
   return [
     {
       'name': 'Mentors',
@@ -57,7 +55,7 @@ class Footer extends React.Component {
   }
 
   render() {
-    const {config} = this.props;
+    const config = this.props.config || global.__env.config;
     const linkSet = generateLinkSet(config);
 
     return (

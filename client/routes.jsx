@@ -10,8 +10,8 @@ const {
   AppBar
 } = require('./../src');
 
-const USER = global.__env.user;
-const CONFIG = global.__env.config;
+const USER = global.__env ? global.__env.user : null;
+const CONFIG = global.__env ? global.__env.config : null;
 
 class App extends React.Component {
   render() {
