@@ -4,8 +4,6 @@ const _ = require('lodash');
 
 const {NotificationActions, userFeed} = require('./NotificationActions');
 
-const USER = global.__env.user;
-
 /**
  * This store connects with GetStream and holds a bundle that contains
  * the count of unread and unseen notifications, as well as an array of

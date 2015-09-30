@@ -2,8 +2,8 @@ const Reflux = require('reflux');
 const stream = require('getstream');
 const _ = require('lodash');
 
-const CONFIG = global.__env.config;
-const USER = global.__env.user;
+const CONFIG = global.__env ? global.__env.config : null;
+const USER = global.__env ? global.__env.user : null;
 
 const NotificationActions = Reflux.createActions({
   fetchNotifications: {asyncResult: true},
@@ -15,7 +15,7 @@ const NotificationActions = Reflux.createActions({
 let client = null;
 let userFeed = null;
 
-if (CONFIG.vendor.getstream.userFeedToken) {
+if (CONFIG && CONFIG.vendor.getstream.userFeedToken) {
     client = stream.connect(
       CONFIG.vendor.getstream.apiKey, null, CONFIG.vendor.getstream.appId);
     userFeed = client.feed(
