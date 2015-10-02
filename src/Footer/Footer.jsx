@@ -1,68 +1,75 @@
 const React = require('react');
 const {Icon} = require('../Icon');
 
-const CONFIG = global.__env.config;
-
 require('./footer.less');
 
-const linkSet = [
-  {
-    'name': 'Mentors',
-    'location': `${CONFIG.www.url}/mentors`
-  },
-  {
-    'name': 'Student reviews',
-    'location': `${CONFIG.www.url}/reviews`
-  },
-  {
-    'name': 'Pricing',
-    'location': `${CONFIG.www.url}/pricing`
-  },
-  {
-    'name': 'About us',
-    'location': `${CONFIG.www.url}/about`,
-    'subLink':
-      {
-        'name': "We're hiring!",
-        'location': `${CONFIG.www.url}/about/#opportunities`
-      }
-  },
-  {
-    'name': 'Learning resources',
-    'location': `${CONFIG.www.url}/learn`
-  },
-  {
-    'name': 'Training for teams',
-    'location': `${CONFIG.www.url}/teams`
-  },
-  {
-    'name': 'Bootcamp prep',
-    'location': `${CONFIG.www.url}/bootcamp-prep`
-  },
-  {
-    'name': 'Workshops and office hours',
-    'location': `${CONFIG.officeHours.url}/workshops`
-  },
-  {
-    'name': 'Blog',
-    'location': `//blog.thinkful.com`
-  }
-];
+function generateLinkSet(config) {
+  return [
+    {
+      'name': 'Mentors',
+      'location': `${config.www.url}/mentors`
+    },
+    {
+      'name': 'Student reviews',
+      'location': `${config.www.url}/reviews`
+    },
+    {
+      'name': 'Pricing',
+      'location': `${config.www.url}/pricing`
+    },
+    {
+      'name': 'About us',
+      'location': `${config.www.url}/about`,
+      'subLink':
+        {
+          'name': "We're hiring!",
+          'location': `${config.www.url}/about/#opportunities`
+        }
+    },
+    {
+      'name': 'Learning resources',
+      'location': `${config.www.url}/learn`
+    },
+    {
+      'name': 'Training for teams',
+      'location': `${config.www.url}/teams`
+    },
+    {
+      'name': 'Bootcamp prep',
+      'location': `${config.www.url}/bootcamp-prep`
+    },
+    {
+      'name': 'Workshops and office hours',
+      'location': `${config.officeHours.url}/workshops`
+    },
+    {
+      'name': 'Blog',
+      'location': `//blog.thinkful.com`
+    }
+  ];
+}
 
 class Footer extends React.Component {
+  static propTypes = {
+    config: React.PropTypes.object
+  }
+
   render() {
+    const config = this.props.config || global.__env.config;
+    const linkSet = generateLinkSet(config);
+
     return (
       <div className="footer">
         <div className="footer-centered">
           <div className="footer-site-links">
             <a
                 className="button button__white"
-                href={`${CONFIG.accounts.url}/login`}>
+                href={`${config.accounts.url}/login`}>
               Sign in
             </a>
-            {linkSet.map(link => {
+            {linkSet.map((link, idx) => {
               return (
-                <div className="footer-link">
+                <div className="footer-link" key={idx}>
                   <a className="footer-main-link" href={link.location}>{link.name}</a>
                   {link.subLink &&
                     <a className="footer-sub-link" href={link.subLink.location}>{link.subLink.name}</a>}

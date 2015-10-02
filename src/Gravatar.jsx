@@ -1,3 +1,4 @@
+const cx = require('classnames');
 const React = require('react');
 const MD5 = require('spark-md5');
 
@@ -24,11 +25,12 @@ class Gravatar extends React.Component {
     }
 
     render() {
+        const {className, style, email='', size, ...props} = this.props;
         return <img
-            className={`gravatar ${this.props.className || ''}`}
-            src={`${URL}/${MD5.hash(this.props.email)}?d=${this.props.default}&s=${this.props.size}`}
-            style={this.props.style || {}}
-            {...this.props}/>
+            className={cx("gravatar", className)}
+            src={`${URL}/${MD5.hash(email)}?d=${this.props.default}&s=${size}`}
+            style={style || {}}
+            {...props}/>
     }
 }
 
