@@ -23,8 +23,8 @@ class Day extends React.Component {
       {active: active},
       {today: moment().dayOfYear() === moment(date).dayOfYear()});
 
-    const isToday = moment(date).dayOfYear() == moment().dayOfYear();
-    const isFirstOfMonth = moment(date).date() == 1;
+    const isToday = moment(date).dayOfYear() === moment().dayOfYear();
+    const isFirstOfMonth = moment(date).date() === 1;
     const monthName = moment(date).format('MMM')
 
     return (
