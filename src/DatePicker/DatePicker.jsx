@@ -15,26 +15,25 @@ class Day extends React.Component {
   }
 
   render () {
-    const {date, unclickable, active, onClick} = this.props;
+    const {date, unclickable, otherMonth, active, onClick} = this.props;
     const classes = cx(
       "day",
       {unclickable: unclickable},
+      {'other-month': otherMonth},
       {active: active},
       {today: moment().dayOfYear() === moment(date).dayOfYear()});
 
-    const tinyTextClass = cx(
-      'day-tiny-text',
-      {hidden: moment(date).date() !== 1 &&
-        moment(date).dayOfYear() !== moment().dayOfYear()});
-
-    const tinyText = moment(date).date() === 1 ?
-      moment(date).format('MMM') : 'Today';
+    const isToday = moment(date).dayOfYear() == moment().dayOfYear();
+    const isFirstOfMonth = moment(date).date() == 1;
+    const monthName = moment(date).format('MMM')
 
     return (
       <div
           className={classes}
           onClick={onClick.bind()}>
-        <div className={tinyTextClass}>{tinyText}</div>
+        {isFirstOfMonth && <div className="day-tiny-text">{monthName}</div>}
+        {isToday && <div className="day-tiny-text">Today</div>}
+
         {moment(date).date()}
       </div>
     );
@@ -156,8 +155,9 @@ class DatePicker extends React.Component {
               date={day.dateObj}
               key={key}
               active={key===activeIndex}
-              unclickable={day.dateObj.month() !==
+              otherMonth={day.dateObj.month() !==
                 moment().add(monthsNavigated, 'month').month()}
+              unclickable={false}
               onClick={event => this._handleClick(event, day.dayOfYear)}/>)}
           </div>
         </div>

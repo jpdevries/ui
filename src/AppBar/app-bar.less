@@ -3,77 +3,77 @@
 @nav-height: 46px;
 
 .app-nav-container {
-    position: relative;
-    z-index: 10;
-    color: @white;
-    background-color: @blue;
-    margin-bottom: 30px;
+  position: relative;
+  z-index: 10;
+  color: @white;
+  background-color: @blue;
+  margin-bottom: 30px;
 }
 
 
 .app-nav {
-    position: relative;
-    height: @nav-height;
-    top: 0px;
-    max-width: @grid-width;
-    margin: 0 auto;
-    z-index: 15;
+  position: relative;
+  height: @nav-height;
+  top: 0px;
+  max-width: @grid-width;
+  margin: 0 auto;
+  z-index: 15;
 }
 
 .app-nav-main {
-    display: none;
-    @media @tablet {
-      display: block;
-      padding-left: 30px;
-    }
-    @media @bigger {
-      padding-left: 0;
-    }
+  display: none;
+  @media @tablet {
+    display: block;
+    padding-left: 30px;
+  }
+  @media @bigger {
+    padding-left: 0;
+  }
 }
 
 .app-nav-list {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    max-width: 0;
-    overflow: hidden;
-    white-space: nowrap;
-    opacity: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  opacity: 0;
+  border-top: 1px solid @blue75;
+  transform: translate(-100%, @nav-height);
+  transition: transform 0.35s ease,
+  opacity 0.28s ease,
+  max-width 0.35s ease,
+  max-height 0.22s ease;
+
+  .app-nav-separator {
+    border: none;
     border-top: 1px solid @blue75;
-    transform: translate(-100%, @nav-height);
-    transition: transform 0.35s ease,
-                opacity 0.28s ease,
-                max-width 0.35s ease,
-                max-height 0.22s ease;
-
-    .app-nav-separator {
-      border: none;
-      border-top: 1px solid @blue75;
-      padding-top: 0;
-      margin-top: 0;
-      margin-bottom: 0;
-
-      @media @tablet {
-        border-color: @gray25;
-      }
-    }
+    padding-top: 0;
+    margin-top: 0;
+    margin-bottom: 0;
 
     @media @tablet {
-      right: 30px;
-      left: auto;
-      min-width: 176px;
-      max-height: 0px;
-      border: 1px solid @gray25;
-      border-top: 0;
-      box-shadow: 0 1px 2px @gray25;
-
-      transform: translate(0, @nav-height);
+      border-color: @gray25;
     }
+  }
 
-    @media @bigger {
-      right: 0;
-    }
+  @media @tablet {
+    right: 30px;
+    left: auto;
+    min-width: 176px;
+    max-height: 0px;
+    border: 1px solid @gray25;
+    border-top: 0;
+    box-shadow: 0 1px 2px @gray25;
+
+    transform: translate(0, @nav-height);
+  }
+
+  @media @bigger {
+    right: 0;
+  }
 }
 
 .app-nav__visible .app-nav-list {
@@ -89,126 +89,127 @@
 
 .app-nav-list li,
 .app-nav-main li {
-    margin: 0;
-    padding: 0;
-    max-width: none;
-    list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: none;
+  list-style: none;
 
-    &::before {
-      content: none;
-      display: none;
-    }
+  &::before {
+    content: none;
+    display: none;
+  }
 }
 
 .app-nav-main li {
-    @media @tablet {
-      display: inline-block;
+  @media @tablet {
+    display: inline-block;
 
-      + li {
-        margin-left: 15px;
-      }
+    + li {
+      margin-left: 15px;
     }
+  }
 }
 
 .app-nav-logo {
-    position: absolute;
-    display: inline-block;
-    left: 20px;
-    top: 50%;
-    transform: translate(0%, -50%);
-    -webkit-transform: translate(0%, -50%);
-    font-size: 0;
+  position: absolute;
+  display: inline-block;
+  left: 20px;
+  top: 50%;
+  transform: translate(0%, -50%);
+  -webkit-transform: translate(0%, -50%);
+  font-size: 0;
 
-    @media @tablet {
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
+  @media @tablet {
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 
 .app-nav-link {
-    .proxima-light;
-    display: block;
-    text-decoration: none;
-    font-size: 16px;
-    line-height: 28px;
-    height: @nav-height; // line-height bugginess.
-    letter-spacing: 0.5px;
-    padding-top: 9px;
-    padding-bottom: 9px;
-    padding-right: 20px;
-    padding-left: 20px;
-    margin-left: 0;
-    cursor: pointer;
+  .proxima-light;
+  display: block;
+  text-decoration: none;
+  font-size: 16px;
+  line-height: 28px;
+  height: @nav-height; // line-height bugginess.
+  letter-spacing: 0.5px;
+  padding-top: 9px;
+  padding-bottom: 9px;
+  padding-right: 20px;
+  padding-left: 20px;
+  margin-left: 0;
+  cursor: pointer;
 
-    color: @white;
-    background-color: @blue;
+  color: @white;
+  background-color: @blue;
 
-    &.active {
-      .proxima-bold;
-    }
+  &.active {
+    .proxima-bold;
+  }
 
+  &:hover,
+  &:active,
+  &:focus {
+    // color: @blue25;
+  }
+
+  &:visited,
+  &:focus {
+    outline: none;
+  }
+
+  @media @tablet {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    text-align: left;
+    // color: @blue;
     &:hover,
     &:active,
     &:focus {
-      // color: @blue25;
+      // color: @blue75;
     }
+  }
 
-    &:visited,
-    &:focus {
-        outline: none;
+  &.app-nav-link__in-menu {
+    @media @tablet {
+      color: @blue;
+      background-color: @gray5;
+      text-align: center;
+      transition: color 0.19s ease,
+      background-color 0.19s ease;
+
+      &:hover {
+        background-color: @blue25;
+        color: @blue125;
+      }
     }
+  }
+
+  &.app-nav-link__mobile-only {
+    @media @tablet {
+      display: none;
+    }
+  }
+
+  &.app-nav-link__toggle {
+    height: @nav-height;
+    position: absolute;
+    right: 0px;
+    top: 0;
+    padding-right: 20px;
+    padding-left: 20px;
+    cursor: pointer;
 
     @media @tablet {
-      padding-left: 0.5em;
-      padding-right: 0.5em;
-      text-align: left;
-      // color: @blue;
-      &:hover,
-      &:active,
-      &:focus {
-        // color: @blue75;
-      }
+      right: 30px;
     }
 
-    &.app-nav-link__in-menu {
-      @media @tablet {
-        color: @blue;
-        background-color: @gray5;
-        text-align: center;
-        transition: color 0.19s ease,
-                    background-color 0.19s ease;
-
-        &:hover {
-          background-color: @blue25;
-          color: @blue125;
-        }
-      }
+    @media @bigger {
+      right: 0;
     }
-
-    &.app-nav-link__mobile-only {
-      @media @tablet {
-        display: none;
-      }
-    }
-
-    &.app-nav-link__toggle {
-      height: @nav-height;
-      position: absolute;
-      right: 0px;
-      top: 0;
-      padding-right: 20px;
-      padding-left: 20px;
-      cursor: pointer;
-
-      @media @tablet {
-        right: 30px;
-      }
-
-      @media @bigger {
-        right: 0;
-      }
-    }
+  }
 }
+
 .app-nav-link-down-arrow {
   position: relative;
   top: 1px;
