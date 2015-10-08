@@ -39,6 +39,19 @@ class NotificationView extends React.Component {
               handleDismiss={this.props.handleItemDismiss} />);
   }
 
+  renderNotifications(notifications) {
+    return notifications.map((notification) => (
+             !!notification.is_read ? '' : this.renderItem(notification)));
+  }
+
+  renderEmpty() {
+    return (<li className="tui-notification-item">
+      <div className="tui-notification-content">
+        <p className="tui-notification-message">When you receive notifications, they'll show up here with a bright yellow circle!</p>
+      </div>
+    </li>);
+  }
+
   render() {
     const {notifications, unseenCount} = this.props;
     const containerClasses = cx(
@@ -51,6 +64,8 @@ class NotificationView extends React.Component {
       {"tui-notification-count__clear" : unseenCount === 0 }
     )
 
+    const hasNotifications = !_.isEmpty(notifications);
+
     return (<div className="tui-notification-view">
       <a onClick={this.toggle} className="tui-notification-toggle">
         <span className={countClasses}>
@@ -59,8 +74,9 @@ class NotificationView extends React.Component {
       </a>
       <div className={containerClasses}>
         <ul className="tui-notification-list">
-          {notifications.map((notification) => (
-            !!notification.is_read ? '' : this.renderItem(notification)))}
+          {hasNotifications ?
+            this.renderNotifications(notifications)
+          : this.renderEmpty()}
         </ul>
       </div>
     </div>)
