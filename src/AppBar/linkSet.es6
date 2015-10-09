@@ -9,9 +9,6 @@ if (global.__env) {
 }
 
 let config = {
-    workshops: {
-        icon: 'users'
-    },
     library: {
         icon: 'book'
     }
@@ -30,7 +27,6 @@ let insertCourseDropdown = false;
 if(! user) {
     defaults(home, config.www);
     insertCourseDropdown = true;
-    menu.push(config.workshops);
     menu.push(config.mentors);
     menu.push(config.pricing);
     menu.push(config.signIn);
