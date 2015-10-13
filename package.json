@@ -55,6 +55,7 @@
     "getstream": "^2.2.2",
     "html-loader": "^0.3.0",
     "json-loader": "^0.5.2",
+    "jstz": "^1.0.7",
     "less": "^2.5.1",
     "less-loader": "^2.2.0",
     "lodash": "^3.9.3",
