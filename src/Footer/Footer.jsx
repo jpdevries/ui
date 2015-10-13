@@ -1,4 +1,5 @@
 const React = require('react');
+const jstz = require('jstz');
 const {Icon} = require('../Icon');
 
 require('./footer.less');
@@ -51,67 +52,81 @@ function generateLinkSet(config) {
 
 class Footer extends React.Component {
   static propTypes = {
-    config: React.PropTypes.object
+    config: React.PropTypes.object,
+    includeTz: React.PropTypes.boolean
+  }
+
+  static defaultProps = {
+    includeTz: false
   }
 
   render() {
+    const {includeTz, user} = this.props;
     const config = this.props.config || global.__env.config;
     const linkSet = generateLinkSet(config);
 
     return (
-      <div className="footer">
-        <div className="footer-centered">
-          <div className="footer-site-links">
-            <a
-                className="button button__white"
-                href={`${config.accounts.url}/login`}>
-              Sign in
-            </a>
-            {linkSet.map((link, idx) => {
-              return (
-                <div className="footer-link" key={idx}>
-                  <a className="footer-main-link" href={link.location}>{link.name}</a>
-                  {link.subLink &&
-                    <a className="footer-sub-link" href={link.subLink.location}>{link.subLink.name}</a>}
-                </div>
-                )
-              })
-            }
-            <div className="footer-social-links">
+      <div className="footer-container">
+        {includeTz &&
+          <p className="footer-timezone">All times are displayed in {
+            (user && user.timezone) ? user.timezone : jstz.determine().name()}.
+            &nbsp;{user && <a href={`${config.settings.url}`}>Change</a>}
+          </p>
+        }
+        <div className="footer">
+          <div className="footer-centered">
+            <div className="footer-site-links">
               <a
-                  className="footer-social-link"
-                  href="https://www.facebook.com/thinkfulschool"
-                  target="_blank">
-                <Icon name="facebook"/>
+                  className="button button__white"
+                  href={`${config.accounts.url}/login`}>
+                Sign in
+              </a>
+              {linkSet.map((link, idx) => {
+                return (
+                  <div className="footer-link" key={idx}>
+                    <a className="footer-main-link" href={link.location}>{link.name}</a>
+                    {link.subLink &&
+                      <a className="footer-sub-link" href={link.subLink.location}>{link.subLink.name}</a>}
+                  </div>
+                  )
+                })
+              }
+              <div className="footer-social-links">
+                <a
+                    className="footer-social-link"
+                    href="https://www.facebook.com/thinkfulschool"
+                    target="_blank">
+                  <Icon name="facebook"/>
+                </a>
+                <a
+                    className="footer-social-link"
+                    href="https://twitter.com/thinkful"
+                    target="_blank">
+                  <Icon name="twitter"/>
+                </a>
+              </div>
+            </div>
+            <div className="footer-contact-links">
+              <a
+                  className="footer-main-link mobile-hidden"
+                  href="mailto:hello@thinkful.com">
+                Email us: hello@thinkful.com
               </a>
               <a
-                  className="footer-social-link"
-                  href="https://twitter.com/thinkful"
-                  target="_blank">
-                <Icon name="twitter"/>
+                  className="footer-main-link phone-link"
+                  href="tel:+18583673232">Call us +1 (858) 367-3232</a>
+              <div className="copyright mobile-hidden">&copy; 2015 Thinkful, Inc.</div>
+              <a
+                  className="footer-main-link"
+                  href="https://www.thinkful.com/static/pdfs/Privacy-Policy.pdf">
+                Privacy policy
+              </a>
+              <a
+                  className="footer-main-link"
+                  href="https://www.thinkful.com/static/pdfs/Terms-of-Service.pdf">
+                Terms of service
               </a>
             </div>
-          </div>
-          <div className="footer-contact-links">
-            <a
-                className="footer-main-link mobile-hidden"
-                href="mailto:hello@thinkful.com">
-              Email us: hello@thinkful.com
-            </a>
-            <a
-                className="footer-main-link phone-link"
-                href="tel:+18583673232">Call us +1 (858) 367-3232</a>
-            <div className="copyright mobile-hidden">&copy; 2015 Thinkful, Inc.</div>
-            <a
-                className="footer-main-link"
-                href="https://www.thinkful.com/static/pdfs/Privacy-Policy.pdf">
-              Privacy policy
-            </a>
-            <a
-                className="footer-main-link"
-                href="https://www.thinkful.com/static/pdfs/Terms-of-Service.pdf">
-              Terms of service
-            </a>
           </div>
         </div>
       </div>
