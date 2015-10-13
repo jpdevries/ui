@@ -94,13 +94,7 @@ class AppNav extends React.Component {
                                     className="app-nav-link__in-menu"
                                     {...link}/></li>)}
                     </ul>
-                    { (
-                        global.__env &&
-                        global.__env.user &&
-                        global.__env.user.access &&
-                        _.indexOf(global.__env.user.access, 'navbar-notifications') !== -1) ?
-                        <Notifications /> : ''
-                    }
+                    <Notifications />
                     <a className="app-nav-link app-nav-link__toggle" onClick={this._toggleMenu}>
                         <span alt="Menu" className="app-nav-burger"></span>
                         <Gravatar className="app-nav-gravatar" email={user.tf_login} size={120}/>
