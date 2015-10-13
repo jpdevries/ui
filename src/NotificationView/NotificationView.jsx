@@ -47,7 +47,7 @@ class NotificationView extends React.Component {
   renderEmpty() {
     return (<li className="tui-notification-item">
       <div className="tui-notification-content">
-        <p className="tui-notification-message">When you receive notifications, they'll show up here with a bright yellow circle!</p>
+        <p className="tui-notification-message">No new notifications! When you receive notifications, they'll show up here.</p>
       </div>
     </li>);
   }
@@ -64,7 +64,7 @@ class NotificationView extends React.Component {
       {"tui-notification-count__clear" : unseenCount === 0 }
     )
 
-    const hasNotifications = !_.isEmpty(notifications);
+    const hasNotifications = !_.isEmpty(notifications.filter(notif => ! notif.is_read));
 
     return (<div className="tui-notification-view">
       <a onClick={this.toggle} className="tui-notification-toggle">
