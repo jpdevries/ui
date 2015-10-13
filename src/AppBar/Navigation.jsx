@@ -117,12 +117,21 @@ class AppNav extends React.Component {
       return (
         <div className="app-nav-course-dropdown">
           <span className='app-nav-link'
-                onClick={this._toggleCourseDropdown}>1-on-1 Courses
+                onClick={this._toggleCourseDropdown}>Courses
             <Icon className='app-nav-link-down-arrow' name='navigatedown' />
           </span>
           <div onMouseEnter={this._handleMouseEnter}
                className={dropdownContentClasses}>
-            <div className="subheading">Part-time</div>
+            <div className="app-nav-section-header">Workshops</div>
+            <div className="app-nav-courses">
+              <CourseLink href="//start.thinkful.com/workshops-nodejs/"
+                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/node.svg"
+                          name="Node.js" />
+              <CourseLink href="//start.thinkful.com/workshops-react/"
+                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/react.svg"
+                          name="React" />
+            </div>
+            <div className="app-nav-section-header">Part-time 1-on-1 Courses</div>
             <div className="app-nav-courses">
               <CourseLink href="//www.thinkful.com/courses/learn-web-development-online"
                           icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/frontend.svg"
@@ -155,7 +164,7 @@ class AppNav extends React.Component {
                           icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/data.svg"
                           name="Data Science in Python" />
             </div>
-            <div className="subheading">Full-time</div>
+            <div className="app-nav-section-header">Full-time 1-on-1 Courses</div>
             <div className="app-nav-courses">
               <CourseLink href="//www.thinkful.com/courses/frontend-development-career-path"
                           icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/career.svg"
@@ -163,7 +172,7 @@ class AppNav extends React.Component {
             </div>
             <div className="app-nav-courses app-nav-courses__center">
               <CourseLink href="//www.thinkful.com/courses/"
-                          name="See details"
+                          name="Explore 1-on-1 Courses"
                           arrow={true} />
             </div>
           </div>
