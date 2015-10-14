@@ -35,7 +35,7 @@ class TrackedLink extends React.Component {
 
     _handleClick(event) {
         let data = omit(this.props, 'children', 'className', 'href', 'target');
-        let data = {url: this.props.href, ...data};
+        data = {url: this.props.href, ...data};
         let event = `clicked-${global.__env.config.appDisplayName}-${this.props.type}`;
         log(event, data);
 
