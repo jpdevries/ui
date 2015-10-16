@@ -35,6 +35,15 @@ class DemoPage extends React.Component {
       },
       {
         id: "9fc56050-61a1-11e5-8080-8001719413bb",
+        message: "How did you like the workshop \"The great CSS Bake-off 2016\"?",
+        votable: true,
+        votable_url: "https://thinkful.typeform.com/to/bIbY9x?&session=The%20great%20CSS%20Bake-off%202016&source=testing&sid=23&cid=23&rating=",
+        time: "2015-09-21T03:17:30.280968",
+        is_seen: false,
+        is_read: false
+      },
+      {
+        id: "9fc56050-61a1-11e5-8080-8001719413bb",
         message: "Have opinions? Take our satisfaction survey!",
         time: "2015-09-21T03:17:30.280968",
         is_seen: false,
@@ -49,7 +58,7 @@ class DemoPage extends React.Component {
         is_read: true
       }
     ]
-    const sampleUnseenCount = 2;
+    const sampleUnseenCount = 3;
 
     return (
       <div className="tui-demo-page-container">

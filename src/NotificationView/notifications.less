@@ -173,3 +173,22 @@
   line-height: 20px;
   font-size: 14.5px;
 }
+
+.tui-notification-voting-bar {
+  direction: rtl;
+}
+
+.tui-voting-star {
+  &:hover g {
+    fill: @blue;
+  }
+
+  + .tui-voting-star {
+    padding-right: 5px;
+  }
+}
+
+.tui-voting-star:hover ~ .tui-voting-star g {
+  fill: @blue;
+}
+
