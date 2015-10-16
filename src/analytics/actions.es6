@@ -1,12 +1,13 @@
 const log = require('debug')('ui:analytics');
 const result = require('lodash/object/result');
 const Qs = require('qs');
+const is = require('is');
 
 function mergeIntoDict(dest, src) {
-    let src = src || {};
-    let dest = dest || {};
+    src = src || {};
+    dest = dest || {};
 
-    for (var key in src) {
+    for (let key in src) {
         if (!dest.hasOwnProperty(key)) {
             dest[key] = src[key];
         }
@@ -21,12 +22,12 @@ function track(event, properties, options, fn) {
     if (is.fn(options)) fn = options, options = null;
     if (is.fn(properties)) fn = properties, options = null, properties = null;
 
+    const __env = global.__env || {};
+
     appInfo = {
-        app: result(global.__env.config, 'app.name', '').toLowerCase(),
-        appDisplayName: result(global.__env.config, 'app.displayName', '').toLowerCase(),
-        ...data
+        app: result(__env.config, 'app.name', '').toLowerCase(),
+        appDisplayName: result(__env.config, 'app.displayName', '').toLowerCase()
     }
-    let __env = __env || {};
 
     data = mergeIntoDict(data, appInfo);
     data = mergeIntoDict(data, __env.user);
@@ -51,7 +52,7 @@ function page(category, name, properties, options, fn) {
 }
 
 module.exports = {
-    track: track,
-    identify: identify,
-    page: page
+    track,
+    identify,
+    page
 }

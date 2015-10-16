@@ -1,3 +1,4 @@
+const log = require('debug')('ui:analytics');
 const omit = require('lodash/object/omit');
 const React = require('react');
 
