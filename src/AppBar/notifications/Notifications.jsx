@@ -2,6 +2,8 @@ const cx = require('classnames');
 const React = require('react');
 const _ = require('lodash');
 
+const {AnalyticsAPI} = require('../../analytics');
+
 const {NotificationView} = require('../../NotificationView');
 const {notificationStore} = require('./notificationStore');
 const {NotificationActions} = require('./NotificationActions');
@@ -46,6 +48,7 @@ class Notifications extends React.Component {
     _handleItemClick(event, id) {
       const notification = _.find(this.state.notifications, {id: id});
       console.log("[Notifications] Clicked on notification:", notification);
+      AnalyticsAPI.track('clicked-notification-item');
       if (notification.message_hyperlink !== undefined) {
         window.open(notification.message_hyperlink, '_blank');
       }

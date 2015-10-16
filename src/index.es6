@@ -10,7 +10,7 @@ const {Loader} = require('./Loader');
 const {Modal} = require('./Modal');
 const {NotificationView} = require('./NotificationView');
 const {SidebarLayout, SidebarMenu, SidebarMenuItem} = require('./Sidebar');
-const {TrackedLink} = require('./analytics');
+const {TrackedLink, AnalyticsAPI} = require('./analytics');
 
 module.exports = {
   AppBar,
@@ -28,5 +28,6 @@ module.exports = {
   SidebarLayout,
   SidebarMenu,
   SidebarMenuItem,
-  TrackedLink
+  TrackedLink,
+  AnalyticsAPI
 }

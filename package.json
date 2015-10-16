@@ -1,6 +1,6 @@
 {
   "name": "thinkful-ui",
-  "version": "1.1.24",
+  "version": "1.1.25",
   "description": "Shared navigation and UI resources for Thinkful.",
   "main": "src/index.es6",
   "scripts": {
@@ -54,6 +54,7 @@
     "file-loader": "^0.8.4",
     "getstream": "^2.2.2",
     "html-loader": "^0.3.0",
+    "is": "^3.1.0",
     "json-loader": "^0.5.2",
     "jstz": "^1.0.7",
     "less": "^2.5.1",
@@ -63,6 +64,7 @@
     "moment-timezone": "^0.4.0",
     "node-libs-browser": "^0.5.2",
     "node-notifier": "^4.2.1",
+    "qs": "^5.2.0",
     "react": "^0.13.3",
     "react-hot-loader": "^1.2.7",
     "reflux": "^0.2.12",
