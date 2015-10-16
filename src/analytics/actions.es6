@@ -24,17 +24,17 @@ function track(event, properties, options, fn) {
 
     const __env = global.__env || {};
 
-    appInfo = {
+    let appInfo = {
         app: result(__env.config, 'app.name', '').toLowerCase(),
         appDisplayName: result(__env.config, 'app.displayName', '').toLowerCase()
     }
 
-    data = mergeIntoDict(data, appInfo);
-    data = mergeIntoDict(data, __env.user);
-    data = mergeIntoDict(data, Qs.parse(window.location.search));
+    properties = mergeIntoDict(properties, appInfo);
+    properties = mergeIntoDict(properties, __env.user);
+    properties = mergeIntoDict(properties, Qs.parse(window.location.search));
 
     global.analytics &&
-        global.analytics.track(action, data);
+        global.analytics.track(event, properties, options, fn);
 }
 
 // This event mirrors the call signature of global.analytics.identify

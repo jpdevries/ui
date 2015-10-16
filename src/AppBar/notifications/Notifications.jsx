@@ -61,7 +61,6 @@ class Notifications extends React.Component {
     }
 
     _handleSeen() {
-      AnalyticsAPI.track('clicked-notification-bell');
       console.log("[Notifications] Seen all!");
       NotificationActions.markSeen(true).then(
         () => {NotificationActions.fetchNotifications();});

@@ -15,31 +15,26 @@ class NotificationView extends React.Component {
   }
 
   toggle() {
-    console.log('one');
     if (this.props.unreadCount === 0) {
       return;
     }
     if (!this.state.visible) {
-      console.log('bell notif');
+      AnalyticsAPI.track('clicked-notification-bell');
       this.props.handleSeen && this.props.handleSeen();
     }
     this.setState({visible: !this.state.visible});
   }
 
   expand() {
-    console.log('bell notif2');
     this.props.handleSeen && this.props.handleSeen();
     this.setState({visible: true});
   }
 
   collapse() {
-    console.log('two');
     this.setState({visible: false});
   }
 
   renderItem(notification) {
-    console.log('three');
-
     return (<NotificationItem
               {...notification}
               handleClick={this.props.handleItemClick}
@@ -60,7 +55,6 @@ class NotificationView extends React.Component {
   }
 
   render() {
-    console.log('four');
     const {notifications, unseenCount} = this.props;
     const containerClasses = cx(
       "tui-notification-list-container",
