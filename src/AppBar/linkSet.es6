@@ -9,6 +9,9 @@ if (global.__env) {
 }
 
 let config = {
+    workshops: {
+        icon: 'users'
+    },
     library: {
         icon: 'book'
     }
