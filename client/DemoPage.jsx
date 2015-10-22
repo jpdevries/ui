@@ -10,8 +10,9 @@ const {
   Footer,
   Gravatar,
   Icon,
+  Loader,
   NotificationView,
-  Loader
+  OpenSessionOverview
 } = require('../src')
 
 require('./styles/demo.less')
@@ -117,6 +118,28 @@ class DemoPage extends React.Component {
             props={{
               className: Demo.props.constant('additional-class')
             }} />
+
+          <h3>OpenSessionOverview</h3>
+          <Demo
+            target={OpenSessionOverview}
+            props={{
+              session: Demo.props.json({
+                background_image_url: 'https://s3-us-west-2.amazonaws.com/sourcegraph-assets/blog/einstein_code.jpeg',
+                description: 'Git is the most popular versioning control software and is essential for any developer\'s workflow. We\'ll discuss basic git commands, the GitHub interface, and how to host your website on GitHub pages for free.',
+                endDtLocal: (e => moment().add(1, 'h').endOf('h')),
+                host: {
+                  name: 'Elon Musk',
+                  image_url: 'https://pbs.twimg.com/profile_images/378800000305778238/852d2f76797dbe1da82095f988d38fbe_400x400.png'
+                },
+                isHappeningNow: (e => {return false}),
+                isPast: (e => {return false}),
+                isStartingSoon: (e => {return false}),
+                isWorkshop: (e => {return true}),
+                startDtLocal: (e => moment().add(1, 'h').startOf('h')),
+                tags: ['React', 'demo', 'github', 'all of the tags'],
+                title: 'Intro to GitHub'
+              })
+            }}/>
 
           <RouteHandler />
         </div>
