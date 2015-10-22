@@ -18,6 +18,17 @@
   }
 }
 
+.session__past {
+  .session-image-wrapper {
+    padding-top: 45px;
+    .image-secondary {
+      @media @big {
+        top: 90px;
+      }
+    }
+  }
+}
+
 .session-image-wrapper {
   position: relative;
 
@@ -39,14 +50,19 @@
   .session-time {
     .subheading;
     color: @gray50;
-    padding-top: 7px;
+    margin-bottom: 0;
     line-height: 15px;
+    top: 8px;
 
     @media @nonmobile {
+      line-height: 30px;
       margin-bottom: 30px;
+      top: 16px;
     }
     .render-mobile & {
-      margin-bottom: 15px;
+      line-height: 15px;
+      margin-bottom: 0;
+      top: 8px;
     }
   }
 
@@ -69,11 +85,6 @@
       height: 90px;
     }
 
-    @media @big {
-      width: 120px;
-      height: 120px;
-    }
-
     .render-mobile & {
       position: absolute;
       width: 60px;
@@ -87,17 +98,18 @@
     right: 45px;
     width: 30px;
     height: 30px;
-    top: 45px;
+    top: 95px;
 
     @media @nonmobile {
-      width: 60px;
-      height: 60px;
-      top: 120px;
-      right: 0px;
-      left: auto;
-    }
-    @media @big {
+      width: 45px;
+      height: 45px;
       top: 150px;
+      left: 60px;
+    }
+
+    @media @tablet {
+      top: 135px;
+      left: 75px;
     }
   }
 
@@ -182,13 +194,19 @@
 }
 
 .session-tags {
-  color: @gray50;
-  line-height: 30px;
-  position: relative;
-  top: 3px;
+  display: flex;
+  flex-wrap: wrap;
 
-  @media @nonmobile {
-    top: 0;
+  .overview-tag {
+    .body-text-small;
+    line-height: 23px; // 23px + 5px margin + 2*1px border = 30px
+    margin-bottom: 5px;
+    top: 3px;
+    border-color: @blue75;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-right: 5px;
+    margin-left: 0;
   }
 }
 
