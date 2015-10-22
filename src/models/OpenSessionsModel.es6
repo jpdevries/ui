@@ -3,6 +3,7 @@ const moment = require('moment-timezone');
 
 function OpenSession(properties) {
   _.assign(this, properties);
+  this.duration_minutes = properties.duration_minutes || 60;
 }
 
 OpenSession.create = function(properties) {
@@ -17,7 +18,7 @@ OpenSession.prototype.startDtLocal = function(user) {
 }
 
 OpenSession.prototype.endDtLocal = function(user) {
-  return this.startDtLocal(user).add(this.duration_minutes, 'm');
+  return this.startDtLocal(user).add((this.duration_minutes || 60), 'm');
 }
 
 OpenSession.prototype.minutesToSession = function() {
@@ -91,10 +92,5 @@ OpenSession.prototype.getTypeSlug = function () {
   return `${this.session_type.replace('_', '-')}s`
 }
 
-OpenSession.prototype.minutesToSession = function() {
-  // For analytics, return the minutes to the start of the session.
-  // Negative minutes indicate a session that is in the past
-  return moment(this.start_dt_utc).diff(moment(), 'minutes')
-}
 
 module.exports = {OpenSession}
