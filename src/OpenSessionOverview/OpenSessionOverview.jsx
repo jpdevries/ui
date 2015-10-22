@@ -18,6 +18,8 @@ class OpenSessionOverview extends React.Component {
     this._shouldRenderMobile = this._shouldRenderMobile.bind(this);
   }
 
+  static displayName = "OpenSessionOverview"
+
   static propTypes = {
     attending: React.PropTypes.bool,
     config: React.PropTypes.object,
@@ -37,7 +39,8 @@ class OpenSessionOverview extends React.Component {
     attending: false,
     hosting: false,
     linkToCalendar: false,
-    previewing: false
+    previewing: false,
+    tags: []
   }
 
   _shouldRenderMobile() {
