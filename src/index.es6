@@ -9,8 +9,11 @@ const {Icon} = require('./Icon');
 const {Loader} = require('./Loader');
 const {Modal} = require('./Modal');
 const {NotificationView} = require('./NotificationView');
+const {OpenSessionOverview} = require('./OpenSessionOverview');
 const {SidebarLayout, SidebarMenu, SidebarMenuItem} = require('./Sidebar');
 const {TrackedLink, AnalyticsAPI} = require('./analytics');
+
+const {models} = require('./models');
 
 module.exports = {
   AppBar,
@@ -25,9 +28,11 @@ module.exports = {
   Modal,
   MenuItem: SidebarMenuItem,
   NotificationView,
+  OpenSessionOverview,
   SidebarLayout,
   SidebarMenu,
   SidebarMenuItem,
   TrackedLink,
-  AnalyticsAPI
+  AnalyticsAPI,
+  models
 }

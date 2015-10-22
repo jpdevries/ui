@@ -1,0 +1,234 @@
+@import "~tfstyleguide/vars";
+
+/* Session component */
+.session {
+  padding-bottom: 30px;
+  background-color: transparent;
+  transition: background-color .33s ease,
+              box-shadow .33s ease;
+  box-shadow: 20px -5px 0 9px transparent,
+             -20px -5px 0 9px transparent;
+
+  &.session__linked {
+    background-color: @gray15;
+    border-radius: 0px;
+
+    box-shadow: 20px -5px 0 9px @gray15,
+               -20px -5px 0 9px @gray15;
+  }
+}
+
+.session-image-wrapper {
+  position: relative;
+
+  @media @nonmobile {
+    .col-width(2);
+    min-height: 150px;
+  }
+
+  @media @big {
+    min-height: 210px;
+  }
+
+  .render-mobile & {
+    width: 100%;
+    margin-left: 0;
+    min-height: 0;
+  }
+
+  .session-time {
+    .subheading;
+    color: @gray50;
+    padding-top: 7px;
+    line-height: 15px;
+
+    @media @nonmobile {
+      margin-bottom: 30px;
+    }
+    .render-mobile & {
+      margin-bottom: 15px;
+    }
+  }
+
+  .image-primary {
+    border-radius: 100%;
+    background-size: cover;
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    right: 0;
+
+    @media @nonmobile {
+      position: static;
+      width: 75px;
+      height: 75px;
+    }
+
+    @media @tablet {
+      width: 90px;
+      height: 90px;
+    }
+
+    @media @big {
+      width: 120px;
+      height: 120px;
+    }
+
+    .render-mobile & {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+    }
+  }
+
+  .image-secondary {
+    border-radius: 100%;
+    position: absolute;
+    right: 45px;
+    width: 30px;
+    height: 30px;
+    top: 45px;
+
+    @media @nonmobile {
+      width: 60px;
+      height: 60px;
+      top: 120px;
+      right: 0px;
+      left: auto;
+    }
+    @media @big {
+      top: 150px;
+    }
+  }
+
+  .alarm-icon {
+    position: absolute;
+    top: 21px;
+    left: -19px;
+    color: @blue;
+  }
+
+  .linked-session-icon {
+    position: absolute;
+    top: 22px;
+    left: -25px;
+    color: @blue;
+  }
+}
+
+.session-time-alert {
+  .body-text-small;
+  color: @green;
+  position: absolute;
+  top: -10px;
+  left: 0;
+}
+
+.session-overview-wrapper {
+  position: relative;
+
+  @media @nonmobile {
+    .col-width(10);
+    .gutter-offset(0);
+  }
+
+  .render-mobile & {
+    width: 100%;
+    margin-left: 0;
+    padding-top: 0;
+  }
+
+  .host-name {
+    color: @gray50;
+    margin-bottom: 0;
+  }
+
+  .overview-description {
+    margin-bottom: 15px;
+    @media @nonmobile {
+      margin-bottom: 30px;
+      max-width: none;
+    }
+    .render-mobile & {
+      margin-bottom: 15px;
+    }
+  }
+}
+
+.overview-content {
+  cursor: pointer;
+  @media @nonmobile {
+    .custom-col-width(7, 10);
+  }
+
+  .render-mobile & {
+    width: 100%;
+  }
+
+  .title {
+    margin-bottom: 15px;
+    padding-top: 0;
+    max-width: 80%;
+
+    @media @nonmobile {
+      padding-top: initial;
+      max-width: none;
+    }
+    .render-mobile & {
+      padding-top: 0;
+      max-width: 80%;
+    }
+  }
+}
+
+.session-tags {
+  color: @gray50;
+  line-height: 30px;
+  position: relative;
+  top: 3px;
+
+  @media @nonmobile {
+    top: 0;
+  }
+}
+
+.session-attendees {
+  color: @gray50;
+  .icon-users {
+    font-size: 24px;
+    padding-right: 5px;
+  }
+}
+
+.session-cta {
+  @media @nonmobile {
+    .custom-col-width(3, 10);
+    .custom-gutter-offset(0, 10);
+  }
+
+  .render-mobile & {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .button {
+    margin-top: 0;
+    margin-bottom: 15px;
+    @media @nonmobile {
+      margin-top: 8px;
+      margin-bottom: 22px;
+    }
+  }
+
+  .user-attending {
+    margin-bottom: 15px;
+  }
+
+  .button__black__host {
+    display: block;
+    &.disabled {
+      pointer-events: none;
+    }
+  }
+}
+
