@@ -2,7 +2,18 @@ const log = require('debug')('ui:analytics');
 const result = require('lodash/object/result');
 const Qs = require('qs');
 const is = require('is');
+const superagent = require('superagent');
 
+const __env = global.__env || {};
+const urlParams = Qs.parse(window.location.search);
+const appInfo = {
+    app: result(__env.config, 'app.name', '').toLowerCase(),
+    appDisplayName: result(__env.config, 'app.displayName', '').toLowerCase()
+}
+const cookies = _.object(_.map(document.cookie.split('; '), function(cookie) {
+    let [name, value] = cookie.split('=');
+    return [name, decodeURIComponent(value)];
+}));
 
 function load(writeKey) {
     if (global.analytics) {
@@ -17,12 +28,14 @@ function load(writeKey) {
         meta = head.querySelector('meta[property=x-tf-segmentio-token]');
         writeKey = meta && meta.content;
     }
+
     // Select from <meta content="segmentio" data-token={writeKey} />
     if (!writeKey) {
         meta = head.querySelector('meta[content=segmentio]');
         writeKey = meta && meta.dataset.token;
 
     }
+
     // Raise visibility of error… analytics are important
     if (!writeKey) {
         throw new Error('SegmentIO write key is undefined');
@@ -83,25 +96,47 @@ function mergeIntoDict(dest, src) {
     return dest;
 }
 
+function fallback() {
+    const argsArray = Array.prototype.slice.call(arguments);
+
+    superagent.
+        post(`${__env.config.oilbird.url}/echo`).
+        send(argsArray).
+        withCredentials().
+        end((error, response) => {
+            console.log(response);
+        });
+}
+
+// This event mirrors the call signature of global.analytics.alias
+function alias(to, from, options, fn) {
+    // Argument reshuffling, from original library.
+    if (is.fn(options)) fn = options, options = null;
+    if (is.fn(from)) fn = from, options = null, from = null;
+    if (is.object(from)) options = from, from = null;
+
+    // TODO: Don't alias thinkful.com emails.
+
+    global.analytics &&
+        global.analytics.alias(to, from, options, fn);
+}
+
+
 // This event mirrors the call signature of global.analytics.track
 function track(event, properties, options, fn) {
     // Argument reshuffling, from original library.
     if (is.fn(options)) fn = options, options = null;
     if (is.fn(properties)) fn = properties, options = null, properties = null;
 
-    const __env = global.__env || {};
-
-    let appInfo = {
-        app: result(__env.config, 'app.name', '').toLowerCase(),
-        appDisplayName: result(__env.config, 'app.displayName', '').toLowerCase()
-    }
-
     properties = mergeIntoDict(properties, appInfo);
     properties = mergeIntoDict(properties, __env.user);
-    properties = mergeIntoDict(properties, Qs.parse(window.location.search));
+    properties = mergeIntoDict(properties, urlParams);
 
-    global.analytics &&
+    if (global.analytics && global.analytics.initialize) {
         global.analytics.track(event, properties, options, fn);
+    } else {
+        fallback('track', event, properties, options, fn);
+    }
 }
 
 // This event mirrors the call signature of global.analytics.identify
@@ -111,7 +146,20 @@ function identify(id, traits, options, fn) {
     if (is.fn(traits)) fn = traits, options = null, traits = null;
     if (is.object(id)) options = traits, traits = id, id = user.id();
 
-    // Temporary stub, which can be expanded upon to add data.
+    var email = (__env.user && global.__env.user.tf_login) || (
+        urlParams.email && decodeURIComponent(
+            urlParams.email).toLowerCase());
+    if (email && !id) {
+        id = email;
+
+        // Check if we previously had a different email on file
+        // for the user, and alias this email address to it
+        if (cookies.user_email&& (email !== cookies.user_email)
+                && (cookies.user_email.indexOf("@thinkful.com") > -1)) {
+            alias(email, alias.user_email);
+        }
+    }
+
     global.analytics &&
         global.analytics.identify(id, traits, options, fn);
 }
@@ -126,7 +174,9 @@ function page(category, name, properties, options, fn) {
     if (is.object(name)) options = properties, properties = name, name = null;
     if (is.string(category) && !is.string(name)) name = category, category = null;
 
-    // Temporary stub, which can be expanded upon to add data.
+    properties = mergeIntoDict(properties, appInfo);
+    properties = mergeIntoDict(properties, __env.user);
+
     global.analytics &&
         global.analytics.page(category, name, properties, options, fn);
 }
