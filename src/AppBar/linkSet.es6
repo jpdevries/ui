@@ -41,6 +41,11 @@ else {
         menu.push(config.activity);
         main.push(config.workshops);
         main.push(config.library);
+        main.push({
+            displayName: 'Search',
+            icon: 'search',
+            search: true
+        });
         menu.push(config.takeStudent);
         defaults(home, config.dashboard);
 
