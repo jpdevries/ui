@@ -49,7 +49,7 @@ class NotificationView extends React.Component {
   renderEmpty() {
     return (<li className="tui-notification-item">
       <div className="tui-notification-content">
-        <p className="tui-notification-message"No new notifications. When you receive any, they'll show up here.</p>
+        <p className="tui-notification-message">No new notifications. When you receive any, they'll show up here.</p>
       </div>
     </li>);
   }
