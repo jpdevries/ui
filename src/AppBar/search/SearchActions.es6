@@ -8,8 +8,8 @@ const SearchActions = Reflux.createActions({
 
 SearchActions.getSuggestions.listen(function(input, config) {
   superagent.
-    post(`${config.projects.url}/api/search`).
-    send({input: input}).
+    get(`${config.projects.url}/api/search/suggest`).
+    query({input: input}).
     withCredentials().
     end((error, response) => {
       !error && response.ok ?
