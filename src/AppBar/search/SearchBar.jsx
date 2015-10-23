@@ -11,7 +11,6 @@ const ENTER_KEY_CODE = 13;
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
-    this._handleFormInput = this._handleFormInput.bind(this);
     this.state = {
       searchTerm: '',
       selectedSuggestionIdx: -1,
@@ -23,12 +22,12 @@ class SearchBar extends React.Component {
   componentDidMount() {
     SearchActions.getSuggestions.completed.listen(this._onGetSuggestionsCompleted);
     React.findDOMNode(this.refs.input).
-      addEventListener('keydown', e => this._handleKeyDown(e));
+      addEventListener('keydown', this._handleKeyDown);
   }
 
   componentWillUnmount() {
     React.findDOMNode(this.refs.input).
-      removeEventListener('keydown', e => this._handleKeyDown(e));
+      removeEventListener('keydown', this._handleKeyDown);
   }
 
   componentWillReceiveProps(newProps) {
@@ -48,7 +47,7 @@ class SearchBar extends React.Component {
     });
   }
 
-  _handleFormInput(event) {
+  _handleFormInput = (event) => {
     SearchActions.getSuggestions(event.target.value, this.props.config);
     this.setState({searchTerm: event.target.value});
   }
@@ -134,7 +133,7 @@ class SearchBar extends React.Component {
               type="text"
               onChange={this._handleFormInput}
               value={searchTerm}/>
-          {searchTerm.length &&
+          {!!searchTerm.length &&
             <Icon
                 name="close"
                 className="icon-close"
@@ -145,11 +144,11 @@ class SearchBar extends React.Component {
           <div className="search-suggestions">
             {suggestions.map((term, idx) => (
               <div
-                  key={idx}
+                  key={term.text}
                   className={cx(
                     "suggestion-item",
                     {"suggestion-item__active": idx === selectedSuggestionIdx})}
-                  onClick={e => this._handleSubmitForm(e)}
+                  onClick={this._handleSubmitForm}
                   onMouseEnter={e => this._handleSuggestionMouseEnter(idx)}>
                 <p>{term.text}</p>
               </div>))

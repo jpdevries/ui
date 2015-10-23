@@ -37,6 +37,7 @@ class NavLink extends React.Component {
 
 class SearchLink extends React.Component {
     static displayName = "SearchLink";
+
     static propTypes = {
         displayName: React.PropTypes.string,
         icon: React.PropTypes.string,
