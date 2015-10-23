@@ -118,13 +118,13 @@ class AppNav extends React.Component {
                className={dropdownContentClasses}>
             <div className="app-nav-section-header">Workshops</div>
             <div className="app-nav-courses">
-              <CourseLink href="//start.thinkful.com/workshops-nodejs/"
+              <CourseLink href="//www.thinkful.com/courses/learn-nodejs-online-workshops/"
                           icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/node.svg"
                           name="Node.js" />
-              <CourseLink href="//start.thinkful.com/workshops-react/"
+              <CourseLink href="//www.thinkful.com/courses/learn-react-online-workshops/"
                           icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/react.svg"
                           name="React" />
-              <CourseLink href="//start.thinkful.com/workshops-frontend/"
+              <CourseLink href="//www.thinkful.com/courses/learn-frontend-online-workshops/"
                           icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/frontend.svg"
                           name="Frontend" />
             </div>
