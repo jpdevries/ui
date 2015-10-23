@@ -91,7 +91,10 @@ class SearchBar extends React.Component {
   }
 
   _handleSuggestionMouseEnter = (idx) => {
-    this.setState({selectedSuggestionIdx: idx});
+    this.setState({
+      selectedSuggestionIdx: idx,
+      searchTerm: this.state.suggestions[idx].text
+    });
   }
 
   _handleClearInput = () => {
@@ -107,13 +110,8 @@ class SearchBar extends React.Component {
       event.preventDefault();
     }
     const {config} = this.props;
-    const {selectedSuggestionIdx, suggestions, searchTerm} = this.state;
 
-    const toSearch = selectedSuggestionIdx > -1 ?
-      suggestions[selectedSuggestionIdx].text
-    : search;
-
-    window.location = `${config.projects.url}/search?q=${toSearch}`;
+    window.location = `${config.projects.url}/search?q=${this.state.searchTerm}`;
   }
 
   render() {
@@ -151,7 +149,7 @@ class SearchBar extends React.Component {
                   className={cx(
                     "suggestion-item",
                     {"suggestion-item__active": idx === selectedSuggestionIdx})}
-                  onClick={e => this._handleClickSuggestion(term.text)}
+                  onClick={e => this._handleSubmitForm(e)}
                   onMouseEnter={e => this._handleSuggestionMouseEnter(idx)}>
                 <p>{term.text}</p>
               </div>))
