@@ -96,15 +96,36 @@ function mergeIntoDict(dest, src) {
     return dest;
 }
 
-function fallback() {
-    const argsArray = Array.prototype.slice.call(arguments);
+console.log(__env);
 
+
+function tryEmail() {
+    // Check if the user is logged in
+    if (__env.user && __env.user.tf_login) {
+        return __env.user.tf_login;
+    }
+
+    // Check the URL parameters
+    if (urlParams.email) {
+        return decodeURIComponent(urlParams.email).toLowerCase()
+    }
+
+    // Check the form fields
+    let emailFields = document.querySelectorAll('[name="email"]');
+    if (emailFields.length && emailFields[0].value.length) {
+        return emailFields[0].value;
+    }
+}
+
+function fallback(callback, postData) {
+    console.log(postData);
     superagent.
         post(`${__env.config.oilbird.url}/echo`).
-        send(argsArray).
+        send(postData).
         withCredentials().
         end((error, response) => {
             console.log(response);
+            typeof callback === 'function' && callback();
         });
 }
 
@@ -135,7 +156,12 @@ function track(event, properties, options, fn) {
     if (global.analytics && global.analytics.initialize) {
         global.analytics.track(event, properties, options, fn);
     } else {
-        fallback('track', event, properties, options, fn);
+        fallback(fn, {
+            'call': 'track',
+            'email': tryEmail(),
+            'name': event,
+            'data': properties
+        });
     }
 }
 
@@ -146,16 +172,14 @@ function identify(id, traits, options, fn) {
     if (is.fn(traits)) fn = traits, options = null, traits = null;
     if (is.object(id)) options = traits, traits = id, id = user.id();
 
-    var email = (__env.user && global.__env.user.tf_login) || (
-        urlParams.email && decodeURIComponent(
-            urlParams.email).toLowerCase());
+    let email = tryEmail();
     if (email && !id) {
         id = email;
 
         // Check if we previously had a different email on file
         // for the user, and alias this email address to it
-        if (cookies.user_email&& (email !== cookies.user_email)
-                && (cookies.user_email.indexOf("@thinkful.com") > -1)) {
+        if (cookies.user_email && (email !== cookies.user_email)
+                && (cookies.user_email.indexOf('@thinkful.com') > -1)) {
             alias(email, alias.user_email);
         }
     }
