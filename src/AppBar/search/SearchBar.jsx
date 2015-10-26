@@ -165,6 +165,7 @@ class SearchBar extends React.Component {
             }
           </div>
         }
+        <a className="click-away" onClick={this._handleClickAway}>Cancel</a>
       </div>
       )
   }

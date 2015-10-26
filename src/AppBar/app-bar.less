@@ -120,8 +120,13 @@
   font-size: 0;
 
   @media @tablet {
+    display: none;
+  }
+
+  @media screen and (min-width: 960px) {
     left: 50%;
     transform: translate(-50%, -50%);
+    display: inline-block;
   }
 }
 
