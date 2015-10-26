@@ -19,6 +19,18 @@
   pointer-events: none;
 }
 
+.search-underlay {
+  position: absolute;
+  width: 100vw;
+  height: ~"calc(100vh - 286px)";
+  top: 240px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-image: linear-gradient(@white, transparent);
+  z-index: -1;
+}
+
 .search-form {
   .col-width(6);
   display: block;
@@ -26,6 +38,7 @@
   margin-right: auto;
   padding-top: 45px;
   padding-bottom: 45px;
+  z-index: 1;
 
   .search-heading {
     top: 0;
@@ -63,6 +76,7 @@
   border-top: 2px solid @gray15;
   border-bottom: 2px solid @gray15;
   color: @gray75;
+  z-index: 1;
   // box-shadow: 0 0px 15px 3px @gray25;
 }
 

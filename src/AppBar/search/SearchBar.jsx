@@ -23,6 +23,9 @@ class SearchBar extends React.Component {
     SearchActions.getSuggestions.completed.listen(this._onGetSuggestionsCompleted);
     React.findDOMNode(this.refs.input).
       addEventListener('keydown', this._handleKeyDown);
+    React.findDOMNode(this.refs.underlay).
+      addEventListener('click', this._handleClickAway);
+
   }
 
   componentWillUnmount() {
@@ -45,6 +48,11 @@ class SearchBar extends React.Component {
           -1
         : this.state.selectedSuggestionIdx
     });
+  }
+
+  _handleClickAway = (event) => {
+    const {handleClickAway} = this.props;
+    handleClickAway(event);
   }
 
   _handleFormInput = (event) => {
@@ -121,7 +129,7 @@ class SearchBar extends React.Component {
 
     return (
       <div className={cx("search-bar", {"search-bar__hidden": !open})}>
-        <div className="search-underlay"/>
+        <div className="search-underlay" ref="underlay"/>
         <form
             className="search-form"
             onSubmit={this._handleSubmitForm}>

@@ -50,7 +50,7 @@ class SearchLink extends React.Component {
         this.state = {open: false}
     }
 
-    _toggleSearchForm(event) {
+    _toggleSearchForm = event => {
         event.preventDefault();
         this.setState({open: !this.state.open});
     }
@@ -62,7 +62,7 @@ class SearchLink extends React.Component {
         return (
             <div className="search-container">
                 <a className={cx(className, "app-nav-link")}
-                   onClick={e => this._toggleSearchForm(e)}>
+                   onClick={this._toggleSearchForm}>
                     {icon &&
                         <Icon className="app-nav-icon" name={icon}/>
                     }
@@ -72,7 +72,8 @@ class SearchLink extends React.Component {
                 </a>
                 <SearchBar
                         config={config}
-                        open={open}/>
+                        open={open}
+                        handleClickAway={this._toggleSearchForm}/>
             </div>
         )
     }
