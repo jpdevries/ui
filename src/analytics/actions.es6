@@ -41,7 +41,7 @@ function tryEmail() {
     }
 
     // Check the form fields
-    let emailFields = document.querySelectorAll('[name="email"]');
+    const emailFields = document.querySelectorAll('[name="email"]');
     if (emailFields.length && emailFields[0].value.length) {
         return emailFields[0].value;
     }
@@ -54,7 +54,7 @@ function fallback(callback, postData) {
         send(postData).
         withCredentials().
         end((error, response) => {
-            typeof callback === 'function' && callback();
+            is.fn(callback) && callback();
         });
 }
 
@@ -139,9 +139,8 @@ function identify(id, traits, options, fn) {
 
         // Check if we previously had a different email on file
         // for the user, and alias this email address to it
-        if (cookies.user_email && (email !== cookies.user_email)
-                && (cookies.user_email.indexOf('@thinkful.com') > -1)) {
-            alias(email, alias.user_email);
+        if (cookies.user_email && (email !== cookies.user_email)) {
+            alias(email, cookies.user_email);
         }
     }
 
@@ -156,10 +155,12 @@ function alias(to, from, options, fn) {
     if (is.fn(from)) fn = from, options = null, from = null;
     if (is.object(from)) options = from, from = null;
 
-    // TODO: Don't alias thinkful.com emails.
+    if (to.indexOf('@thinkful.com') == -1 &&
+            from.indexOf('@thinkful.com') == -1) {
 
-    global.analytics &&
-        global.analytics.alias(to, from, options, fn);
+        global.analytics &&
+            global.analytics.alias(to, from, options, fn);
+    }
 }
 
 
