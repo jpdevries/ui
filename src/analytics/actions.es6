@@ -15,38 +15,47 @@ const cookies = _.object(_.map(document.cookie.split('; '), function(cookie) {
     return [name, decodeURIComponent(value)];
 }));
 
-function load(writeKey) {
-    if (global.analytics) {
-        return global.analytics;
+function mergeIntoDict(dest, src) {
+    src = src || {};
+    dest = dest || {};
+
+    for (let key in src) {
+        if (!dest.hasOwnProperty(key)) {
+            dest[key] = src[key];
+        }
     }
 
-    let head = global.document.head;
-    let meta;
+    return dest;
+}
 
-    // Select from <meta property="x-tf-segmentio-token" content={writeKey} />
-    if (!writeKey) {
-        meta = head.querySelector('meta[property=x-tf-segmentio-token]');
-        writeKey = meta && meta.content;
+// Lots of ways of trying to find the user's email
+function tryEmail() {
+    // Check if the user is logged in
+    if (__env.user && __env.user.tf_login) {
+        return __env.user.tf_login;
     }
 
-    // Select from <meta content="segmentio" data-token={writeKey} />
-    if (!writeKey) {
-        meta = head.querySelector('meta[content=segmentio]');
-        writeKey = meta && meta.dataset.token;
-
+    // Check the URL parameters
+    if (urlParams.email) {
+        return decodeURIComponent(urlParams.email).toLowerCase()
     }
 
-    // Raise visibility of error… analytics are important
-    if (!writeKey) {
-        throw new Error('SegmentIO write key is undefined');
+    // Check the form fields
+    let emailFields = document.querySelectorAll('[name="email"]');
+    if (emailFields.length && emailFields[0].value.length) {
+        return emailFields[0].value;
     }
+}
 
-    // Mount segment script and global analytics object
-    mountSegmentIO();
-    // Configure with write key
-    global.analytics.load(writeKey);
-
-    return global.analytics;
+// Failsafe for if segment breaks for some reason
+function fallback(callback, postData) {
+    superagent.
+        post(`${__env.config.oilbird.url}/echo`).
+        send(postData).
+        withCredentials().
+        end((error, response) => {
+            typeof callback === 'function' && callback();
+        });
 }
 
 function mountSegmentIO() {
@@ -83,50 +92,61 @@ function mountSegmentIO() {
     return analytics;
 }
 
-function mergeIntoDict(dest, src) {
-    src = src || {};
-    dest = dest || {};
+function load(writeKey) {
+    if (global.analytics) {
+        return global.analytics;
+    }
 
-    for (let key in src) {
-        if (!dest.hasOwnProperty(key)) {
-            dest[key] = src[key];
+    let head = global.document.head;
+    let meta;
+
+    // Select from <meta property="x-tf-segmentio-token" content={writeKey} />
+    if (!writeKey) {
+        meta = head.querySelector('meta[property=x-tf-segmentio-token]');
+        writeKey = meta && meta.content;
+    }
+
+    // Select from <meta content="segmentio" data-token={writeKey} />
+    if (!writeKey) {
+        meta = head.querySelector('meta[content=segmentio]');
+        writeKey = meta && meta.dataset.token;
+
+    }
+
+    // Raise visibility of error… analytics are important
+    if (!writeKey) {
+        throw new Error('SegmentIO write key is undefined');
+    }
+
+    // Mount segment script and global analytics object
+    mountSegmentIO();
+    // Configure with write key
+    global.analytics.load(writeKey);
+
+    return global.analytics;
+}
+
+// This event mirrors the call signature of global.analytics.identify
+function identify(id, traits, options, fn) {
+    // Argument reshuffling, from original library.
+    if (is.fn(options)) fn = options, options = null;
+    if (is.fn(traits)) fn = traits, options = null, traits = null;
+    if (is.object(id)) options = traits, traits = id, id = user.id();
+
+    let email = tryEmail();
+    if (email && !id) {
+        id = email;
+
+        // Check if we previously had a different email on file
+        // for the user, and alias this email address to it
+        if (cookies.user_email && (email !== cookies.user_email)
+                && (cookies.user_email.indexOf('@thinkful.com') > -1)) {
+            alias(email, alias.user_email);
         }
     }
 
-    return dest;
-}
-
-console.log(__env);
-
-
-function tryEmail() {
-    // Check if the user is logged in
-    if (__env.user && __env.user.tf_login) {
-        return __env.user.tf_login;
-    }
-
-    // Check the URL parameters
-    if (urlParams.email) {
-        return decodeURIComponent(urlParams.email).toLowerCase()
-    }
-
-    // Check the form fields
-    let emailFields = document.querySelectorAll('[name="email"]');
-    if (emailFields.length && emailFields[0].value.length) {
-        return emailFields[0].value;
-    }
-}
-
-function fallback(callback, postData) {
-    console.log(postData);
-    superagent.
-        post(`${__env.config.oilbird.url}/echo`).
-        send(postData).
-        withCredentials().
-        end((error, response) => {
-            console.log(response);
-            typeof callback === 'function' && callback();
-        });
+    global.analytics &&
+        global.analytics.identify(id, traits, options, fn);
 }
 
 // This event mirrors the call signature of global.analytics.alias
@@ -165,29 +185,6 @@ function track(event, properties, options, fn) {
     }
 }
 
-// This event mirrors the call signature of global.analytics.identify
-function identify(id, traits, options, fn) {
-    // Argument reshuffling, from original library.
-    if (is.fn(options)) fn = options, options = null;
-    if (is.fn(traits)) fn = traits, options = null, traits = null;
-    if (is.object(id)) options = traits, traits = id, id = user.id();
-
-    let email = tryEmail();
-    if (email && !id) {
-        id = email;
-
-        // Check if we previously had a different email on file
-        // for the user, and alias this email address to it
-        if (cookies.user_email && (email !== cookies.user_email)
-                && (cookies.user_email.indexOf('@thinkful.com') > -1)) {
-            alias(email, alias.user_email);
-        }
-    }
-
-    global.analytics &&
-        global.analytics.identify(id, traits, options, fn);
-}
-
 // This event mirrors the call signature of global.analytics.page
 function page(category, name, properties, options, fn) {
     // Argument reshuffling, from original library.
@@ -206,8 +203,9 @@ function page(category, name, properties, options, fn) {
 }
 
 module.exports = {
-    track,
+    load,
     identify,
-    page,
-    load
+    alias,
+    track,
+    page
 }
