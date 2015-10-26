@@ -31,6 +31,8 @@ class SearchBar extends React.Component {
   componentWillUnmount() {
     React.findDOMNode(this.refs.input).
       removeEventListener('keydown', this._handleKeyDown);
+    React.findDOMNode(this.refs.underlay).
+      removeEventListener('click', this._handleClickAway);
   }
 
   componentWillReceiveProps(newProps) {
