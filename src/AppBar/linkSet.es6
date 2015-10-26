@@ -20,6 +20,13 @@ if (global.__env) {
     config = mapValues(
         global.__env.config,
         (link, key) => assign({}, link, config[key]));
+
+    // Search behaves differently because it is not actually a link
+    config['search'] = {
+        displayName: 'Search',
+        icon: 'search',
+        search: true
+    }
 }
 
 let home = {displayName: 'Home', icon: 'home'};
@@ -45,6 +52,7 @@ else {
         defaults(home, config.dashboard);
 
         if (/admin/.test(user.role)) {
+            main.push(config.search);
             menu.push(config.courses);
         }
     }

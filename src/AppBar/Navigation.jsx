@@ -6,7 +6,7 @@ const uniqueId = require('lodash/utility/uniqueId');
 // TUI Components
 const {Icon} = require('../Icon');
 const {Gravatar} = require('../Gravatar');
-const {NavLink} = require('./NavLink');
+const {NavLink, SearchLink} = require('./NavLink');
 const {Notifications} = require('./notifications/Notifications');
 const {CourseLink} = require('./CourseLink');
 const linkSet = require('./linkSet');
@@ -67,6 +67,8 @@ class AppNav extends React.Component {
     renderAuthed(user, config) {
         const navClassName = cx(
             'app-nav', {'app-nav__visible': this.state.isMenuVisible});
+        const navLinks = linkSet.main.filter(link => !link.search);
+        const searchLink = linkSet.main.filter(link => link.search)[0];
 
         return (
             <div className='app-nav-container'>
@@ -77,9 +79,11 @@ class AppNav extends React.Component {
                     <a href={linkSet.home.url}><div dangerouslySetInnerHTML={{__html: require('./images/white_t_logo.svg')}}>
                     </div></a>
                     <ul className="app-nav-main">
-                        {linkSet.main.map(
+                        {navLinks.map(
                             (link) => <li key={uniqueId(link)}>
                                 <NavLink {...link} /></li>)}
+                        {searchLink &&
+                          <li><SearchLink {...searchLink} config={config}/></li>}
                     </ul>
                     <ul onMouseEnter={this._handleMouseEnter}
                         className="app-nav-list">
