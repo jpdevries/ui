@@ -1,6 +1,6 @@
 {
   "name": "thinkful-ui",
-  "version": "1.1.32",
+  "version": "1.1.33",
   "description": "Shared navigation and UI resources for Thinkful.",
   "main": "src/index.es6",
   "scripts": {
@@ -9,12 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Thinkful/ui.git"
+    "url": "git+https://github.com/Thinkful/ui.git"
   },
   "keywords": [
     "Thinkful"
   ],
-  "author": "Thinkful <engineering@thinkful.com>",
+  "author": {
+    "name": "Thinkful",
+    "email": "engineering@thinkful.com"
+  },
   "license": "Copyright",
   "bugs": {
     "url": "https://github.com/Thinkful/ui/issues"
@@ -22,20 +25,20 @@
   "homepage": "https://github.com/Thinkful/ui",
   "contributors": [
     {
-      "email": "learykara@gmail.com",
-      "name": "Kara Leary"
+      "name": "Kara Leary",
+      "email": "learykara@gmail.com"
     },
     {
-      "email": "benjamin.e.white1@gmail.com",
-      "name": "Benjamin White"
+      "name": "Benjamin White",
+      "email": "benjamin.e.white1@gmail.com"
     },
     {
-      "email": "robert@rkuykendall.com",
-      "name": "Robert Kuykendall"
+      "name": "Robert Kuykendall",
+      "email": "robert@rkuykendall.com"
     },
     {
-      "email": "saul@thinkful.com",
-      "name": "Saul Diez-Guerra"
+      "name": "Saul Diez-Guerra",
+      "email": "saul@thinkful.com"
     }
   ],
   "dependencies": {
@@ -80,5 +83,11 @@
     "ejs": "^1.0.0",
     "react-router": "^0.13.3",
     "react-demo": "^0.2.4"
-  }
+  },
+  "readme": "# UI\nShared React components and WebPack config for Thinkful applications.\n\n`/src`\n\nCode for the shared components.\n\n`/client`\n\nCode for the demo page.\n\n`/demo`\n\nCode for the demo server that serves the demo page.\n\n`/script`\n\nStandard bootstrap scripts (Thinkful convention).\n",
+  "readmeFilename": "README.md",
+  "gitHead": "318f08b74c385ffc0c6b3e219e5ab1c57eedf3d9",
+  "_id": "thinkful-ui@1.1.32",
+  "_shasum": "c4f676844b1499b4ed0c55a72c6d6a017123fbf4",
+  "_from": "thinkful-ui@>=1.0.13 <2.0.0"
 }
