@@ -180,8 +180,8 @@ function track(event, properties, options, fn) {
         fallback(fn, {
             'call': 'track',
             'email': tryEmail(),
-            'name': event,
-            'data': properties
+            'event': event,
+            'properties': properties
         });
     }
 }
