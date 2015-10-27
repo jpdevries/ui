@@ -40,6 +40,11 @@ function tryEmail() {
         return decodeURIComponent(urlParams.email).toLowerCase()
     }
 
+    // Try the cookies
+    if (cookies.user_email) {
+        return cookies.user_email;
+    }
+
     // Check the form fields
     const emailFields = document.querySelectorAll('[name="email"]');
     if (emailFields.length && emailFields[0].value.length) {
@@ -155,6 +160,7 @@ function alias(to, from, options, fn) {
     if (is.fn(from)) fn = from, options = null, from = null;
     if (is.object(from)) options = from, from = null;
 
+    // Aliasing Thinkful emails is dangerous, as we impersonate
     if (to.indexOf('@thinkful.com') == -1 &&
             from.indexOf('@thinkful.com') == -1) {
 
