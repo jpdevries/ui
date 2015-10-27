@@ -17,7 +17,17 @@
 }
 
 .footer-timezone {
-  max-width: @grid-width;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 15px;
+
+  @media @nonmobile {
+    padding-left: 0;
+    padding-right: 0;
+    margin-bottom: 30px;
+  }
+  width: @grid-width;
+  max-width: 100%;
   margin-left: auto;
   margin-right: auto;
   color: @gray50;
