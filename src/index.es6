@@ -10,9 +10,9 @@ const {Loader} = require('./Loader');
 const {Modal} = require('./Modal');
 const {NotificationView} = require('./NotificationView');
 const {OpenSessionOverview} = require('./OpenSessionOverview');
+const {pathWithSlug, pathWithoutSlug} = require('./ProxyPathUtils');
 const {SidebarLayout, SidebarMenu, SidebarMenuItem} = require('./Sidebar');
 const {TrackedLink, AnalyticsAPI} = require('./analytics');
-
 const {models} = require('./models');
 
 module.exports = {
@@ -29,6 +29,7 @@ module.exports = {
   MenuItem: SidebarMenuItem,
   NotificationView,
   OpenSessionOverview,
+  pathWithSlug, pathWithoutSlug,
   SidebarLayout,
   SidebarMenu,
   SidebarMenuItem,
