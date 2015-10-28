@@ -169,7 +169,7 @@ class AppNav extends React.Component {
             <div className="app-nav-courses">
               <CourseLink href="//www.thinkful.com/courses/frontend-development-career-path"
                           icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/career.svg"
-                          name="Frontend Career Path" />
+                          name="Web Development Career Path" />
             </div>
             <div className="app-nav-courses app-nav-courses__center">
               <CourseLink href="//www.thinkful.com/courses/"
