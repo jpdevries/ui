@@ -10,6 +10,7 @@ const {Loader} = require('./Loader');
 const {Modal} = require('./Modal');
 const {NotificationView} = require('./NotificationView');
 const {OpenSessionOverview} = require('./OpenSessionOverview');
+const {SearchBar} = require('./SearchBar');
 const {SidebarLayout, SidebarMenu, SidebarMenuItem} = require('./Sidebar');
 const {TrackedLink, AnalyticsAPI} = require('./analytics');
 
@@ -29,6 +30,7 @@ module.exports = {
   MenuItem: SidebarMenuItem,
   NotificationView,
   OpenSessionOverview,
+  SearchBar,
   SidebarLayout,
   SidebarMenu,
   SidebarMenuItem,

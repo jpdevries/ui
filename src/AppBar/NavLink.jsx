@@ -2,7 +2,7 @@ const cx = require('classnames');
 const React = require('react');
 const {Icon} = require('../Icon');
 
-const {SearchActions, SearchBar} = require('./search');
+const {SearchBar} = require('../SearchBar');
 
 /**
  * NavLink
@@ -72,8 +72,13 @@ class SearchLink extends React.Component {
                 </a>
                 <SearchBar
                         config={config}
+                        className={cx(
+                            'search-bar__nav', {'search-bar__hidden': !open})}
                         open={open}
-                        handleClickAway={this._toggleSearchForm}/>
+                        underlay={true}
+                        heading="What would you like to learn?"
+                        handleClickAway={this._toggleSearchForm}>
+                </SearchBar>
             </div>
         )
     }
