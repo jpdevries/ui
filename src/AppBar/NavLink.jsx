@@ -52,11 +52,12 @@ class SearchLink extends React.Component {
 
     _handleSearchClick = event => {
         event.preventDefault();
-        const {config, mobile} = this.props;
+        const {active, config, mobile} = this.props;
 
-        mobile ?
-            window.location = `${config.projects.url}/search`
-        :   this.setState({open: !this.state.open});
+        !active && (
+            mobile ?
+                window.location = `${config.projects.url}/search`
+            :   this.setState({open: !this.state.open}));
     }
 
     render() {
