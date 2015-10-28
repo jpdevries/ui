@@ -50,9 +50,13 @@ class SearchLink extends React.Component {
         this.state = {open: false}
     }
 
-    _toggleSearchForm = event => {
+    _handleSearchClick = event => {
         event.preventDefault();
-        this.setState({open: !this.state.open});
+        const {config, mobile} = this.props;
+
+        mobile ?
+            window.location = `${config.projects.url}/search`
+        :   this.setState({open: !this.state.open});
     }
 
     render() {
@@ -62,7 +66,7 @@ class SearchLink extends React.Component {
         return (
             <div className="search-container">
                 <a className={cx(className, "app-nav-link")}
-                   onClick={this._toggleSearchForm}>
+                   onClick={this._handleSearchClick}>
                     {icon &&
                         <Icon className="app-nav-icon" name={icon}/>
                     }

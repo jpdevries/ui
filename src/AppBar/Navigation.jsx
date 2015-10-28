@@ -97,6 +97,7 @@ class AppNav extends React.Component {
                             <SearchLink
                                 {...searchLink}
                                 className="app-nav-link__mobile-only"
+                                mobile={true}
                                 config={config}/>
                           </li>}
                         {linkSet.menu.map(

@@ -22,7 +22,6 @@ class SearchBar extends React.Component {
       selectedSuggestionIdx: -1,
       suggestions: []
     }
-    console.log(this.state);
   }
 
   componentDidMount() {
@@ -32,6 +31,8 @@ class SearchBar extends React.Component {
 
     const underlay = React.findDOMNode(this.refs.underlay);
     underlay && underlay.addEventListener('click', this._handleClickAway);
+
+    this._autoFocus();
   }
 
   componentWillUnmount() {
@@ -174,7 +175,6 @@ class SearchBar extends React.Component {
             }
           </div>
         }
-        <a className="click-away" onClick={this._handleClickAway}>Cancel</a>
       </div>
       )
   }
