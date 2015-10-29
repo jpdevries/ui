@@ -2,6 +2,7 @@ const cx = require('classnames');
 const React = require('react');
 const {Icon} = require('../Icon');
 
+const AnalyticsApi = require('../analytics/actions');
 const {SearchBar} = require('../SearchBar');
 
 /**
@@ -53,6 +54,10 @@ class SearchLink extends React.Component {
     _handleSearchClick = event => {
         event.preventDefault();
         const {active, config, mobile} = this.props;
+        AnalyticsApi.track('clicked-search', {
+            cateogry: 'splash-home',
+            label: 'splash-header'
+        });
 
         !active && (
             mobile ?
