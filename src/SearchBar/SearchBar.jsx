@@ -128,7 +128,8 @@ class SearchBar extends React.Component {
     }
     const {config} = this.props;
 
-    window.location = `${config.projects.url}/search?q=${this.state.searchTerm}`;
+    window.location = `${config.projects.url}/search?q=${
+      encodeURIComponent(this.state.searchTerm)}`;
   }
 
   render() {
