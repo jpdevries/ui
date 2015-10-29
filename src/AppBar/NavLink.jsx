@@ -54,10 +54,13 @@ class SearchLink extends React.Component {
     _handleSearchClick = event => {
         event.preventDefault();
         const {active, config, mobile} = this.props;
-        AnalyticsApi.track('clicked-search', {
-            cateogry: 'splash-home',
-            label: 'splash-header'
-        });
+
+        if (!this.state.open) {
+            AnalyticsApi.track('clicked-search', {
+                cateogry: 'splash-home',
+                label: 'splash-header'
+            });
+        }
 
         !active && (
             mobile ?
@@ -87,7 +90,7 @@ class SearchLink extends React.Component {
                         open={open}
                         underlay={true}
                         heading="What would you like to learn?"
-                        handleClickAway={this._toggleSearchForm}>
+                        handleClickAway={this._handleSearchClick}>
                 </SearchBar>
             </div>
         )
