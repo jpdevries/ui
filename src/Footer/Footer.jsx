@@ -53,7 +53,7 @@ function generateLinkSet(config) {
 class Footer extends React.Component {
   static propTypes = {
     config: React.PropTypes.object,
-    includeTz: React.PropTypes.boolean
+    includeTz: React.PropTypes.bool
   }
 
   static defaultProps = {

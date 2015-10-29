@@ -2,6 +2,7 @@ const cx = require('classnames');
 const React = require('react');
 const {Icon} = require('../Icon');
 
+const AnalyticsApi = require('../analytics/actions');
 const {SearchBar} = require('../SearchBar');
 
 /**
@@ -54,6 +55,13 @@ class SearchLink extends React.Component {
         event.preventDefault();
         const {active, config, mobile} = this.props;
 
+        if (!this.state.open) {
+            AnalyticsApi.track('clicked-search', {
+                cateogry: 'splash-home',
+                label: 'splash-header'
+            });
+        }
+
         !active && (
             mobile ?
                 window.location = `${config.projects.url}/search`
@@ -82,7 +90,7 @@ class SearchLink extends React.Component {
                         open={open}
                         underlay={true}
                         heading="What would you like to learn?"
-                        handleClickAway={this._toggleSearchForm}>
+                        handleClickAway={this._handleSearchClick}>
                 </SearchBar>
             </div>
         )
