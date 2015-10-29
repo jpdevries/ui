@@ -25,7 +25,8 @@ if (global.__env) {
     config['search'] = {
         displayName: 'Search',
         icon: 'search',
-        search: true
+        search: true,
+        url: `${config.projects.url}/search`
     }
 }
 

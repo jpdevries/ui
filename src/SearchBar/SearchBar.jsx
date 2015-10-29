@@ -1,7 +1,7 @@
 const React = require('react');
 const cx = require('classnames');
 
-const {Icon} = require('../../Icon');
+const {Icon} = require('../Icon');
 const {SearchActions} = require('./SearchActions');
 
 const DOWN_ARROW_KEY_CODE = 40;
@@ -9,12 +9,17 @@ const UP_ARROW_KEY_CODE = 38;
 const ENTER_KEY_CODE = 13;
 
 class SearchBar extends React.Component {
+  static defaultProps = {
+    underlay: false,
+    heading: false,
+    open: false
+  }
+
   constructor(props) {
     super(props);
     this.state = {
-      searchTerm: '',
+      searchTerm: this.props.initialSearchTerm || '',
       selectedSuggestionIdx: -1,
-      suggestedEnd: '',
       suggestions: []
     }
   }
@@ -23,9 +28,11 @@ class SearchBar extends React.Component {
     SearchActions.getSuggestions.completed.listen(this._onGetSuggestionsCompleted);
     React.findDOMNode(this.refs.input).
       addEventListener('keydown', this._handleKeyDown);
-    React.findDOMNode(this.refs.underlay).
-      addEventListener('click', this._handleClickAway);
 
+    const underlay = React.findDOMNode(this.refs.underlay);
+    underlay && underlay.addEventListener('click', this._handleClickAway);
+
+    this._autoFocus();
   }
 
   componentWillUnmount() {
@@ -112,6 +119,7 @@ class SearchBar extends React.Component {
       selectedSuggestionIdx: -1,
       suggestions: []
     });
+    this._autoFocus();
   }
 
   _handleSubmitForm = (event) => {
@@ -124,18 +132,20 @@ class SearchBar extends React.Component {
   }
 
   render() {
-    const {open} = this.props;
+    const {className, heading, underlay, open} = this.props;
     const {
-      searchTerm, selectedSuggestionIdx, suggestedEnd, suggestions
+      searchTerm, selectedSuggestionIdx, suggestions
     } = this.state;
 
     return (
-      <div className={cx("search-bar", {"search-bar__hidden": !open})}>
-        <div className="search-underlay" ref="underlay"/>
+      <div className={cx("search-bar", className)}>
+        {underlay &&
+          <div className="search-underlay" ref="underlay"/>}
         <form
             className="search-form"
             onSubmit={this._handleSubmitForm}>
-          <h4 className="search-heading">What would you like to learn?</h4>
+          {!!heading &&
+            <h4 className="search-heading">{heading}</h4>}
           <Icon name="search" className="icon-search"/>
           <input
               className="search-input"

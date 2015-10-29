@@ -20,13 +20,17 @@
 
 .session__past {
   .session-image-wrapper {
-    padding-top: 45px;
+    padding-top: 35px;
     .image-secondary {
-      @media @big {
-        top: 90px;
+      @media @nonmobile {
+        top: 65px;
+      }
+      @media @tablet {
+        top: -45px;
       }
     }
   }
+
 }
 
 .session-image-wrapper {
@@ -72,10 +76,12 @@
     position: absolute;
     width: 60px;
     height: 60px;
+    top: 45px;
     right: 0;
 
     @media @nonmobile {
       position: static;
+      top: 0;
       width: 75px;
       height: 75px;
     }
@@ -98,7 +104,7 @@
     right: 45px;
     width: 30px;
     height: 30px;
-    top: 95px;
+    top: 75px;
 
     @media @nonmobile {
       width: 45px;
@@ -108,7 +114,8 @@
     }
 
     @media @tablet {
-      top: 135px;
+      position: relative;
+      top: -45px;
       left: 75px;
     }
   }
@@ -180,7 +187,7 @@
   .title {
     margin-bottom: 15px;
     padding-top: 0;
-    max-width: 80%;
+    max-width: 75%;
 
     @media @nonmobile {
       padding-top: initial;

@@ -2,7 +2,7 @@ const cx = require('classnames');
 const React = require('react');
 const {Icon} = require('../Icon');
 
-const {SearchActions, SearchBar} = require('./search');
+const {SearchBar} = require('../SearchBar');
 
 /**
  * NavLink
@@ -50,9 +50,14 @@ class SearchLink extends React.Component {
         this.state = {open: false}
     }
 
-    _toggleSearchForm = event => {
+    _handleSearchClick = event => {
         event.preventDefault();
-        this.setState({open: !this.state.open});
+        const {active, config, mobile} = this.props;
+
+        !active && (
+            mobile ?
+                window.location = `${config.projects.url}/search`
+            :   this.setState({open: !this.state.open}));
     }
 
     render() {
@@ -62,7 +67,7 @@ class SearchLink extends React.Component {
         return (
             <div className="search-container">
                 <a className={cx(className, "app-nav-link")}
-                   onClick={this._toggleSearchForm}>
+                   onClick={this._handleSearchClick}>
                     {icon &&
                         <Icon className="app-nav-icon" name={icon}/>
                     }
@@ -72,8 +77,13 @@ class SearchLink extends React.Component {
                 </a>
                 <SearchBar
                         config={config}
+                        className={cx(
+                            'search-bar__nav', {'search-bar__hidden': !open})}
                         open={open}
-                        handleClickAway={this._toggleSearchForm}/>
+                        underlay={true}
+                        heading="What would you like to learn?"
+                        handleClickAway={this._toggleSearchForm}>
+                </SearchBar>
             </div>
         )
     }

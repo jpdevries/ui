@@ -87,11 +87,19 @@ class AppNav extends React.Component {
                     </ul>
                     <ul onMouseEnter={this._handleMouseEnter}
                         className="app-nav-list">
-                        {linkSet.main.map(
+                        {navLinks.map(
                             (link) => <li key={uniqueId(link)}>
                                 <NavLink
                                     className="app-nav-link__mobile-only"
                                     {...link} /></li>)}
+                        {searchLink &&
+                          <li>
+                            <SearchLink
+                                {...searchLink}
+                                className="app-nav-link__mobile-only"
+                                mobile={true}
+                                config={config}/>
+                          </li>}
                         {linkSet.menu.map(
                             (link) => <li key={uniqueId(link)}>
                                 <NavLink
