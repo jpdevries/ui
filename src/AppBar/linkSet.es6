@@ -49,11 +49,11 @@ else {
         menu.push(config.activity);
         main.push(config.workshops);
         main.push(config.library);
+        main.push(config.search);
         menu.push(config.takeStudent);
         defaults(home, config.dashboard);
 
         if (/admin/.test(user.role)) {
-            main.push(config.search);
             menu.push(config.courses);
         }
     }
