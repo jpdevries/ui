@@ -53,7 +53,7 @@ class SearchLink extends React.Component {
 
     _handleSearchClick = event => {
         event.preventDefault();
-        const {active, config, mobile} = this.props;
+        const {url, config, mobile} = this.props;
 
         if (!this.state.open) {
             AnalyticsApi.track('clicked-search', {
@@ -61,6 +61,8 @@ class SearchLink extends React.Component {
                 label: 'splash-header'
             });
         }
+
+        const active = new RegExp(url, 'gi').test(location.toString());
 
         !active && (
             mobile ?
