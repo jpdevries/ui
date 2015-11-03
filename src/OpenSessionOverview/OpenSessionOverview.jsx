@@ -4,6 +4,7 @@ const React = require('react');
 const _ = require('lodash');
 
 const {Icon} = require('../Icon');
+const {Tag} = require('../Tag');
 
 require('./open-session-overview.less');
 
@@ -111,7 +112,7 @@ class OpenSessionOverview extends React.Component {
             {!!tags.length &&
               <div className="session-tags">
                 {tags.map(
-                  (t, idx) => <div className="topic overview-tag" key={idx}>{t}</div>)}
+                  (t, idx) => <Tag key={idx} displayName={t} {...this.props}/>)}
               </div>
             }
             {rsvp_contact_ids && !!rsvp_contact_ids.length &&
