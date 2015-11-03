@@ -18,7 +18,7 @@ class SearchBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchTerm: this.props.initialSearchTerm || '',
+      searchTerm: this._determineSearchTerm() || '',
       selectedSuggestionIdx: -1,
       suggestions: []
     }
@@ -45,6 +45,12 @@ class SearchBar extends React.Component {
 
   componentWillReceiveProps(newProps) {
     if (newProps.open) { this._autoFocus(); }
+  }
+
+  _determineSearchTerm() {
+    const urlParams = location.search.substring(1).split('&');
+    const query = urlParams.filter(set => set.split('=')[0] === 'q');
+    return query.length && decodeURIComponent(query[0].split('=')[1]);
   }
 
   _autoFocus = () => {
@@ -134,7 +140,7 @@ class SearchBar extends React.Component {
   }
 
   render() {
-    const {className, heading, underlay, open} = this.props;
+    const {active, className, config, heading, underlay, open} = this.props;
     const {
       searchTerm, selectedSuggestionIdx, suggestions
     } = this.state;
@@ -143,25 +149,30 @@ class SearchBar extends React.Component {
       <div className={cx("search-bar", className)}>
         {underlay &&
           <div className="search-underlay" ref="underlay"/>}
-        <form
-            className="search-form"
-            onSubmit={this._handleSubmitForm}>
-          {!!heading &&
-            <h4 className="search-heading">{heading}</h4>}
-          <Icon name="search" className="icon-search"/>
-          <input
-              className="search-input"
-              ref="input"
-              type="text"
-              onChange={this._handleFormInput}
-              value={searchTerm}/>
-          {!!searchTerm.length &&
-            <Icon
-                name="close"
-                className="icon-close"
-                onClick={this._handleClearInput}/>
-          }
-        </form>
+        <div className="search-form-container">
+          <form
+              className="search-form"
+              onSubmit={this._handleSubmitForm}>
+            <Icon name="search" className="icon-search"/>
+            <input
+                className="search-input"
+                ref="input"
+                type="text"
+                placeholder="Search"
+                onChange={this._handleFormInput}
+                value={searchTerm}/>
+            {!!searchTerm.length &&
+              <Icon
+                  name="close"
+                  className="icon-close"
+                  onClick={this._handleClearInput}/>
+            }
+          </form>
+          <a className="search-home-link" href={`${config.projects.url}/search`}>
+            Browse by topic
+            <Icon name="navigateright"/>
+          </a>
+        </div>
         {!!suggestions.length &&
           <div className="search-suggestions">
             {suggestions.map((term, idx) => (
