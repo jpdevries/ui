@@ -59,12 +59,12 @@ else {
     }
     else { // Student links
         main.push(config.workshops);
-        if (/core/.test(user.student_type)) {
+        if (user.access.indexOf('core-student') >= 0) {
             defaults(home, config.dashboard);
             main.push(config.library);
         }
         else if (/tfl/.test(user.student_type)) {
-            assign(home,{
+            assign(home, {
                 displayName: 'Library',
                 icon: 'book',
                 host: config.dashboard.host,
