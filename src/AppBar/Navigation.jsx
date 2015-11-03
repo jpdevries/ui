@@ -85,6 +85,16 @@ class AppNav extends React.Component {
                         {searchLink &&
                           <li><SearchLink {...searchLink} config={config}/></li>}
                     </ul>
+                    {searchLink && searchLink.active &&
+                      <ul className="app-nav-search-mobile">
+                        <li>
+                          <SearchLink
+                              {...searchLink}
+                              className="app-nav-link__mobile-only__search"
+                              mobile={true}
+                              config={config}/>
+                        </li>
+                      </ul>}
                     <ul onMouseEnter={this._handleMouseEnter}
                         className="app-nav-list">
                         {navLinks.map(
