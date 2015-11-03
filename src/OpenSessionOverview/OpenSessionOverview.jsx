@@ -50,8 +50,8 @@ class OpenSessionOverview extends React.Component {
 
   render() {
     const {
-      attending, className, handleViewDetailsClick, hosting, linkedSession,
-      previewing, session, user
+      attending, className, config, handleViewDetailsClick, hosting,
+      linkedSession, previewing, session, user
     } = this.props;
 
     const {
@@ -112,7 +112,7 @@ class OpenSessionOverview extends React.Component {
             {!!tags.length &&
               <div className="session-tags">
                 {tags.map(
-                  (t, idx) => <Tag key={idx} displayName={t} {...this.props}/>)}
+                  (t, idx) => <Tag key={idx} displayName={t} config={config}/>)}
               </div>
             }
             {rsvp_contact_ids && !!rsvp_contact_ids.length &&
