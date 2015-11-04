@@ -13,6 +13,7 @@ const {OpenSessionOverview} = require('./OpenSessionOverview');
 const {pathWithSlug, pathWithoutSlug} = require('./ProxyPathUtils');
 const {SearchBar} = require('./SearchBar');
 const {SidebarLayout, SidebarMenu, SidebarMenuItem} = require('./Sidebar');
+const {Tag} = require('./Tag');
 const {TrackedLink, AnalyticsAPI} = require('./analytics');
 const {models} = require('./models');
 
@@ -36,6 +37,7 @@ module.exports = {
   SidebarLayout,
   SidebarMenu,
   SidebarMenuItem,
+  Tag,
   TrackedLink,
   AnalyticsAPI,
   models
