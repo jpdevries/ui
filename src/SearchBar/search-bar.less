@@ -32,7 +32,7 @@
   opaciy: 1;
   background-color: transparent;
   position: absolute;
-  max-width: (@column-px * 5) + (@gutter-px * 4);
+  pointer-events: none;
 
   .search-home-link {
     display: none;
@@ -75,6 +75,7 @@
   padding-right: 15px;
   padding-top: 75px;
   padding-bottom: 15px;
+  pointer-events: all;
 
   @media @tablet {
     padding-bottom: 60px;
