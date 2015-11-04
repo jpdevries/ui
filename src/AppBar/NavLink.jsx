@@ -64,14 +64,14 @@ class SearchLink extends React.Component {
 
         const active = new RegExp(url, 'gi').test(location.toString());
 
-        !active && (
-            mobile ?
-                window.location = `${config.projects.url}/search`
-            :   this.setState({open: !this.state.open}));
+        mobile ?
+            window.location = `${config.projects.url}/search`
+        :   active ? this.refs.searchBar._autoFocus()
+        :   this.setState({open: !this.state.open});
     }
 
     render() {
-        const {className, config, displayName, icon} = this.props;
+        const {active, className, config, displayName, icon} = this.props;
         const {open} = this.state;
 
         return (
@@ -88,10 +88,12 @@ class SearchLink extends React.Component {
                 <SearchBar
                         config={config}
                         className={cx(
-                            'search-bar__nav', {'search-bar__hidden': !open})}
+                            'search-bar__nav', {
+                                'search-bar__hidden': !open && !active,
+                                'search-bar__active': active})}
                         open={open}
-                        underlay={true}
-                        heading="What would you like to learn?"
+                        underlay={!active}
+                        ref="searchBar"
                         handleClickAway={this._handleSearchClick}>
                 </SearchBar>
             </div>
