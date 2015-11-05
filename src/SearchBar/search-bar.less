@@ -23,13 +23,15 @@
 }
 
 .search-bar__hidden {
-  opacity: 0;
-  transition: opacity .22s ease;
+  display: none;
   pointer-events: none;
+  .search-form-container {
+    display: none;
+  }
 }
 
 .search-bar__active {
-  opaciy: 1;
+  opacity: 1;
   background-color: transparent;
   position: absolute;
   pointer-events: none;
