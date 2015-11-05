@@ -66,7 +66,7 @@ class SearchLink extends React.Component {
 
         mobile ?
             window.location = `${config.projects.url}/search`
-        :   active ? this.refs.searchBar._autoFocus()
+        :   active ? this.refs.searchBar._wiggle()
         :   this.setState({open: !this.state.open});
     }
 
