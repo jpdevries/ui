@@ -69,7 +69,8 @@ class SearchLink extends React.Component {
 
     componentWillUnmount() {
         window.removeEventListener('keydown', this._handleWindowKeyDown);
-    }
+        window.removeEventListener('searchUnload', this._handleSearchUnload);
+        window.removeEventListener('searchLoad', this._handleSearchLoad);}
 
     _handleWindowKeyDown = (event) => {
         if (event.which === SLASH_KEY_CODE) {
