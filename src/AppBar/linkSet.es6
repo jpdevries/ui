@@ -59,6 +59,7 @@ else {
     }
     else { // Student links
         main.push(config.workshops);
+        main.push(config.search);
         if (user.access.indexOf('core-student') >= 0) {
             defaults(home, config.dashboard);
             main.push(config.library);
