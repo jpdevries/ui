@@ -1,6 +1,6 @@
 {
   "name": "thinkful-ui",
-  "version": "1.1.44",
+  "version": "1.1.45",
   "description": "Shared navigation and UI resources for Thinkful.",
   "main": "src/index.es6",
   "scripts": {
@@ -88,7 +88,7 @@
   "readme": "# UI\nShared React components and WebPack config for Thinkful applications.\n\n`/src`\n\nCode for the shared components.\n\n`/client`\n\nCode for the demo page.\n\n`/demo`\n\nCode for the demo server that serves the demo page.\n\n`/script`\n\nStandard bootstrap scripts (Thinkful convention).\n",
   "readmeFilename": "README.md",
   "gitHead": "318f08b74c385ffc0c6b3e219e5ab1c57eedf3d9",
-  "_id": "thinkful-ui@1.1.43",
-  "_shasum": "3f2b938786284e0e26f0cf71b775312411e6a2d9",
-  "_from": "thinkful-ui@>=1.1.1 <1.2.0"
+  "_id": "thinkful-ui@1.1.32",
+  "_shasum": "c4f676844b1499b4ed0c55a72c6d6a017123fbf4",
+  "_from": "thinkful-ui@>=1.0.13 <2.0.0"
 }
