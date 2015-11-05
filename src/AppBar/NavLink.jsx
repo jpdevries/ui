@@ -51,11 +51,20 @@ class SearchLink extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {open: false}
+        this.state = {
+            active: false,
+            open: false
+        }
     }
 
     componentDidMount() {
         window.addEventListener('keydown', this._handleWindowKeyDown);
+        window.addEventListener('searchUnload', this._handleSearchUnload);
+        window.addEventListener('searchLoad', this._handleSearchLoad);
+
+        this.setState({
+            active: new RegExp(this.props.url, 'gi').
+                test(location.toString())});
     }
 
     componentWillUnmount() {
@@ -64,13 +73,26 @@ class SearchLink extends React.Component {
 
     _handleWindowKeyDown = (event) => {
         if (event.which === SLASH_KEY_CODE) {
+            // Disable events if in an input, textarea, etc
+            if (document.activeElement.nodeName !== "BODY") {
+                return false;
+            }
+            event.preventDefault();
             this.setState({open: true});
-            this.refs.searchBar._autoFocus();
+            this.refs.searchBar.autoFocus();
         }
         else if (event.which === ESC_KEY_CODE) {
             this.setState({open: false});
-            this.refs.searchBar._unFocus();
+            this.refs.searchBar.unFocus();
         }
+    }
+
+    _handleSearchLoad = (event) => {
+        this.setState({active: true});
+    }
+
+    _handleSearchUnload = (event) => {
+        this.setState({active: false});
     }
 
     _handleSearchClick = event => {
@@ -84,17 +106,15 @@ class SearchLink extends React.Component {
             });
         }
 
-        const active = new RegExp(url, 'gi').test(location.toString());
-
         mobile ?
             window.location = `${config.projects.url}/search`
-        :   active ? this.refs.searchBar._wiggle()
+        :   this.state.active ? this.refs.searchBar.wiggle()
         :   this.setState({open: !this.state.open});
     }
 
     render() {
-        const {active, className, config, displayName, icon} = this.props;
-        const {open} = this.state;
+        const {className, config, displayName, icon, url} = this.props;
+        const {active, open} = this.state;
 
         return (
             <div className="search-container">
@@ -108,6 +128,7 @@ class SearchLink extends React.Component {
                     }
                 </a>
                 <SearchBar
+                        active={active}
                         config={config}
                         className={cx(
                             'search-bar__nav', {

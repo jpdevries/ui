@@ -18,6 +18,7 @@ class SearchBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      inputClassName: [],
       searchTerm: this._determineSearchTerm() || '',
       selectedSuggestionIdx: -1,
       suggestions: []
@@ -31,8 +32,6 @@ class SearchBar extends React.Component {
 
     const underlay = React.findDOMNode(this.refs.underlay);
     underlay && underlay.addEventListener('click', this._handleClickAway);
-
-    this._autoFocus();
   }
 
   componentWillUnmount() {
@@ -44,7 +43,7 @@ class SearchBar extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.open) { this._autoFocus(); }
+    if (newProps.open || newProps.active) { this._autoFocus(); }
   }
 
   _determineSearchTerm() {
@@ -60,15 +59,36 @@ class SearchBar extends React.Component {
     React.findDOMNode(this.refs.input).value = this.state.searchTerm;
   }
 
+  autoFocus = () => {
+    this._autoFocus();
+  }
+
   _unFocus = () => {
     React.findDOMNode(this.refs.input).blur();
   }
 
+  unFocus = () => {
+    this._unFocus();
+  }
+
   _wiggle = () => {
     this._autoFocus();
-    React.findDOMNode(this.refs.input).classList.add('wiggle');
-    window.setTimeout(
-      () => React.findDOMNode(this.refs.input).classList.remove('wiggle'), 1000);
+    this._addInputClass('wiggle');
+    window.setTimeout(() => this._removeInputClass('wiggle'), 1000);
+  }
+
+  wiggle = () => {
+    this._wiggle();
+  }
+
+  _addInputClass = (className) => {
+    this.setState({
+      inputClassName: this.state.inputClassName.concat(className)});
+  }
+
+  _removeInputClass = (className) => {
+    this.setState({
+      inputClassName: this.state.inputClassName.filter(cn => cn !== className)});
   }
 
   _onGetSuggestionsCompleted = response => {
@@ -156,7 +176,7 @@ class SearchBar extends React.Component {
   render() {
     const {active, className, config, heading, underlay, open} = this.props;
     const {
-      searchTerm, selectedSuggestionIdx, suggestions
+      inputClassName, searchTerm, selectedSuggestionIdx, suggestions
     } = this.state;
 
     return (
@@ -169,7 +189,7 @@ class SearchBar extends React.Component {
               onSubmit={this._handleSubmitForm}>
             <Icon name="search" className="icon-search"/>
             <input
-                className="search-input"
+                className={cx("search-input", inputClassName)}
                 ref="input"
                 type="text"
                 placeholder="Search"
