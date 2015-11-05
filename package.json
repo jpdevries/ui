@@ -88,7 +88,7 @@
   "readme": "# UI\nShared React components and WebPack config for Thinkful applications.\n\n`/src`\n\nCode for the shared components.\n\n`/client`\n\nCode for the demo page.\n\n`/demo`\n\nCode for the demo server that serves the demo page.\n\n`/script`\n\nStandard bootstrap scripts (Thinkful convention).\n",
   "readmeFilename": "README.md",
   "gitHead": "318f08b74c385ffc0c6b3e219e5ab1c57eedf3d9",
-  "_id": "thinkful-ui@1.1.45",
-  "_shasum": "4fc71960d4498332608e46a1dfcb8e6bf92b88a0",
-  "_from": "thinkful-ui@>=1.1.1 <1.2.0"
+  "_id": "thinkful-ui@1.1.32",
+  "_shasum": "c4f676844b1499b4ed0c55a72c6d6a017123fbf4",
+  "_from": "thinkful-ui@>=1.0.13 <2.0.0"
 }
