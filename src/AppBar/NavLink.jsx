@@ -5,6 +5,9 @@ const {Icon} = require('../Icon');
 const AnalyticsApi = require('../analytics/actions');
 const {SearchBar} = require('../SearchBar');
 
+const SLASH_KEY_CODE = 191;
+const ESC_KEY_CODE = 27;
+
 /**
  * NavLink
  * @property {} description
@@ -49,6 +52,25 @@ class SearchLink extends React.Component {
     constructor(props) {
         super(props);
         this.state = {open: false}
+    }
+
+    componentDidMount() {
+        window.addEventListener('keydown', this._handleWindowKeyDown);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('keydown', this._handleWindowKeyDown);
+    }
+
+    _handleWindowKeyDown = (event) => {
+        if (event.which === SLASH_KEY_CODE) {
+            this.setState({open: true});
+            this.refs.searchBar._autoFocus();
+        }
+        else if (event.which === ESC_KEY_CODE) {
+            this.setState({open: false});
+            this.refs.searchBar._unFocus();
+        }
     }
 
     _handleSearchClick = event => {

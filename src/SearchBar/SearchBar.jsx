@@ -60,6 +60,10 @@ class SearchBar extends React.Component {
     React.findDOMNode(this.refs.input).value = this.state.searchTerm;
   }
 
+  _unFocus = () => {
+    React.findDOMNode(this.refs.input).blur();
+  }
+
   _wiggle = () => {
     this._autoFocus();
     React.findDOMNode(this.refs.input).classList.add('wiggle');
