@@ -70,6 +70,14 @@
   max-width: 100%;
 }
 
+@keyframes wiggle {
+    0% { -webkit-transform: rotate(-1deg); }
+    25% { -webkit-transform: rotate(1deg); }
+    50% { -webkit-transform: rotate(-1deg); }
+    70% { -webkit-transform: rotate(1deg); }
+    100% { -webkit-transform: rotate(0deg); }
+}
+
 .search-form {
   position: relative;
   width: (5 * @column-px) + (4 * @gutter-px);
@@ -99,6 +107,10 @@
     @media @tablet {
       min-width: inherit;
       max-width: inherit;
+    }
+
+    &.wiggle {
+      animation: wiggle .3s;
     }
   }
 

@@ -54,7 +54,17 @@ class SearchBar extends React.Component {
   }
 
   _autoFocus = () => {
-    React.findDOMNode(this.refs.input).focus()
+    React.findDOMNode(this.refs.input).focus();
+
+    // Force the cursor to go to the end of the input text
+    React.findDOMNode(this.refs.input).value = this.state.searchTerm;
+  }
+
+  _wiggle = () => {
+    this._autoFocus();
+    React.findDOMNode(this.refs.input).classList.add('wiggle');
+    window.setTimeout(
+      () => React.findDOMNode(this.refs.input).classList.remove('wiggle'), 1000);
   }
 
   _onGetSuggestionsCompleted = response => {
