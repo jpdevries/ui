@@ -202,7 +202,11 @@ class SearchBar extends React.Component {
                   onClick={this._handleClearInput}/>
             }
           </form>
-          <a className="search-home-link" href={`${config.projects.url}/search`}>
+          <a
+              className={cx(
+                "search-home-link",
+                {"search-home-link__active-hidden": !searchTerm.length})}
+              href={`${config.projects.url}/search`}>
             Browse by topic
             <Icon name="navigateright"/>
           </a>
