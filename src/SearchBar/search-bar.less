@@ -39,7 +39,10 @@
   top: 46px;
 
   .search-home-link {
-    display: none;
+    pointer-events: all;
+    &.search-home-link__active-hidden {
+      display: none;
+    }
   }
 
   .search-suggestions {
