@@ -1,6 +1,6 @@
 {
   "name": "thinkful-ui",
-  "version": "1.1.47",
+  "version": "1.1.48",
   "description": "Shared navigation and UI resources for Thinkful.",
   "main": "src/index.es6",
   "scripts": {
@@ -75,6 +75,7 @@
     "spark-md5": "0.0.5",
     "style-loader": "^0.12.3",
     "superagent": "^1.4.0",
+    "text-loader": "0.0.1",
     "tfstyleguide": "^3.0.0",
     "webpack": "^1.9.10",
     "webpack-dev-server": "^1.9.0"
