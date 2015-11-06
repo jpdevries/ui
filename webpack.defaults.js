@@ -45,7 +45,10 @@ module.exports = function (options) {
       loaders: ['html', 'remarkable']},
 
     svg: {
-      test: /\.svg$/, loader: 'html'}
+      test: /\.svg$/, loader: 'html'},
+
+    txt: {
+      test: /\.txt$/, loader: 'text'}
   }
 
   var webpackConfig = {
@@ -59,7 +62,8 @@ module.exports = function (options) {
         loaders.json,
         loaders.less,
         loaders.markdown,
-        loaders.svg ] },
+        loaders.svg,
+        loaders.txt ] },
     output: {
       path: path.join(options.__dirname, options.output.publicPath + '/build/'),
       publicPath: options.output.publicPath,
