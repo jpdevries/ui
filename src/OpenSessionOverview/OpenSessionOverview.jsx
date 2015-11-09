@@ -1,4 +1,5 @@
 const cx = require('classnames');
+const Link = require('react-router').Link;
 const moment = require('moment-timezone');
 const React = require('react');
 const _ = require('lodash');
@@ -50,7 +51,7 @@ class OpenSessionOverview extends React.Component {
 
   render() {
     const {
-      attending, className, config, handleViewDetailsClick, hosting,
+      attending, className, config, handleViewDetailsClick, hosting, linkTo,
       linkedSession, previewing, session, user
     } = this.props;
 
@@ -67,7 +68,12 @@ class OpenSessionOverview extends React.Component {
     }
 
     return (
-      <div className={cx("session", {"session__past": session.isPast()}, className)}>
+      <div
+          className={cx(
+            "session", {
+              "session__past": session.isPast(),
+              "render-mobile": this._shouldRenderMobile()
+            }, className)}>
         <div className="session-image-wrapper">
           {session.isStartingSoon() &&
             <div className="session-time-alert">Starting soon!</div>
@@ -95,15 +101,28 @@ class OpenSessionOverview extends React.Component {
         </div>
 
         <div className="session-overview-wrapper">
-          <div
-              className="overview-content"
-              onClick={handleViewDetailsClick}>
-            <h3 className="title">{title}</h3>
-            <p className="host-name">with {host.name}</p>
-            <p className="overview-description">
-              {session.isWorkshop() ? description : host.about}
-            </p>
-          </div>
+          {linkTo ?
+            <Link
+                params={{slug: title_slug, id: id}}
+                to={linkTo}>
+              <div className="overview-content">
+                <h3 className="title">{title}</h3>
+                <p className="host-name">with {host.name}</p>
+                <p className="overview-description">
+                  {session.isWorkshop() ? description : host.about}
+                </p>
+              </div>
+            </Link>
+          : <a href={detail_page_url}>
+              <div className="overview-content">
+                <h3 className="title">{title}</h3>
+                <p className="host-name">with {host.name}</p>
+                <p className="overview-description">
+                  {session.isWorkshop() ? description : host.about}
+                </p>
+              </div>
+            </a>
+          }
           <div className="session-cta">
             {session.isWorkshop() ?
               this._renderWorkshopCta()
@@ -127,14 +146,26 @@ class OpenSessionOverview extends React.Component {
   }
 
   _renderWorkshopCta() {
-    const {handleViewDetailsClick, session} = this.props;
-    const {id, session_type, title_slug} = session;
+    const {handleViewDetailsClick, linkTo, session} = this.props;
+    const {detail_page_url, id, session_type, title_slug} = session;
     return (
       <div className="workshop-cta">
-        <a className="button" onClick={handleViewDetailsClick}>
-          View details
-          <Icon name="navigateright" className="button-right-icon"/>
-        </a>
+        {linkTo ?
+          <Link
+              className="button"
+              params={{slug: title_slug, id: id}}
+              to={linkTo}>
+            View details
+            <Icon name="navigateright" className="button-right-icon"/>
+          </Link>
+        : <a
+              className="button"
+              href={detail_page_url}
+              onClick={handleViewDetailsClick}>
+            View details
+            <Icon name="navigateright" className="button-right-icon"/>
+          </a>
+        }
       </div>
       )
   }
@@ -146,12 +177,14 @@ class OpenSessionOverview extends React.Component {
       handleEditSessionClick, handleViewDetailsClick, hosting, linkToCalendar,
       previewing, session, user
     } = this.props;
-    const {id} = session;
+    const {detail_page_url, id} = session;
 
     return (
       <div className="qa-session-ctas">
         {linkToCalendar ?
-          <a className="button" onClick={handleViewDetailsClick}>
+          <a
+              className="button"
+              href={detail_page_url}>
             View on calendar
             <Icon name="navigateright" className="button-right-icon"/>
           </a>
