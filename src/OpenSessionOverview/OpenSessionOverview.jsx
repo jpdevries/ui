@@ -30,7 +30,6 @@ class OpenSessionOverview extends React.Component {
     handleCancelSessionClick: React.PropTypes.func,
     handleCancelAllSessionsClick: React.PropTypes.func,
     handleEditSessionClick: React.PropTypes.func,
-    handleViewDetailsClick: React.PropTypes.func,
     hosting: React.PropTypes.bool,
     previewing: React.PropTypes.bool,
     session: React.PropTypes.object.isRequired,
@@ -51,7 +50,7 @@ class OpenSessionOverview extends React.Component {
 
   render() {
     const {
-      attending, className, config, handleViewDetailsClick, hosting, linkTo,
+      attending, className, config, hosting, linkTo,
       linkedSession, previewing, session, user
     } = this.props;
 
@@ -147,7 +146,7 @@ class OpenSessionOverview extends React.Component {
   }
 
   _renderWorkshopCta() {
-    const {handleViewDetailsClick, linkTo, session} = this.props;
+    const {linkTo, session} = this.props;
     const {detail_page_url, id, session_type, title_slug} = session;
     return (
       <div className="workshop-cta">
@@ -161,8 +160,7 @@ class OpenSessionOverview extends React.Component {
           </Link>
         : <a
               className="button"
-              href={detail_page_url}
-              onClick={handleViewDetailsClick}>
+              href={detail_page_url}>
             View details
             <Icon name="navigateright" className="button-right-icon"/>
           </a>
@@ -175,7 +173,7 @@ class OpenSessionOverview extends React.Component {
     const {
       attending, config, handleCancelRSVPClick, handleRSVPClick,
       handleCancelSessionClick, handleCancelAllSessionsClick,
-      handleEditSessionClick, handleViewDetailsClick, hosting, linkToCalendar,
+      handleEditSessionClick, hosting, linkToCalendar,
       previewing, session, user
     } = this.props;
     const {detail_page_url, id} = session;
