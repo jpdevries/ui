@@ -56,8 +56,9 @@ class OpenSessionOverview extends React.Component {
     } = this.props;
 
     const {
-      background_image_url, description, duration_minutes, host, id, project,
-      rsvp_contact_ids, session_type, start_dt_utc, tags, title, title_slug
+      background_image_url, description, detail_page_url, duration_minutes,
+      host, id, project, rsvp_contact_ids, session_type, start_dt_utc, tags,
+      title, title_slug
     } = session;
 
     const style = {
