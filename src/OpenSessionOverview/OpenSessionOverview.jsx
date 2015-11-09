@@ -9,6 +9,22 @@ const {Tag} = require('../Tag');
 
 require('./open-session-overview.less');
 
+class OverviewContent extends React.Component {
+  render() {
+    const {session} = this.props;
+    const {description, host, title} = session;
+    return (
+      <div className="overview-content">
+        <h3 className="title">{title}</h3>
+        <p className="host-name">with {host.name}</p>
+        <p className="overview-description">
+          {session.isWorkshop() ? description : host.about}
+        </p>
+      </div>
+      );
+  }
+}
+
 /**
  * OpenSessionOverview component
  */
@@ -105,22 +121,10 @@ class OpenSessionOverview extends React.Component {
             <Link
                 params={{slug: title_slug, id: id}}
                 to={linkTo}>
-              <div className="overview-content">
-                <h3 className="title">{title}</h3>
-                <p className="host-name">with {host.name}</p>
-                <p className="overview-description">
-                  {session.isWorkshop() ? description : host.about}
-                </p>
-              </div>
+              <OverviewContent session={session}/>
             </Link>
           : <a href={detail_page_url}>
-              <div className="overview-content">
-                <h3 className="title">{title}</h3>
-                <p className="host-name">with {host.name}</p>
-                <p className="overview-description">
-                  {session.isWorkshop() ? description : host.about}
-                </p>
-              </div>
+              <OverviewContent session={session}/>
             </a>
           }
           <div className="session-cta">
