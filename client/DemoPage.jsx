@@ -138,7 +138,8 @@ class DemoPage extends React.Component {
                 startDtLocal: (e => moment().add(1, 'h').startOf('h')),
                 tags: ['React', 'demo', 'github', 'all of the tags'],
                 title: 'Intro to GitHub'
-              })
+              }),
+              config: Demo.props.json({projects: {url: ''}})
             }}/>
 
           <RouteHandler />
