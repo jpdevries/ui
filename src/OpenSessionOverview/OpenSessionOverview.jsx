@@ -1,4 +1,5 @@
 const cx = require('classnames');
+const Link = require('react-router').Link;
 const moment = require('moment-timezone');
 const React = require('react');
 const _ = require('lodash');
@@ -7,6 +8,22 @@ const {Icon} = require('../Icon');
 const {Tag} = require('../Tag');
 
 require('./open-session-overview.less');
+
+class OverviewContent extends React.Component {
+  render() {
+    const {session} = this.props;
+    const {description, host, title} = session;
+    return (
+      <div className="overview-content">
+        <h3 className="title">{title}</h3>
+        <p className="host-name">with {host.name}</p>
+        <p className="overview-description">
+          {session.isWorkshop() ? description : host.about}
+        </p>
+      </div>
+      );
+  }
+}
 
 /**
  * OpenSessionOverview component
@@ -29,7 +46,6 @@ class OpenSessionOverview extends React.Component {
     handleCancelSessionClick: React.PropTypes.func,
     handleCancelAllSessionsClick: React.PropTypes.func,
     handleEditSessionClick: React.PropTypes.func,
-    handleViewDetailsClick: React.PropTypes.func,
     hosting: React.PropTypes.bool,
     previewing: React.PropTypes.bool,
     session: React.PropTypes.object.isRequired,
@@ -50,13 +66,14 @@ class OpenSessionOverview extends React.Component {
 
   render() {
     const {
-      attending, className, config, handleViewDetailsClick, hosting,
+      attending, className, config, hosting, linkTo,
       linkedSession, previewing, session, user
     } = this.props;
 
     const {
-      background_image_url, description, duration_minutes, host, id, project,
-      rsvp_contact_ids, session_type, start_dt_utc, tags, title, title_slug
+      background_image_url, description, detail_page_url, duration_minutes,
+      host, id, project, rsvp_contact_ids, session_type, start_dt_utc, tags,
+      title, title_slug
     } = session;
 
     const style = {
@@ -67,7 +84,12 @@ class OpenSessionOverview extends React.Component {
     }
 
     return (
-      <div className={cx("session", {"session__past": session.isPast()}, className)}>
+      <div
+          className={cx(
+            "session", {
+              "session__past": session.isPast(),
+              "render-mobile": this._shouldRenderMobile()
+            }, className)}>
         <div className="session-image-wrapper">
           {session.isStartingSoon() &&
             <div className="session-time-alert">Starting soon!</div>
@@ -95,15 +117,16 @@ class OpenSessionOverview extends React.Component {
         </div>
 
         <div className="session-overview-wrapper">
-          <div
-              className="overview-content"
-              onClick={handleViewDetailsClick}>
-            <h3 className="title">{title}</h3>
-            <p className="host-name">with {host.name}</p>
-            <p className="overview-description">
-              {session.isWorkshop() ? description : host.about}
-            </p>
-          </div>
+          {linkTo ?
+            <Link
+                params={{slug: title_slug, id: id}}
+                to={linkTo}>
+              <OverviewContent session={session}/>
+            </Link>
+          : <a href={detail_page_url}>
+              <OverviewContent session={session}/>
+            </a>
+          }
           <div className="session-cta">
             {session.isWorkshop() ?
               this._renderWorkshopCta()
@@ -127,14 +150,25 @@ class OpenSessionOverview extends React.Component {
   }
 
   _renderWorkshopCta() {
-    const {handleViewDetailsClick, session} = this.props;
-    const {id, session_type, title_slug} = session;
+    const {linkTo, session} = this.props;
+    const {detail_page_url, id, session_type, title_slug} = session;
     return (
       <div className="workshop-cta">
-        <a className="button" onClick={handleViewDetailsClick}>
-          View details
-          <Icon name="navigateright" className="button-right-icon"/>
-        </a>
+        {linkTo ?
+          <Link
+              className="button"
+              params={{slug: title_slug, id: id}}
+              to={linkTo}>
+            View details
+            <Icon name="navigateright" className="button-right-icon"/>
+          </Link>
+        : <a
+              className="button"
+              href={detail_page_url}>
+            View details
+            <Icon name="navigateright" className="button-right-icon"/>
+          </a>
+        }
       </div>
       )
   }
@@ -143,15 +177,17 @@ class OpenSessionOverview extends React.Component {
     const {
       attending, config, handleCancelRSVPClick, handleRSVPClick,
       handleCancelSessionClick, handleCancelAllSessionsClick,
-      handleEditSessionClick, handleViewDetailsClick, hosting, linkToCalendar,
+      handleEditSessionClick, hosting, linkToCalendar,
       previewing, session, user
     } = this.props;
-    const {id} = session;
+    const {detail_page_url, id} = session;
 
     return (
       <div className="qa-session-ctas">
         {linkToCalendar ?
-          <a className="button" onClick={handleViewDetailsClick}>
+          <a
+              className="button"
+              href={detail_page_url}>
             View on calendar
             <Icon name="navigateright" className="button-right-icon"/>
           </a>
