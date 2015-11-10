@@ -20,6 +20,11 @@
       "host": "t.ful:5007",
       "url": "//t.ful:5007"
     },
+    "business": {
+      "displayName": "Business",
+      "host": "t.ful:5000",
+      "url": "//t.ful:5000/training-for-teams"
+    },
     "courses": {
       "displayName": "Courses",
       "host": "t.ful:5001",
