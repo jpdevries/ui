@@ -40,6 +40,7 @@ if(! user) {
     insertCourseDropdown = true;
     menu.push(config.mentors);
     menu.push(config.pricing);
+    menu.push(config.business);
     menu.push(config.signIn);
 }
 
