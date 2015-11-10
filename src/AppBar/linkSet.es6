@@ -12,8 +12,8 @@ let config = {
     workshops: {
         icon: 'users'
     },
-    library: {
-        icon: 'book'
+    paths: {
+        icon: 'signpost'
     }
 }
 if (global.__env) {
@@ -49,7 +49,7 @@ else {
     if (/admin|mentor/.test(user.role)) {
         menu.push(config.activity);
         main.push(config.workshops);
-        main.push(config.library);
+        main.push(config.paths);
         main.push(config.search);
         menu.push(config.takeStudent);
         defaults(home, config.dashboard);
@@ -63,14 +63,14 @@ else {
         main.push(config.search);
         if (user.access.indexOf('core-student') >= 0) {
             defaults(home, config.dashboard);
-            main.push(config.library);
+            main.push(config.paths);
         }
         else if (/tfl/.test(user.student_type)) {
             assign(home, {
-                displayName: 'Library',
-                icon: 'book',
+                displayName: 'Paths',
+                icon: 'signpost',
                 host: config.dashboard.host,
-                url: `${config.dashboard.url}/library`
+                url: `${config.dashboard.url}/paths`
             });
         }
         else {
