@@ -148,7 +148,7 @@ class DatePicker extends React.Component {
           </div>
           <div className="day-headings">
             {['S', 'M', 'T', 'W', 'H', 'F', 'S'].
-              map((day, key) => <div className="day-heading">{day}</div>)}
+              map((day, key) => <div key={key} className="day-heading">{day}</div>)}
           </div>
           <div className="days-container">
             {days.map((day, key) => <Day
