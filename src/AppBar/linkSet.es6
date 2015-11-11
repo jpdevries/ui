@@ -68,7 +68,7 @@ else {
         else if (/tfl/.test(user.student_type)) {
             home = assign(home, {
                 host: config.projects.host,
-                url: `${config.projects.url}/paths`
+                url: config.paths.url
             });
             main.push(home);
         }
