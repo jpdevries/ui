@@ -31,11 +31,11 @@ const Dropdown = React.createClass({
   },
 
   componentDidMount() {
-    document.addEventListener('click', (e) => this._checkClickAway(e));
+    document.addEventListener('click', this._checkClickAway);
   },
 
   componentWillUnmount() {
-    document.removeEventListener('click', (e) => this._checkClickAway(e));
+    document.removeEventListener('click', this._checkClickAway);
   },
 
   _checkClickAway(e) {
