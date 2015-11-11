@@ -48,6 +48,10 @@
       "displayName": "Library",
       "url": "//t.ful:5006/library"
     },
+    "paths": {
+      "displayName": "Paths",
+      "url": "//t.ful:5006/paths"
+    },
     "mentors": {
       "displayName": "Mentors",
       "url": "//t.ful:5000/mentors"
