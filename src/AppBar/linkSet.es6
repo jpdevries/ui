@@ -66,7 +66,7 @@ else {
             main.push(config.paths);
         }
         else if (/tfl/.test(user.student_type)) {
-            home = assign(home, {
+            assign(home, {
                 host: config.projects.host,
                 url: config.paths.url
             });
@@ -79,7 +79,6 @@ else {
         main.push(config.workshops);
         main.push(config.search);
     }
-
 
     menu.push(config.slack);
     menu.push(config.settings);
