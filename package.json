@@ -69,7 +69,6 @@
     "node-notifier": "^4.2.1",
     "qs": "^5.2.0",
     "react": "^0.14.2",
-    "react-demo": "^1.1.0",
     "react-dom": "^0.14.2",
     "react-hot-loader": "^1.2.7",
     "reflux": "^0.2.12",
