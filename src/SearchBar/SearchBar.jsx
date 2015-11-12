@@ -27,18 +27,18 @@ class SearchBar extends React.Component {
 
   componentDidMount() {
     SearchActions.getSuggestions.completed.listen(this._onGetSuggestionsCompleted);
-    React.findDOMNode(this.refs.input).
+    this.refs.input.
       addEventListener('keydown', this._handleKeyDown);
 
-    const underlay = React.findDOMNode(this.refs.underlay);
+    const underlay = this.refs.underlay;
     underlay && underlay.addEventListener('click', this._handleClickAway);
   }
 
   componentWillUnmount() {
-    React.findDOMNode(this.refs.input).
+    this.refs.input.
       removeEventListener('keydown', this._handleKeyDown);
 
-    const underlay = React.findDOMNode(this.refs.underlay);
+    const underlay = this.refs.underlay;
     underlay && underlay.removeEventListener('click', this._handleClickAway);
   }
 
@@ -53,10 +53,10 @@ class SearchBar extends React.Component {
   }
 
   _autoFocus = () => {
-    React.findDOMNode(this.refs.input).focus();
+    this.refs.input.focus();
 
     // Force the cursor to go to the end of the input text
-    React.findDOMNode(this.refs.input).value = this.state.searchTerm;
+    this.refs.input.value = this.state.searchTerm;
   }
 
   autoFocus = () => {
@@ -64,7 +64,7 @@ class SearchBar extends React.Component {
   }
 
   _unFocus = () => {
-    React.findDOMNode(this.refs.input).blur();
+    this.refs.input.blur();
   }
 
   unFocus = () => {
