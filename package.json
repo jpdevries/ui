@@ -68,7 +68,8 @@
     "node-libs-browser": "^0.5.2",
     "node-notifier": "^4.2.1",
     "qs": "^5.2.0",
-    "react": "^0.13.3",
+    "react": "^0.14.2",
+    "react-dom": "^0.14.2",
     "react-hot-loader": "^1.2.7",
     "reflux": "^0.2.12",
     "remarkable-loader": "^0.1.0",
@@ -83,7 +84,7 @@
   "devDependencies": {
     "express": "^4.13.3",
     "ejs": "^1.0.0",
-    "react-router": "^0.13.3",
+    "react-router": "^0.13.5",
     "react-demo": "^0.2.4"
   },
   "readme": "# UI\nShared React components and WebPack config for Thinkful applications.\n\n`/src`\n\nCode for the shared components.\n\n`/client`\n\nCode for the demo page.\n\n`/demo`\n\nCode for the demo server that serves the demo page.\n\n`/script`\n\nStandard bootstrap scripts (Thinkful convention).\n",
