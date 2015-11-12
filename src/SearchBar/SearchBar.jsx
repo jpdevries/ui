@@ -27,16 +27,14 @@ class SearchBar extends React.Component {
 
   componentDidMount() {
     SearchActions.getSuggestions.completed.listen(this._onGetSuggestionsCompleted);
-    this.refs.input.
-      addEventListener('keydown', this._handleKeyDown);
+    this.refs.input.addEventListener('keydown', this._handleKeyDown);
 
     const underlay = this.refs.underlay;
     underlay && underlay.addEventListener('click', this._handleClickAway);
   }
 
   componentWillUnmount() {
-    this.refs.input.
-      removeEventListener('keydown', this._handleKeyDown);
+    this.refs.input.removeEventListener('keydown', this._handleKeyDown);
 
     const underlay = this.refs.underlay;
     underlay && underlay.removeEventListener('click', this._handleClickAway);
