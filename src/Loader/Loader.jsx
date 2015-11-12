@@ -1,5 +1,5 @@
 const cx = require('classnames');
-const React = require('react/addons');
+const React = require('react');
 
 require('./loader.less');
 
