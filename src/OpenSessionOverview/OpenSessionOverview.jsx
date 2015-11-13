@@ -192,7 +192,7 @@ class OpenSessionOverview extends React.Component {
             <Icon name="navigateright" className="button-right-icon"/>
           </a>
         : (
-          !user ?
+          !user.isActive() ?
             <a className="button" href={`${config.tfl_enroll.url}?rel=qa-session-details`}>
               RSVP
               <Icon name="navigateright" className="button-right-icon"/>
