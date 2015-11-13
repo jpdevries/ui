@@ -182,6 +182,8 @@ class OpenSessionOverview extends React.Component {
     } = this.props;
     const {detail_page_url, id} = session;
 
+    const userIsActive = !_.isEmpty(user) && user.account_status === 'active';
+
     return (
       <div className="qa-session-ctas">
         {linkToCalendar ?
@@ -192,7 +194,7 @@ class OpenSessionOverview extends React.Component {
             <Icon name="navigateright" className="button-right-icon"/>
           </a>
         : (
-          !user.isActive() ?
+          !userIsActive ?
             <a className="button" href={`${config.tfl_enroll.url}?rel=qa-session-details`}>
               RSVP
               <Icon name="navigateright" className="button-right-icon"/>
