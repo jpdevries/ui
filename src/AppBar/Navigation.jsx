@@ -18,7 +18,7 @@ const linkSet = require('./linkSet');
  */
 class AppNav extends React.Component {
     static propTypes = {
-        user: React.PropTypes.object.isRequired,
+        user: React.PropTypes.object,
         config: React.PropTypes.object.isRequired
     }
 
