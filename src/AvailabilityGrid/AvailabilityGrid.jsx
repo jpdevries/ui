@@ -1,6 +1,6 @@
 require('./availability_grid.less');
 
-const React = require('react/addons');
+const React = require('react');
 const classNames = require('classnames');
 const moment = require('moment');
 const chunk = require('lodash/array/chunk');

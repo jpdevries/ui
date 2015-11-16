@@ -1,4 +1,5 @@
 const React = require('react');
+const ReactDOM = require('react-dom');
 const Router = require('react-router');
 const {routes} = require('./routes');
 
@@ -9,7 +10,7 @@ require('tfstyleguide/core.less');
 */
 
 Router.run(routes, Router.HistoryLocation, function (Handler, state) {
-    React.render(
+    ReactDOM.render(
         React.createElement(Handler, {...state, ...global.__env}),
         global.document.getElementById('tui-demo-app'));
 });

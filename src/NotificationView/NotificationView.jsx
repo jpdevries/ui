@@ -34,16 +34,17 @@ class NotificationView extends React.Component {
     this.setState({visible: false});
   }
 
-  renderItem(notification) {
+  renderItem(notification, idx) {
     return (<NotificationItem
               {...notification}
+              key={idx}
               handleClick={this.props.handleItemClick}
               handleDismiss={this.props.handleItemDismiss} />);
   }
 
   renderNotifications(notifications) {
-    return notifications.map((notification) => (
-             !!notification.is_read ? '' : this.renderItem(notification)));
+    return notifications.map((notification, idx) => (
+             !!notification.is_read ? '' : this.renderItem(notification, idx)));
   }
 
   renderEmpty() {
