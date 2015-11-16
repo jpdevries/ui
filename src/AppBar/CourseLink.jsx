@@ -12,7 +12,7 @@ class CourseLink extends React.Component {
       href: React.PropTypes.string,
       icon: React.PropTypes.string,
       name: React.PropTypes.string,
-      arrow: React.PropTypes.boolean
+      arrow: React.PropTypes.bool
     }
 
     render() {
