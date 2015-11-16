@@ -62,7 +62,7 @@ OpenSession.prototype.isInactive = function() {
 }
 
 OpenSession.prototype.isWorkshop = function() {
-  return this.session_type === 'workshop'
+  return /(workshop|showcase)/.test(this.session_type);
 }
 
 OpenSession.prototype.userIsAttending = function(user) {
