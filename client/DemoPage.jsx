@@ -148,7 +148,6 @@ class DemoPage extends React.Component {
               target={TopicPicker}
               props={{
                 addMatchEmphasis: Demo.props.bool(true),
-                minTopicLength: Demo.props.constant(3),
                 activeTopics: Demo.props.json(['HTML', 'CSS']),
                 availableTopics: Demo.props.json(
                   ['HTML', 'CSS', 'React', 'Node'])}}/>
