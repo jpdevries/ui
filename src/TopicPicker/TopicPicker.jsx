@@ -1,5 +1,7 @@
 const cx = require('classnames');
+const escapeStringRegexp = require('escape-string-regexp');
 const marked = require('marked');
+
 const React = require('react');
 const ReactDOM = require('react-dom');
 const {Icon} = require('../Icon');
@@ -22,6 +24,7 @@ const MIN_TOPIC_LENGTH = 3;
  * @property {Array} availableTopics the Array of topic to suggest
  * @property {Array} activeTopics the Array of topics to prefill
  * @property {Boolean} addMatchEmphasis Add `em` tags around tag matches
+ * @property {String} className a className to add to component
  * @property {Func} handleUpdateTopics callback func on topic update
  * @property {Number} maxSuggestions The max number of suggestions to show
  * @property {Number} minTopicLength The min length a topic string must be
@@ -47,6 +50,7 @@ class TopicPicker extends React.Component {
   static defaultProps = {
     availableTopics: [],
     activeTopics: [],
+    maxSuggestions: 10,
     // if parent doesn't pass in callback, to avoid conditionals inline
     handleUpdateTopics: () => null,
   }
@@ -119,22 +123,24 @@ class TopicPicker extends React.Component {
    * `addMatchEmphasis` is truthy.
    */
   _filterTopicList = (additionalTopics) => {
-    const {pattern, topics} = this.state;
+    const {topics, pattern} = this.state;
+    // in case topic is something like `C++`
+    const normalizedPattern = escapeStringRegexp(
+      this.state.pattern.toLowerCase());
 
-    const {availableTopics, addMatchEmphasis, de} = this.props;
-    const maxSuggestions = this.props.maxSuggestions || 10;
+    const {availableTopics, addMatchEmphasis, maxSuggestions} = this.props;
 
     // find and mark the pattern matches in a case-insensitive way
     return (availableTopics).
       filter(topic => { // filter for matching available topics
-        return topic.toLowerCase().match(pattern.toLowerCase()) &&
+        return topic.toLowerCase().match(normalizedPattern) &&
                topics.indexOf(topic) < 0
       }).
       slice(0, maxSuggestions). // limit the number of results
       map(topic => { // add the asterisks for emphasis around matching area
         if (addMatchEmphasis) {
           const firstIndex = topic.toLowerCase().
-            indexOf(topic.toLowerCase().match(pattern.toLowerCase())[0])
+            indexOf(topic.toLowerCase().match(normalizedPattern)[0])
           const lastIndex = firstIndex + pattern.length + 1;
 
           let topicArray = topic.split('');
@@ -212,7 +218,7 @@ class TopicPicker extends React.Component {
   render() {
     const {pattern, topics, selectedSuggestionIndex} = this.state;
     return (
-      <div className="topic-picker">
+      <div className={cx('topic-picker', this.props.className)}>
 
         {/* The existing topics */}
         {topics.map((topic, index) => {
@@ -233,6 +239,7 @@ class TopicPicker extends React.Component {
             className="topic-form"
             onSubmit={this._handleTopicSubmit}>
           <input
+              className="topic-form-input"
               ref="topicInput"
               type="text"
               value={pattern}
