@@ -39,6 +39,8 @@ class TopicPicker extends React.Component {
     };
   }
 
+  static displayName = 'TopicPicker'
+
   static propTypes = {
     activeTopics: React.PropTypes.array,
     availableTopics: React.PropTypes.array,
