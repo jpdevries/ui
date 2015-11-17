@@ -1,10 +1,11 @@
 const cx = require('classnames');
 const escapeStringRegexp = require('escape-string-regexp');
 const marked = require('marked');
-
 const React = require('react');
 const ReactDOM = require('react-dom');
+
 const {Icon} = require('../Icon');
+const {Tag} = require('../Tag');
 
 
 const DOWN_ARROW_KEY_CODE = 40;
@@ -12,7 +13,7 @@ const UP_ARROW_KEY_CODE = 38;
 const COMMA_KEY_CODE = 188;
 const RETURN_KEY_CODE = 13;
 
-const MIN_TOPIC_LENGTH = 3;
+const DEFAULT_MIN_TOPIC_LENGTH = 0;
 
 /*
  * TopicPicker component
@@ -45,14 +46,17 @@ class TopicPicker extends React.Component {
     activeTopics: React.PropTypes.array,
     availableTopics: React.PropTypes.array,
     addMatchEmphasis: React.PropTypes.bool,
+    className: React.PropTypes.string,
     handleUpdateTopics: React.PropTypes.func,
     maxSuggestions: React.PropTypes.number,
+    minTopicLength: React.PropTypes.number,
   }
 
   static defaultProps = {
     availableTopics: [],
     activeTopics: [],
     maxSuggestions: 10,
+    minTopicLength: DEFAULT_MIN_TOPIC_LENGTH,
     // if parent doesn't pass in callback, to avoid conditionals inline
     handleUpdateTopics: () => null,
   }
@@ -205,7 +209,7 @@ class TopicPicker extends React.Component {
       topic = this.refs.topicInput.value;
     }
 
-    if (topic.length > this.props.minTopicLength || MIN_TOPIC_LENGTH) {
+    if (topic.length > this.props.minTopicLength) {
       this._handleAddTopic(topic);
     }
   }
@@ -225,14 +229,16 @@ class TopicPicker extends React.Component {
         {/* The existing topics */}
         {topics.map((topic, index) => {
           return (
-            <div className="topic" key={index}>
-              <div className="topic-name">{topic}</div>
+            <Tag
+              key={index}
+              className='topic'
+              displayName={topic}>
               <div
                   className="topic-delete-button"
                   onClick={(event) => this._handleRemoveTopic(topic)}>
                 <Icon name="close"/>
               </div>
-            </div>
+            </Tag>
           );
         })}
 
