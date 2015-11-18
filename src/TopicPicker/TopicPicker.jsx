@@ -2,18 +2,16 @@ const cx = require('classnames');
 const escapeStringRegexp = require('escape-string-regexp');
 const marked = require('marked');
 const React = require('react');
-const ReactDOM = require('react-dom');
 
 const {Icon} = require('../Icon');
 const {Tag} = require('../Tag');
-
 
 const DOWN_ARROW_KEY_CODE = 40;
 const UP_ARROW_KEY_CODE = 38;
 const COMMA_KEY_CODE = 188;
 const RETURN_KEY_CODE = 13;
 
-const DEFAULT_MIN_TOPIC_LENGTH = 0;
+const DEFAULT_MIN_TOPIC_LENGTH = 1;
 
 /*
  * TopicPicker component
@@ -64,14 +62,11 @@ class TopicPicker extends React.Component {
   componentDidMount() {
     const {activeTopics} = this.props;
     this.setState({topics: activeTopics});
-
-    ReactDOM.findDOMNode(this.refs.topicForm).
-      addEventListener('keydown', e => this._handleKeyDown(e));
+    this.refs.topicForm.addEventListener('keydown', this._handleKeyDown);
   }
 
   componentWillUnmount() {
-    ReactDOM.findDOMNode(this.refs.topicForm).
-      removeEventListener('keydown', e => this._handleKeyDown(e));
+   this.refs.topicForm.removeEventListener('keydown', this._handleKeyDown);
   }
 
   componentWillReceiveProps(newProps) {
@@ -209,7 +204,7 @@ class TopicPicker extends React.Component {
       topic = this.refs.topicInput.value;
     }
 
-    if (topic.length > this.props.minTopicLength) {
+    if (topic.length >= this.props.minTopicLength) {
       this._handleAddTopic(topic);
     }
   }
