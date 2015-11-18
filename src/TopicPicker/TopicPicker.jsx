@@ -209,6 +209,12 @@ class TopicPicker extends React.Component {
     }
   }
 
+  _toggleFocus = () => {
+    this.setState({
+      isFocused: !this.state.isFocused
+    })
+  }
+
   /*
    * Getter for topics
    */
@@ -217,9 +223,13 @@ class TopicPicker extends React.Component {
   }
 
   render() {
-    const {pattern, topics, selectedSuggestionIndex} = this.state;
+    const {pattern, topics, selectedSuggestionIndex, isFocused} = this.state;
     return (
-      <div className={cx('topic-picker', this.props.className)}>
+      <div
+        className={cx(
+          'topic-picker',
+          this.props.className,
+          isFocused && 'topic-picker-focus')}>
 
         {/* The existing topics */}
         {topics.map((topic, index) => {
@@ -242,6 +252,8 @@ class TopicPicker extends React.Component {
             className="topic-form"
             onSubmit={this._handleTopicSubmit}>
           <input
+              onFocus={this._toggleFocus}
+              onBlur={this._toggleFocus}
               className="topic-form-input"
               ref="topicInput"
               type="text"
