@@ -151,7 +151,6 @@ class DemoPage extends React.Component {
                 addMatchEmphasis: Demo.props.bool(true),
                 availableTopics: Demo.props.json(
                   ['HTML', 'hockey', 'horses', 'hypervisor']),
-                className: Demo.props.constant('topic-picker-demo-page'),
                 handleUpdateTopics: Demo.props.callback.log,
                 maxSuggestions: Demo.props.choices([2, 3, 4]),
                 minTopicLength: 3,
