@@ -13,7 +13,7 @@ const {
   Loader,
   NotificationView,
   OpenSessionOverview,
-  TopicPicker
+  TopicPicker,
 } = require('../src')
 
 require('./styles/demo.less')
@@ -147,10 +147,15 @@ class DemoPage extends React.Component {
             <Demo
               target={TopicPicker}
               props={{
+                activeTopics: Demo.props.json(['foo', 'bar']),
                 addMatchEmphasis: Demo.props.bool(true),
-                activeTopics: Demo.props.json(['HTML', 'CSS']),
                 availableTopics: Demo.props.json(
-                  ['HTML', 'CSS', 'React', 'Node'])}}/>
+                  ['HTML', 'hockey', 'horses', 'hypervisor']),
+                className: Demo.props.constant('topic-picker-demo-page'),
+                handleUpdateTopics: Demo.props.callback.log,
+                maxSuggestions: Demo.props.choices([2, 3, 4]),
+                minTopicLength: 3,
+              }}/>
           <RouteHandler />
         </div>
         <Footer/>
