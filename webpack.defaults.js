@@ -26,7 +26,7 @@ module.exports = function (options) {
   var loaders = {
     es6: {
       test: /\.(es6|jsx)$/,
-      loaders: ['babel?stage=0', 'eslint-loader'] },
+      loaders: ['babel?stage=0'] },
 
     json: {
       test: /\.json$/, loaders: ['json']},
@@ -81,10 +81,6 @@ module.exports = function (options) {
     displayName: options.displayName,
     hotloadPort: options.hotloadPort,
 
-    // Loader specific customization
-    eslint: {
-      configFile: path.join(__dirname, './.eslintrc')
-    },
     remarkable: {
       preset: 'full',
       html: true
