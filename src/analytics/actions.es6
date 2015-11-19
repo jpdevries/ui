@@ -161,8 +161,8 @@ function alias(to, from, options, fn) {
     if (is.object(from)) options = from, from = null;
 
     // Aliasing Thinkful emails is dangerous, as we impersonate
-    if (to.indexOf('@thinkful.com') == -1 &&
-            from.indexOf('@thinkful.com') == -1) {
+    if (to && to.indexOf('@thinkful.com') == -1 &&
+            (! from || from.indexOf('@thinkful.com') == -1)) {
 
         global.analytics &&
             global.analytics.alias(to, from, options, fn);
