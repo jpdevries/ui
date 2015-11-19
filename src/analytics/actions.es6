@@ -5,7 +5,7 @@ const is = require('is');
 const superagent = require('superagent');
 
 const __env = global.__env || {};
-const urlParams = Qs.parse(window.location.search);
+const urlParams = Qs.parse((window.location.search || "").substring(1));
 const appInfo = {
     app: result(__env.config, 'app.name', '').toLowerCase(),
     appDisplayName: result(__env.config, 'app.displayName', '').toLowerCase()
