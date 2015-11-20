@@ -5,7 +5,7 @@ const is = require('is');
 const superagent = require('superagent');
 
 const __env = global.__env || {};
-const urlParams = Qs.parse(window.location.search);
+const urlParams = Qs.parse((window.location.search || "").substring(1));
 const appInfo = {
     app: result(__env.config, 'app.name', '').toLowerCase(),
     appDisplayName: result(__env.config, 'app.displayName', '').toLowerCase()
@@ -161,8 +161,8 @@ function alias(to, from, options, fn) {
     if (is.object(from)) options = from, from = null;
 
     // Aliasing Thinkful emails is dangerous, as we impersonate
-    if (to.indexOf('@thinkful.com') == -1 &&
-            from.indexOf('@thinkful.com') == -1) {
+    if (to && to.indexOf('@thinkful.com') == -1 &&
+            (! from || from.indexOf('@thinkful.com') == -1)) {
 
         global.analytics &&
             global.analytics.alias(to, from, options, fn);

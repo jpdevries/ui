@@ -1,6 +1,6 @@
 {
   "name": "thinkful-ui",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Shared navigation and UI resources for Thinkful.",
   "main": "src/index.es6",
   "scripts": {
@@ -54,6 +54,7 @@
     "escape-string-regexp": "^1.0.3",
     "eslint": "^0.22.1",
     "eslint-loader": "^0.12.0",
+    "escope": "3.2.0",
     "extract-text-webpack-plugin": "^0.8.1",
     "file-loader": "^0.8.4",
     "getstream": "^2.2.2",
