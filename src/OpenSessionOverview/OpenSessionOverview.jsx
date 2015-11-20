@@ -135,7 +135,11 @@ class OpenSessionOverview extends React.Component {
             {!!tags.length &&
               <div className="session-tags">
                 {tags.map(
-                  (t, idx) => <Tag key={idx} displayName={t} config={config}/>)}
+                  (t, idx) => <Tag
+                                key={idx}
+                                displayName={t}
+                                url={`${config.projects.url}/search?q=${t}`}/>)
+              }
               </div>
             }
             {rsvp_contact_ids && !!rsvp_contact_ids.length &&

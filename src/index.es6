@@ -14,6 +14,7 @@ const {pathWithSlug, pathWithoutSlug} = require('./ProxyPathUtils');
 const {SearchBar} = require('./SearchBar');
 const {SidebarLayout, SidebarMenu, SidebarMenuItem} = require('./Sidebar');
 const {Tag} = require('./Tag');
+const {TopicPicker} = require('./TopicPicker');
 const {TrackedLink, AnalyticsAPI} = require('./analytics');
 const {models} = require('./models');
 
@@ -38,6 +39,7 @@ module.exports = {
   SidebarMenu,
   SidebarMenuItem,
   Tag,
+  TopicPicker,
   TrackedLink,
   AnalyticsAPI,
   models
