@@ -56,6 +56,7 @@ class TopicPicker extends React.Component {
     activeTopics: [],
     maxSuggestions: 10,
     minTopicLength: DEFAULT_MIN_TOPIC_LENGTH,
+    placeholderText: "Add a tag (hit 'return' after each one)",
     // if parent doesn't pass in callback, to avoid conditionals inline
     handleUpdateTopics: () => null,
   }
@@ -220,6 +221,7 @@ class TopicPicker extends React.Component {
 
   render() {
     const {pattern, topics, selectedSuggestionIndex, isFocused} = this.state;
+    const {className, placeholderText} = this.props;
     return (
       <div
         className={cx(
@@ -253,7 +255,7 @@ class TopicPicker extends React.Component {
               className="topic-form-input"
               type="text"
               value={pattern}
-              placeholder="Add a tag (hit 'return' after each one)"
+              placeholder={placeholderText}
               onChange={this._handlePatternChange}/>
 
           {/* The list of topic suggestions */}
