@@ -34,6 +34,7 @@ class TopicPicker extends React.Component {
     this.state = {
       pattern: '',
       topics: [],
+      topicFormInputValue: null,
       selectedSuggestionIndex: -1
     };
   }
@@ -62,11 +63,6 @@ class TopicPicker extends React.Component {
   componentDidMount() {
     const {activeTopics} = this.props;
     this.setState({topics: activeTopics});
-    this.refs.topicForm.addEventListener('keydown', this._handleKeyDown);
-  }
-
-  componentWillUnmount() {
-   this.refs.topicForm.removeEventListener('keydown', this._handleKeyDown);
   }
 
   componentWillReceiveProps(newProps) {
@@ -201,7 +197,7 @@ class TopicPicker extends React.Component {
       topic = this._filterTopicList()[selectedSuggestionIndex];
     }
     else {
-      topic = this.refs.topicInput.value;
+      topic = this.state.pattern;
     }
 
     if (topic.length >= this.props.minTopicLength) {
@@ -248,14 +244,13 @@ class TopicPicker extends React.Component {
         })}
 
         <div
-            ref="topicForm"
             className="topic-form"
+            onKeyDown={this._handleKeyDown}
             onSubmit={this._handleTopicSubmit}>
           <input
               onFocus={this._toggleFocus}
               onBlur={this._toggleFocus}
               className="topic-form-input"
-              ref="topicInput"
               type="text"
               value={pattern}
               placeholder="Add a tag (hit 'return' after each one)"
