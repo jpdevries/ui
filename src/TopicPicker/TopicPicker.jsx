@@ -55,6 +55,7 @@ class TopicPicker extends React.Component {
     activeTopics: [],
     maxSuggestions: 10,
     minTopicLength: DEFAULT_MIN_TOPIC_LENGTH,
+    placeholderText: "Add a tag (hit 'return' after each one)",
     // if parent doesn't pass in callback, to avoid conditionals inline
     handleUpdateTopics: () => null,
   }
@@ -62,11 +63,6 @@ class TopicPicker extends React.Component {
   componentDidMount() {
     const {activeTopics} = this.props;
     this.setState({topics: activeTopics});
-    this.refs.topicForm.addEventListener('keydown', this._handleKeyDown);
-  }
-
-  componentWillUnmount() {
-   this.refs.topicForm.removeEventListener('keydown', this._handleKeyDown);
   }
 
   componentWillReceiveProps(newProps) {
@@ -201,7 +197,7 @@ class TopicPicker extends React.Component {
       topic = this._filterTopicList()[selectedSuggestionIndex];
     }
     else {
-      topic = this.refs.topicInput.value;
+      topic = this.state.pattern;
     }
 
     if (topic.length >= this.props.minTopicLength) {
@@ -224,11 +220,12 @@ class TopicPicker extends React.Component {
 
   render() {
     const {pattern, topics, selectedSuggestionIndex, isFocused} = this.state;
+    const {className, placeholderText} = this.props;
     return (
       <div
         className={cx(
           'topic-picker',
-          this.props.className,
+          className,
           isFocused && 'topic-picker-focus')}>
 
         {/* The existing topics */}
@@ -248,17 +245,16 @@ class TopicPicker extends React.Component {
         })}
 
         <div
-            ref="topicForm"
             className="topic-form"
+            onKeyDown={this._handleKeyDown}
             onSubmit={this._handleTopicSubmit}>
           <input
               onFocus={this._toggleFocus}
               onBlur={this._toggleFocus}
               className="topic-form-input"
-              ref="topicInput"
               type="text"
               value={pattern}
-              placeholder="Add a tag (hit 'return' after each one)"
+              placeholder={placeholderText}
               onChange={this._handlePatternChange}/>
 
           {/* The list of topic suggestions */}
