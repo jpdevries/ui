@@ -200,8 +200,8 @@ class TopicPicker extends React.Component {
       topic = this.state.pattern;
     }
 
-    if (topic.length >= this.props.minTopicLength) {
-      this._handleAddTopic(topic);
+    if (topic.trim().length >= this.props.minTopicLength) {
+      this._handleAddTopic(topic.trim());
     }
   }
 
