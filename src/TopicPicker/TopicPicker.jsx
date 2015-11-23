@@ -34,7 +34,6 @@ class TopicPicker extends React.Component {
     this.state = {
       pattern: '',
       topics: [],
-      topicFormInputValue: null,
       selectedSuggestionIndex: -1
     };
   }
@@ -226,7 +225,7 @@ class TopicPicker extends React.Component {
       <div
         className={cx(
           'topic-picker',
-          this.props.className,
+          className,
           isFocused && 'topic-picker-focus')}>
 
         {/* The existing topics */}
