@@ -67,7 +67,7 @@ class AppNav extends React.Component {
 
     renderFlash() {
         return (<div className="app-nav-flash">
-          <span className="app-nav-flash-message"><span className="app-nav-awesome">🎉</span> Cyber Weekend Sale! Take 25% off your first month. Ends Dec 1st. <span className="app-nav-awesome">🎉</span></span>
+          <span className="app-nav-flash-message"><span className="app-nav-awesome">🎉</span> Cyber Weekend Sale! Enroll in any course and save 25% on your first month. Offer valid through 11/30. <span className="app-nav-awesome">🎉</span></span>
         </div>);
     }
 
@@ -209,7 +209,7 @@ class AppNav extends React.Component {
         const navClassName = cx(
             'app-nav', {'app-nav__visible': this.state.isMenuVisible});
 
-        const blackFriday = moment("2015-11-27T00:00:00Z");
+        const blackFriday = moment("2015-11-22T00:00:00Z");
         const cyberTuesday = moment("2015-12-01T12:00:00Z");
         const current = moment.tz('UTC');
         /* flashActive is true between Nov 27, 00:00 UTC, and
