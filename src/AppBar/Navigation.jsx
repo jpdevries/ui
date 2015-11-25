@@ -209,7 +209,7 @@ class AppNav extends React.Component {
         const navClassName = cx(
             'app-nav', {'app-nav__visible': this.state.isMenuVisible});
 
-        const blackFriday = moment("2015-11-27T00:00:00Z");
+        const blackFriday = moment("2015-11-27T03:00:00Z");
         const cyberTuesday = moment("2015-12-01T12:00:00Z");
         const current = moment.tz('UTC');
         /* flashActive is true between Nov 27, 00:00 UTC, and
