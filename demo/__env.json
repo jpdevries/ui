@@ -149,14 +149,5 @@
   "env": {
     "debug": true,
     "hotload": true
-  },
-  "user": {
-    "tf_login": "tholex@gmail.com",
-    "name": "Abe Z",
-    "first_name": "Abe",
-    "last_name": "X",
-    "id": 1,
-    "contact_id": 1,
-    "access": ["navbar-notifications"]
   }
 }
