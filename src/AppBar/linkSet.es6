@@ -80,6 +80,7 @@ else {
         main.push(config.search);
     }
 
+    menu.push(config.refer);
     menu.push(config.slack);
     menu.push(config.settings);
     menu.push(config.support);
