@@ -1,6 +1,8 @@
 const cx = require('classnames');
 const React = require('react');
 
+const NOOP = () => {};
+
 class Tag extends React.Component {
 
   static displayName = 'Tag'
@@ -11,12 +13,17 @@ class Tag extends React.Component {
     url: React.PropTypes.string
   }
 
+  static defaultProps = {
+    onClick: NOOP
+  }
+
   render() {
-    const {children, className, displayName, url} = this.props;
+    const {children, className, displayName, onClick, url} = this.props;
     return (
       <a
           className={cx("tui-tag", className)}
-          href={url}>
+          href={url}
+          onClick={onClick}>
         {displayName}
         {children}
       </a>
