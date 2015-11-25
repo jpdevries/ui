@@ -66,7 +66,7 @@ class AppNav extends React.Component {
     }
 
     renderFlash() {
-        return (<div href="//www.thinkful.com/enroll/" className="app-nav-flash">
+        return (<div className="app-nav-flash">
           <span className="app-nav-flash-message"><span className="app-nav-awesome">🎉</span> Cyber Weekend Sale! Take 25% off your first month. Ends Dec 1st. <span className="app-nav-awesome">🎉</span></span>
         </div>);
     }
@@ -211,9 +211,9 @@ class AppNav extends React.Component {
 
         const blackFriday = moment("2015-11-27T00:00:00Z");
         const cyberTuesday = moment("2015-12-01T12:00:00Z");
-        const current = moment();
-        /* flashActive is true between Nov 27, 00:00 GMT, and
-                                       Dec 1, noon GMT */
+        const current = moment.tz('UTC');
+        /* flashActive is true between Nov 27, 00:00 UTC, and
+                                       Dec 1, noon UTC */
         const flashActive = (current.diff(blackFriday) > 0) &&
                             (current.diff(cyberTuesday) < 0);
 
