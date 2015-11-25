@@ -11,6 +11,11 @@ class OneClickCopy extends React.Component {
     onCopyClickFail: React.PropTypes.func,
   }
 
+  _handleInputClick = (event) => {
+    event.preventDefault();
+    this.refs.copyArea.select();
+  }
+
   _handleCopyToClipboard = (event) => {
     const {onCopyClick, onCopyClickSuccess, onCopyClickFail} = this.props;
 
