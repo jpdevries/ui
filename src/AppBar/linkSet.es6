@@ -49,11 +49,10 @@ else {
         defaults(home, config.dashboard);
         main.push(home);
 
+        menu.push(config.activity);
         main.push(config.workshops);
         main.push(config.paths);
         main.push(config.search);
-
-        menu.push(config.activity);
         menu.push(config.takeStudent);
 
         if (/admin/.test(user.role)) {
