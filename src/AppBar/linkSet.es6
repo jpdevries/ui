@@ -49,10 +49,11 @@ else {
         defaults(home, config.dashboard);
         main.push(home);
 
-        menu.push(config.activity);
         main.push(config.workshops);
         main.push(config.paths);
         main.push(config.search);
+
+        menu.push(config.activity);
         menu.push(config.takeStudent);
 
         if (/admin/.test(user.role)) {
@@ -80,6 +81,7 @@ else {
         main.push(config.search);
     }
 
+    menu.push(config.refer);
     menu.push(config.slack);
     menu.push(config.settings);
     menu.push(config.support);
