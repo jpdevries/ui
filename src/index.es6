@@ -9,6 +9,7 @@ const {Icon} = require('./Icon');
 const {Loader} = require('./Loader');
 const {Modal} = require('./Modal');
 const {NotificationView} = require('./NotificationView');
+const {OneClickCopy} = require('./OneClickCopy');
 const {OpenSessionOverview} = require('./OpenSessionOverview');
 const {pathWithSlug, pathWithoutSlug} = require('./ProxyPathUtils');
 const {SearchBar} = require('./SearchBar');
@@ -31,6 +32,7 @@ module.exports = {
   Modal,
   MenuItem: SidebarMenuItem,
   NotificationView,
+  OneClickCopy,
   OpenSessionOverview,
   pathWithSlug,
   pathWithoutSlug,
