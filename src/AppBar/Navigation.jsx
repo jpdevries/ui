@@ -67,7 +67,7 @@ class AppNav extends React.Component {
 
     renderFlash() {
         return (<div className="app-nav-flash">
-          <span className="app-nav-flash-message"><span className="app-nav-awesome">🎉</span> Cyber Weekend Sale! Enroll in any course and save 25% on your first month. Offer valid through 11/30. <span className="app-nav-awesome">🎉</span></span>
+          <span className="app-nav-flash-message"><span className="app-nav-awesome">🎉</span> Cyber Weekend Sale! Enroll in any course and <strong>save 25%</strong> on your first month. Offer valid through 11/30. <span className="app-nav-awesome">🎉</span></span>
         </div>);
     }
 
