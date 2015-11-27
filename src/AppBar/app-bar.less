@@ -20,6 +20,37 @@
   z-index: 15;
 }
 
+.app-nav-flash {
+  display: block;
+  background-color: @green;
+  color: @white;
+  cursor: default;
+}
+
+.app-nav-flash-message {
+  display: block;
+  .centered-container;
+  .body-text;
+  padding-top: 8px;
+  padding-bottom: 7px;
+  text-align: center;
+}
+
+.app-nav-awesome {
+  display: inline-block;
+  transform: rotateZ(0);
+  transition: transform 1.47s ease;
+  padding: 0 3px;
+}
+.app-nav-flash:hover {
+  .app-nav-awesome {
+    transform: rotateZ(1440deg);
+  }
+  .app-nav-awesome:last-child {
+    transition-delay: 0.22s;
+  }
+}
+
 .app-nav-main {
   margin-bottom: 0;
   > * {

@@ -1,6 +1,7 @@
 const cx = require('classnames');
 const React = require('react');
 const _ = require('lodash');
+const moment = require('moment-timezone');
 const uniqueId = require('lodash/utility/uniqueId');
 
 // TUI Components
@@ -62,6 +63,12 @@ class AppNav extends React.Component {
             isCourseDropdownVisible: false
           })
         }, 400);
+    }
+
+    renderFlash() {
+        return (<div className="app-nav-flash">
+          <span className="app-nav-flash-message"><span className="app-nav-awesome">🎉</span> Cyber Weekend Sale! Enroll in any course and <strong>save 25%</strong> on your first month. Offer valid through 11/30. <span className="app-nav-awesome">🎉</span></span>
+        </div>);
     }
 
     renderAuthed(user, config) {
@@ -202,6 +209,14 @@ class AppNav extends React.Component {
         const navClassName = cx(
             'app-nav', {'app-nav__visible': this.state.isMenuVisible});
 
+        const blackFriday = moment("2015-11-27T03:00:00Z");
+        const cyberTuesday = moment("2015-12-01T12:00:00Z");
+        const current = moment.tz('UTC');
+        /* flashActive is true between Nov 27, 00:00 UTC, and
+                                       Dec 1, noon UTC */
+        const flashActive = (current.diff(blackFriday) > 0) &&
+                            (current.diff(cyberTuesday) < 0);
+
         return (
             <div className='app-nav-container app-nav-container__unauthed'>
                 <nav onMouseLeave={this._handleMouseLeave}
@@ -226,6 +241,7 @@ class AppNav extends React.Component {
                         <span alt='Menu' className='app-nav-burger'></span>
                     </a>
                 </nav>
+                {flashActive && this.renderFlash()}
             </div>
         )
     }
