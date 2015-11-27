@@ -1,6 +1,6 @@
 {
   "name": "thinkful-ui",
-  "version": "2.0.11",
+  "version": "2.0.12",
   "description": "Shared navigation and UI resources for Thinkful.",
   "main": "src/index.es6",
   "scripts": {

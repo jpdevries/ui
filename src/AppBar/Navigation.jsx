@@ -1,7 +1,7 @@
 const cx = require('classnames');
 const React = require('react');
 const _ = require('lodash');
-const moment = require('moment');
+const moment = require('moment-timezone');
 const uniqueId = require('lodash/utility/uniqueId');
 
 // TUI Components
