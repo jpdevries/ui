@@ -13,15 +13,14 @@ class OneClickCopy extends React.Component {
 
   _handleInputClick = (event) => {
     event.preventDefault();
-    event.target.select();
+    this.inputElement.select();
   }
 
   _handleCopyToClipboard = (event) => {
     const {onCopyClick, onCopyClickSuccess, onCopyClickFail} = this.props;
     event.preventDefault();
 
-    // Hackily get the input element, since we can't use refs in thinkful-ui
-    event.target.parentElement.firstChild.select()
+    this.inputElement.select();
     onCopyClick();
 
     try {
@@ -41,6 +40,7 @@ class OneClickCopy extends React.Component {
       <input
           className="copy-area"
           onFocus={this._handleInputClick}
+          ref={(ref) => this.inputElement = ref}
           type="text"
           value={inputText}
           readOnly/>
