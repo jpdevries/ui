@@ -57,7 +57,7 @@
     "escope": "3.2.0",
     "extract-text-webpack-plugin": "^0.8.1",
     "file-loader": "^0.8.4",
-    "getstream": "^2.2.2",
+    "getstream": "^3.0.0",
     "html-loader": "^0.3.0",
     "is": "^3.1.0",
     "json-loader": "^0.5.2",
