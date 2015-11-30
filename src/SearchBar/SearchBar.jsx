@@ -27,16 +27,16 @@ class SearchBar extends React.Component {
 
   componentDidMount() {
     SearchActions.getSuggestions.completed.listen(this._onGetSuggestionsCompleted);
-    this.refs.input.addEventListener('keydown', this._handleKeyDown);
+    this.input.addEventListener('keydown', this._handleKeyDown);
 
-    const underlay = this.refs.underlay;
+    const underlay = this.underlay;
     underlay && underlay.addEventListener('click', this._handleClickAway);
   }
 
   componentWillUnmount() {
-    this.refs.input.removeEventListener('keydown', this._handleKeyDown);
+    this.input.removeEventListener('keydown', this._handleKeyDown);
 
-    const underlay = this.refs.underlay;
+    const underlay = this.underlay;
     underlay && underlay.removeEventListener('click', this._handleClickAway);
   }
 
@@ -51,10 +51,10 @@ class SearchBar extends React.Component {
   }
 
   _autoFocus = () => {
-    this.refs.input.focus();
+    this.input.focus();
 
     // Force the cursor to go to the end of the input text
-    this.refs.input.value = this.state.searchTerm;
+    this.input.value = this.state.searchTerm;
   }
 
   autoFocus = () => {
@@ -62,7 +62,7 @@ class SearchBar extends React.Component {
   }
 
   _unFocus = () => {
-    this.refs.input.blur();
+    this.input.blur();
   }
 
   unFocus = () => {
@@ -180,7 +180,7 @@ class SearchBar extends React.Component {
     return (
       <div className={cx("search-bar", className)}>
         {underlay &&
-          <div className="search-underlay" ref="underlay"/>}
+          <div className="search-underlay" ref={ref => this.underlay = ref}/>}
         <div className="search-form-container">
           <form
               className="search-form"
@@ -188,7 +188,7 @@ class SearchBar extends React.Component {
             <Icon name="search" className="icon-search"/>
             <input
                 className={cx("search-input", inputClassName)}
-                ref="input"
+                ref={ref => this.input = ref}
                 type="text"
                 placeholder="Search"
                 onChange={this._handleFormInput}
