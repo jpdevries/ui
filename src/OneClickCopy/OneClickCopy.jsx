@@ -5,10 +5,15 @@ class OneClickCopy extends React.Component {
   static propTypes = {
     className: React.PropTypes.oneOfType(
             [React.PropTypes.string, React.PropTypes.object]),
+    copyButtonText: React.PropTypes.string,
     inputText: React.PropTypes.string,
     onCopyClick: React.PropTypes.func,
     onCopyClickSuccess: React.PropTypes.func,
     onCopyClickFail: React.PropTypes.func,
+  }
+
+  static defaultProps = {
+    copyButtonText: 'Copy'
   }
 
   _handleInputClick = (event) => {
@@ -34,7 +39,7 @@ class OneClickCopy extends React.Component {
   }
 
   render() {
-    const {className, inputText} = this.props;
+    const {className, copyButtonText, inputText} = this.props;
 
     return <div className={cx("one-click-copy", className)}>
       <input
@@ -47,7 +52,7 @@ class OneClickCopy extends React.Component {
       <div
           className="button copy-button"
           onClick={this._handleCopyToClipboard}>
-        Copy
+        {copyButtonText}
       </div>
     </div>
   }
