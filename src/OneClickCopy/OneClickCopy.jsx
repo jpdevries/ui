@@ -5,23 +5,27 @@ class OneClickCopy extends React.Component {
   static propTypes = {
     className: React.PropTypes.oneOfType(
             [React.PropTypes.string, React.PropTypes.object]),
+    copyButtonText: React.PropTypes.string,
     inputText: React.PropTypes.string,
     onCopyClick: React.PropTypes.func,
     onCopyClickSuccess: React.PropTypes.func,
     onCopyClickFail: React.PropTypes.func,
   }
 
+  static defaultProps = {
+    copyButtonText: 'Copy'
+  }
+
   _handleInputClick = (event) => {
     event.preventDefault();
-    event.target.select();
+    this.inputElement.select();
   }
 
   _handleCopyToClipboard = (event) => {
     const {onCopyClick, onCopyClickSuccess, onCopyClickFail} = this.props;
     event.preventDefault();
 
-    // Hackily get the input element, since we can't use refs in thinkful-ui
-    event.target.parentElement.firstChild.select()
+    this.inputElement.select();
     onCopyClick();
 
     try {
@@ -35,19 +39,20 @@ class OneClickCopy extends React.Component {
   }
 
   render() {
-    const {className, inputText} = this.props;
+    const {className, copyButtonText, inputText} = this.props;
 
     return <div className={cx("one-click-copy", className)}>
       <input
           className="copy-area"
           onFocus={this._handleInputClick}
+          ref={(ref) => this.inputElement = ref}
           type="text"
           value={inputText}
           readOnly/>
       <div
           className="button copy-button"
           onClick={this._handleCopyToClipboard}>
-        Copy
+        {copyButtonText}
       </div>
     </div>
   }
