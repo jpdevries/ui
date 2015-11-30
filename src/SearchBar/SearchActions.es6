@@ -7,8 +7,11 @@ const SearchActions = Reflux.createActions({
 
 
 SearchActions.getSuggestions.listen(function(input, config) {
+  const fetchURLBase = config.useSSL ?
+    `https:${config.www.url}/projects`
+  : config.projects.url;
   superagent.
-    get(`http${config.useSSL ? 's' : ''}:${config.projects.url}/api/search/suggest`).
+    get(`${fetchURLBase}/api/search/suggest`).
     query({input: input}).
     withCredentials().
     end((error, response) => {
