@@ -71,7 +71,10 @@ module.exports = function (options) {
     plugins: [],
     resolve: {
       extensions: ['', '.js', '.jsx', '.es', '.es6'],
-      alias: {app: path.join(options.__dirname, 'client')}
+      alias: {
+        app: path.join(options.__dirname, 'client'),
+        react: path.join(__dirname, 'node_modules', 'react')
+      }
     },
     resolveLoader: {
       root: path.join(__dirname, 'node_modules')},
