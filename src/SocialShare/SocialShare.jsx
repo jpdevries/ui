@@ -18,43 +18,27 @@ class SocialShare extends React.Component {
     return false;
   }
 
-  _coerceTwitterConfig = (data) => {
-    return {
-      url: `http://twitter.com/home/?status=${this.props.content}`,
-      width: 600,
-      height: 250
+  _coerceFromType = (type) => {
+    const {content, url} = this.props;
+    const urlBuilders = {
+      twitter: {
+        url: `https://twitter.com/home/?status=${content}`,
+        width: 600,
+        height: 250
+      },
+      facebook: {
+        url: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+        width: 600,
+        height: 300
+      },
+      linkedin: {
+        url: `https://www.linkedin.com/shareArticle?mini=true&url=${url}`,
+        width: 600,
+        height: 300
+      }
     }
-  }
 
-  _coerceFacebookConfig = (data) => {
-    return {
-      url: `https://www.facebook.com/sharer/sharer.php?u=${this.props.url}`,
-      width: 600,
-      height: 300
-    }
-  }
-
-  _coerceLinkedInConfig = (data) => {
-    return {
-      url: `http://www.linkedin.com/shareArticle?mini=true&url=${this.props.url}`,
-      width: 600,
-      height: 300
-    }
-  }
-
-  _coerceFromType = (type, data) => {
-    switch (type) {
-    case 'twitter':
-      return this._coerceTwitterConfig(data);
-      break;
-    case 'facebook':
-      return this._coerceFacebookConfig(data);
-      break;
-    case 'linkedin':
-      return this._coerceLinkedInConfig(data);
-      break;
-    default: return {}
-    }
+    return urlBuilders[type] || {};
   }
 
   _handleSocialShareClick = () => {
