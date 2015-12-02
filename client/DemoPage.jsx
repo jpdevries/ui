@@ -1,7 +1,6 @@
 const React = require('react');
 const Demo = require('react-demo');
 const moment = require('moment-timezone');
-const {RouteHandler} = require('react-router');
 
 const {
   AvailabilityGrid,
@@ -142,7 +141,6 @@ class DemoPage extends React.Component {
               }),
               config: Demo.props.json({projects: {url: ''}})
             }}/>
-
             <h3>TopicPicker</h3>
             <Demo
               target={TopicPicker}
@@ -155,10 +153,11 @@ class DemoPage extends React.Component {
                 maxSuggestions: Demo.props.choices([2, 3, 4]),
                 minTopicLength: 3,
               }}/>
-          <RouteHandler />
+            {this.props.children}
+          </div>
+          <Footer/>
         </div>
-        <Footer/>
-      </div>);
+    );
   }
 }
 
