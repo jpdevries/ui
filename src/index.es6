@@ -14,6 +14,7 @@ const {OpenSessionOverview} = require('./OpenSessionOverview');
 const {pathWithSlug, pathWithoutSlug} = require('./ProxyPathUtils');
 const {SearchBar} = require('./SearchBar');
 const {SidebarLayout, SidebarMenu, SidebarMenuItem} = require('./Sidebar');
+const {SocialShare} = require('./SocialShare');
 const {Tag} = require('./Tag');
 const {TopicPicker} = require('./TopicPicker');
 const {TrackedLink, AnalyticsAPI} = require('./analytics');
@@ -40,6 +41,7 @@ module.exports = {
   SidebarLayout,
   SidebarMenu,
   SidebarMenuItem,
+  SocialShare,
   Tag,
   TopicPicker,
   TrackedLink,
