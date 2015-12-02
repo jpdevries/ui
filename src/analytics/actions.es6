@@ -8,7 +8,8 @@ const __env = global.__env || {};
 const urlParams = Qs.parse((window.location.search || "").substring(1));
 const appInfo = {
     app: result(__env.config, 'app.name', '').toLowerCase(),
-    appDisplayName: result(__env.config, 'app.displayName', '').toLowerCase()
+    appDisplayName: result(__env.config, 'app.displayName', '').toLowerCase(),
+    uiAnalytics: true
 }
 const cookies = _.object(_.map(document.cookie.split('; '), function(cookie) {
     let [name, value] = cookie.split('=');
@@ -149,6 +150,8 @@ function identify(id, traits, options, fn) {
         }
     }
 
+    traits = mergeIntoDict(traits, appInfo);
+
     global.analytics &&
         global.analytics.identify(id, traits, options, fn);
 }
@@ -162,7 +165,7 @@ function alias(to, from, options, fn) {
 
     // Aliasing Thinkful emails is dangerous, as we impersonate
     if (to && to.indexOf('@thinkful.com') == -1 &&
-            (! from || from.indexOf('@thinkful.com') == -1)) {
+            (!from || from.indexOf('@thinkful.com') == -1)) {
 
         global.analytics &&
             global.analytics.alias(to, from, options, fn);
