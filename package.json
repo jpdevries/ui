@@ -87,7 +87,7 @@
   "devDependencies": {
     "express": "^4.13.3",
     "ejs": "^1.0.0",
-    "react-router": "^0.13.5",
+    "react-router": "^1.0.0",
     "react-demo": "^1.1.0"
   },
   "readme": "# UI\nShared React components and WebPack config for Thinkful applications.\n\n`/src`\n\nCode for the shared components.\n\n`/client`\n\nCode for the demo page.\n\n`/demo`\n\nCode for the demo server that serves the demo page.\n\n`/script`\n\nStandard bootstrap scripts (Thinkful convention).\n",

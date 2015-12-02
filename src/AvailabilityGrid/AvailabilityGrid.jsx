@@ -73,12 +73,13 @@ const AvailabilityGridDay = React.createClass({
   },
 
   render() {
-    let slotNodes = this.props.data.slots.map((slotData) => {
+    let slotNodes = this.props.data.slots.map((slotData, idx) => {
       const {data, ...other} = this.props;
       return (
         <AvailabilityGridSlot
             data={slotData}
             dayIndex={data.index}
+            key={idx}
             {...other} />
       );
     })
@@ -283,9 +284,9 @@ const AvailabilityGrid = React.createClass({
   },
 
   render() {
-    let slotNames = this.state.slotNames.map((slotName) => {
+    let slotNames = this.state.slotNames.map((slotName, idx) => {
       return (
-        <div className="availability-grid-slot-name">
+        <div className="availability-grid-slot-name" key={idx}>
           {slotName}
         </div>
       );
@@ -294,9 +295,10 @@ const AvailabilityGrid = React.createClass({
     let minSlot = this.props.minHour * this.props.slotsHour;
     let maxSlot = this.props.maxHour * this.props.slotsHour;
 
-    let dayNodes = this.state.days.map((dayData) => {
+    let dayNodes = this.state.days.map((dayData, idx) => {
       return (
         <AvailabilityGridDay
+            key={idx}
             data={dayData}
             selectionMode={this.state.selectionMode}
             onSelectionModeChanged={this.handleSelectionModeChanged}
