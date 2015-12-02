@@ -9,7 +9,7 @@ require('./layout.less');
  */
 class SidebarLayout extends React.Component {
   static propTypes = {
-    sidebarMenu: React.PropTypes.component
+    sidebarMenu: React.PropTypes.element
   }
 
   render() {
