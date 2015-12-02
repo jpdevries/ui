@@ -44,7 +44,7 @@ class SocialShare extends React.Component {
   _handleSocialShareClick = () => {
     const {handleTrackClick, type} = this.props;
 
-    handleTrackClick && handleTrackClick();
+    handleTrackClick && handleTrackClick(type);
 
     const values = this._coerceFromType(type);
     this._openSocialShareWindow(values.width, values.height, values.url);
