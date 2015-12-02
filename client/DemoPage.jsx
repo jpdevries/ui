@@ -87,8 +87,8 @@ class DemoPage extends React.Component {
             target={Dropdown}
             props={{
               data: Demo.props.constant(sampleDropdownData),
+              initialSelectedInd: Demo.props.choices([undefined,0,1,2]),
               defaultDisplay: Demo.props.string("Choose something awesome"),
-              initialSelectedInd: Demo.props.choices([null,0,1,2]),
               handleChange: Demo.props.callback.log(e => e.target.getAttribute('value'))
             }} />
 
