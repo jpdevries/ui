@@ -1,6 +1,6 @@
 const React = require('react');
 const Router = require('react-router');
-const {IndexRoute, Route, Redirect} = Router;
+const {DefaultRoute, Route, RouteHandler, NotFoundRoute, Redirect} = Router;
 const {DemoPage} = require('./DemoPage');
 const {HomePage} = require('./HomePage');
 const {StaticModalPage} = require('./StaticModalPage');
@@ -10,26 +10,27 @@ const {
   AppBar
 } = require('./../src');
 
-const user = global.__env ? global.__env.user : null;
-const config = global.__env ? global.__env.config : null;
+const USER = global.__env ? global.__env.user : null;
+const CONFIG = global.__env ? global.__env.config : null;
 
 class App extends React.Component {
   render() {
     return <div>
-      <AppBar config={config} user={user} />
-      {React.cloneElement(this.props.children, { user, config })}
+      <AppBar user={USER} config={CONFIG}/>
+      <RouteHandler user={USER} {...this.props}/>
     </div>;
   }
 }
 
 const routes = (
-  <Route path='/' component={App}>
-    <IndexRoute component={HomePage} />
-    <Route path='demo' component={DemoPage}>
-      <Route path='modal' component={StaticModalPage} />
+  <Route name="app" path="/" handler={App}>
+    <Route name="demo" path="demo" handler={DemoPage}>
+      <Route name="modalRoute" path="modal" handler={StaticModalPage} />
     </Route>
-    <Route path='*' component={FourOhFour}/>
+    <DefaultRoute name="default" handler={HomePage} />
+    <NotFoundRoute handler={FourOhFour}/>
   </Route>
 );
+
 
 module.exports = {routes};
