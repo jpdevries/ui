@@ -116,7 +116,13 @@ function load(writeKey) {
     if (!writeKey) {
         meta = head.querySelector('meta[content=segmentio]');
         writeKey = meta && meta.dataset.token;
+    }
 
+    // Select from __env
+    if (!writeKey) {
+        if (__env && __env.config.vendor.segment.token) {
+            writeKey = __env.config.vendor.segment.token;
+        }
     }
 
     // Raise visibility of error… analytics are important
