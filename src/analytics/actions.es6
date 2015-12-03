@@ -1,5 +1,6 @@
 const log = require('debug')('ui:analytics');
 const result = require('lodash/object/result');
+const defaults = require('lodash/object/defaults');
 const Qs = require('qs');
 const is = require('is');
 const superagent = require('superagent');
@@ -8,25 +9,13 @@ const __env = global.__env || {};
 const urlParams = Qs.parse((window.location.search || "").substring(1));
 const appInfo = {
     app: result(__env.config, 'app.name', '').toLowerCase(),
-    appDisplayName: result(__env.config, 'app.displayName', '').toLowerCase()
+    appDisplayName: result(__env.config, 'app.displayName', '').toLowerCase(),
+    uiAnalytics: true
 }
 const cookies = _.object(_.map(document.cookie.split('; '), function(cookie) {
     let [name, value] = cookie.split('=');
     return [name, decodeURIComponent(value)];
 }));
-
-function mergeIntoDict(dest, src) {
-    src = src || {};
-    dest = dest || {};
-
-    for (let key in src) {
-        if (!dest.hasOwnProperty(key)) {
-            dest[key] = src[key];
-        }
-    }
-
-    return dest;
-}
 
 // Lots of ways of trying to find the user's email
 function tryEmail() {
@@ -115,7 +104,13 @@ function load(writeKey) {
     if (!writeKey) {
         meta = head.querySelector('meta[content=segmentio]');
         writeKey = meta && meta.dataset.token;
+    }
 
+    // Select from __env
+    if (!writeKey) {
+        if (__env && __env.config.vendor.segment.token) {
+            writeKey = __env.config.vendor.segment.token;
+        }
     }
 
     // Raise visibility of error… analytics are important
@@ -149,6 +144,8 @@ function identify(id, traits, options, fn) {
         }
     }
 
+    traits = defaults(traits || {}, appInfo)
+
     global.analytics &&
         global.analytics.identify(id, traits, options, fn);
 }
@@ -162,7 +159,7 @@ function alias(to, from, options, fn) {
 
     // Aliasing Thinkful emails is dangerous, as we impersonate
     if (to && to.indexOf('@thinkful.com') == -1 &&
-            (! from || from.indexOf('@thinkful.com') == -1)) {
+            (!from || from.indexOf('@thinkful.com') == -1)) {
 
         global.analytics &&
             global.analytics.alias(to, from, options, fn);
@@ -176,9 +173,7 @@ function track(event, properties, options, fn) {
     if (is.fn(options)) fn = options, options = null;
     if (is.fn(properties)) fn = properties, options = null, properties = null;
 
-    properties = mergeIntoDict(properties, appInfo);
-    properties = mergeIntoDict(properties, __env.user);
-    properties = mergeIntoDict(properties, urlParams);
+    defaults(properties || {}, appInfo, __env.user, urlParams)
 
     if (global.analytics && global.analytics.initialize) {
         global.analytics.track(event, properties, options, fn);
@@ -202,8 +197,7 @@ function page(category, name, properties, options, fn) {
     if (is.object(name)) options = properties, properties = name, name = null;
     if (is.string(category) && !is.string(name)) name = category, category = null;
 
-    properties = mergeIntoDict(properties, appInfo);
-    properties = mergeIntoDict(properties, __env.user);
+    defaults(properties || {}, appInfo, __env.user);
 
     global.analytics &&
         global.analytics.page(category, name, properties, options, fn);
