@@ -1,5 +1,6 @@
 const log = require('debug')('ui:analytics');
 const result = require('lodash/object/result');
+const defaults = require('lodash/object/defaults');
 const Qs = require('qs');
 const is = require('is');
 const superagent = require('superagent');
@@ -15,19 +16,6 @@ const cookies = _.object(_.map(document.cookie.split('; '), function(cookie) {
     let [name, value] = cookie.split('=');
     return [name, decodeURIComponent(value)];
 }));
-
-function mergeIntoDict(dest, src) {
-    src = src || {};
-    dest = dest || {};
-
-    for (let key in src) {
-        if (!dest.hasOwnProperty(key)) {
-            dest[key] = src[key];
-        }
-    }
-
-    return dest;
-}
 
 // Lots of ways of trying to find the user's email
 function tryEmail() {
@@ -156,7 +144,7 @@ function identify(id, traits, options, fn) {
         }
     }
 
-    traits = mergeIntoDict(traits, appInfo);
+    traits = defaults(traits || {}, appInfo)
 
     global.analytics &&
         global.analytics.identify(id, traits, options, fn);
@@ -185,9 +173,7 @@ function track(event, properties, options, fn) {
     if (is.fn(options)) fn = options, options = null;
     if (is.fn(properties)) fn = properties, options = null, properties = null;
 
-    properties = mergeIntoDict(properties, appInfo);
-    properties = mergeIntoDict(properties, __env.user);
-    properties = mergeIntoDict(properties, urlParams);
+    defaults(properties || {}, appInfo, __env.user, urlParams)
 
     if (global.analytics && global.analytics.initialize) {
         global.analytics.track(event, properties, options, fn);
@@ -211,8 +197,7 @@ function page(category, name, properties, options, fn) {
     if (is.object(name)) options = properties, properties = name, name = null;
     if (is.string(category) && !is.string(name)) name = category, category = null;
 
-    properties = mergeIntoDict(properties, appInfo);
-    properties = mergeIntoDict(properties, __env.user);
+    defaults(properties || {}, appInfo, __env.user);
 
     global.analytics &&
         global.analytics.page(category, name, properties, options, fn);
