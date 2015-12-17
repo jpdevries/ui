@@ -144,7 +144,7 @@ function identify(id, traits, options, fn) {
         }
     }
 
-    traits = defaults(traits || {}, appInfo)
+    traits = defaults(traits || {}, appInfo);
 
     global.analytics &&
         global.analytics.identify(id, traits, options, fn);
@@ -173,7 +173,7 @@ function track(event, properties, options, fn) {
     if (is.fn(options)) fn = options, options = null;
     if (is.fn(properties)) fn = properties, options = null, properties = null;
 
-    defaults(properties || {}, appInfo, __env.user, urlParams)
+    properties = defaults(properties || {}, appInfo, __env.user, urlParams);
 
     if (global.analytics && global.analytics.initialize) {
         global.analytics.track(event, properties, options, fn);
@@ -197,7 +197,7 @@ function page(category, name, properties, options, fn) {
     if (is.object(name)) options = properties, properties = name, name = null;
     if (is.string(category) && !is.string(name)) name = category, category = null;
 
-    defaults(properties || {}, appInfo, __env.user);
+    properties = defaults(properties || {}, appInfo, __env.user);
 
     global.analytics &&
         global.analytics.page(category, name, properties, options, fn);
