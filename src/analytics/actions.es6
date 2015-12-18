@@ -3,10 +3,9 @@ const Qs = require('qs');
 const is = require('is');
 const superagent = require('superagent');
 
-const defaults = require('lodash/object/defaults');
-const get = require('lodash/object/get');
-const zipObject = require('lodash/array/zipObject');
-const map = require('lodash/collection/map');
+const { defaults, get } = require('lodash/object')
+const { zipObject } = require('lodash/array');
+const { map } = require('lodash/collection');
 
 const __env = global.__env || {};
 const urlParams = Qs.parse((window.location.search || "").substring(1));
