@@ -1,6 +1,6 @@
 {
   "name": "thinkful-ui",
-  "version": "2.0.26",
+  "version": "2.0.27",
   "description": "Shared navigation and UI resources for Thinkful.",
   "main": "src/index.es6",
   "scripts": {
@@ -41,6 +41,9 @@
       "email": "saul@thinkful.com"
     }
   ],
+  "browserify": {
+    "transform": ["babelify"]
+  },
   "dependencies": {
     "autoprefixer-loader": "^2.0.0",
     "babel-core": "^5.8.33",

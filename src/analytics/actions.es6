@@ -1,18 +1,21 @@
 const log = require('debug')('ui:analytics');
-const result = require('lodash/object/result');
-const defaults = require('lodash/object/defaults');
 const Qs = require('qs');
 const is = require('is');
 const superagent = require('superagent');
 
+const get = require('lodash/object/get')
+const defaults = require('lodash/object/defaults')
+const zipObject = require('lodash/array/zipObject');
+const map = require('lodash/collection/map');
+
 const __env = global.__env || {};
 const urlParams = Qs.parse((window.location.search || "").substring(1));
 const appInfo = {
-    app: result(__env.config, 'app.name', '').toLowerCase(),
-    appDisplayName: result(__env.config, 'app.displayName', '').toLowerCase(),
+    app: get(__env, 'config.app.name', '').toLowerCase(),
+    appDisplayName: get(__env, 'config.app.displayName', '').toLowerCase(),
     uiAnalytics: true
 }
-const cookies = _.object(_.map(document.cookie.split('; '), function(cookie) {
+const cookies = zipObject(map(document.cookie.split('; '), function(cookie) {
     let [name, value] = cookie.split('=');
     return [name, decodeURIComponent(value)];
 }));
@@ -20,7 +23,7 @@ const cookies = _.object(_.map(document.cookie.split('; '), function(cookie) {
 // Lots of ways of trying to find the user's email
 function tryEmail() {
     // Check if the user is logged in
-    if (__env.user && __env.user.tf_login) {
+    if (get(__env, 'user.tf_login')) {
         return __env.user.tf_login;
     }
 
@@ -91,26 +94,23 @@ function load(writeKey) {
         return global.analytics;
     }
 
-    let head = global.document.head;
-    let meta;
+    const head = global.document.head;
 
     // Select from <meta property="x-tf-segmentio-token" content={writeKey} />
     if (!writeKey) {
-        meta = head.querySelector('meta[property=x-tf-segmentio-token]');
+        const meta = head.querySelector('meta[property=x-tf-segmentio-token]');
         writeKey = meta && meta.content;
     }
 
     // Select from <meta content="segmentio" data-token={writeKey} />
     if (!writeKey) {
-        meta = head.querySelector('meta[content=segmentio]');
-        writeKey = meta && meta.dataset.token;
+        const meta = head.querySelector('meta[content=segmentio]');
+        writeKey = meta && get(meta, 'dataset.token');
     }
 
     // Select from __env
-    if (!writeKey) {
-        if (__env && __env.config.vendor.segment.token) {
-            writeKey = __env.config.vendor.segment.token;
-        }
+    if (!writeKey && get(__env, 'config.vendor.segment.token')) {
+        writeKey = __env.config.vendor.segment.token;
     }
 
     // Raise visibility of error… analytics are important
@@ -175,7 +175,7 @@ function track(event, properties, options, fn) {
 
     properties = defaults(properties || {}, appInfo, __env.user, urlParams);
 
-    if (global.analytics && global.analytics.initialize) {
+    if (get(global, 'analytics.initialize')) {
         global.analytics.track(event, properties, options, fn);
     } else {
         fallback(fn, {
