@@ -153,9 +153,6 @@ class AppNav extends React.Component {
               <CourseLink href="//www.thinkful.com/courses/learn-react-online-workshops/"
                           icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/react.svg"
                           name="React" />
-              <CourseLink href="//www.thinkful.com/courses/learn-frontend-online-workshops/"
-                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/frontend.svg"
-                          name="Frontend" />
             </div>
             <div className="app-nav-section-header">Part-time 1-on-1 Courses</div>
             <div className="app-nav-courses">
