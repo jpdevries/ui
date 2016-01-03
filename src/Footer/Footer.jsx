@@ -1,4 +1,5 @@
 const React = require('react');
+const moment = require('moment');
 const jstz = require('jstz');
 const {Icon} = require('../Icon');
 
@@ -115,7 +116,7 @@ class Footer extends React.Component {
               <a
                   className="footer-main-link phone-link"
                   href="tel:+18583673232">Call us +1 (858) 367-3232</a>
-              <div className="copyright mobile-hidden">&copy; 2016 Thinkful, Inc.</div>
+              <div className="copyright mobile-hidden">&copy; {moment().format('YYYY')} Thinkful, Inc.</div>
               <a
                   className="footer-main-link"
                   href="https://www.thinkful.com/static/pdfs/Privacy-Policy.pdf">
