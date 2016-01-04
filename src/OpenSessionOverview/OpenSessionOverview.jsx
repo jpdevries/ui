@@ -15,7 +15,7 @@ class OverviewContent extends React.Component {
     const {description, host, title} = session;
     return (
       <div className="overview-content">
-        <h3 className="title" itemProp="summary">{title}</h3>
+        <h3 className="title" itemProp="name">{title}</h3>
         <p className="host-name">with {host.name}</p>
         <p className="overview-description" itemProp="description">
           {session.isWorkshop() ? description : host.about}
