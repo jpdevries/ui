@@ -128,6 +128,7 @@ class AppNav extends React.Component {
                         <span alt="Menu" className="app-nav-burger"></span>
                         <Gravatar
                             className="app-nav-gravatar"
+                            email=""
                             src={`${config.api.url}/api/hupers/me/avatar`}
                             size={120}/>
                     </a>
