@@ -90,7 +90,7 @@ class OpenSessionOverview extends React.Component {
               "session__past": session.isPast(),
               "render-mobile": this._shouldRenderMobile()
             }, className)}
-            itemType="http://data-vocabulary.org/Event"
+            itemType="http://schema.org/Event"
             itemScope=""
             >
         <div className="session-image-wrapper">
