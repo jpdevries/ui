@@ -15,9 +15,9 @@ class OverviewContent extends React.Component {
     const {description, host, title} = session;
     return (
       <div className="overview-content">
-        <h3 className="title">{title}</h3>
+        <h3 className="title" itemProp="summary">{title}</h3>
         <p className="host-name">with {host.name}</p>
-        <p className="overview-description">
+        <p className="overview-description" itemProp="description">
           {session.isWorkshop() ? description : host.about}
         </p>
       </div>
@@ -89,7 +89,10 @@ class OpenSessionOverview extends React.Component {
             "session", {
               "session__past": session.isPast(),
               "render-mobile": this._shouldRenderMobile()
-            }, className)}>
+            }, className)}
+            itemType="http://data-vocabulary.org/Event"
+            itemScope=""
+            >
         <div className="session-image-wrapper">
           {session.isStartingSoon() &&
             <div className="session-time-alert">Starting soon!</div>
@@ -102,7 +105,9 @@ class OpenSessionOverview extends React.Component {
           : (attending && <Icon name="alarmclock" className="alarm-icon"/>)
           }
           {!session.isPast() &&
-            <div className="session-time">
+            <div itemProp="startDate"
+                 content={session.startDtLocal(user).format()}
+                 className="session-time">
               {session.startDtLocal(user).format('h:mm A')}&nbsp;&ndash;&nbsp;
               {session.endDtLocal(user).format('h:mm A')}<br/>
               {session.startDtLocal(user).format('MMM Do')}
@@ -110,6 +115,7 @@ class OpenSessionOverview extends React.Component {
           }
           <div
               className="image-primary"
+              itemProp="photo"
               style={session.isWorkshop() ? style.workshop : style.qaSession}/>
           {session.isWorkshop() && background_image_url &&
             <img className="image-secondary" src={host.image_url}/>
@@ -119,11 +125,13 @@ class OpenSessionOverview extends React.Component {
         <div className="session-overview-wrapper">
           {linkTo ?
             <Link
+                itemProp="url"
                 params={{slug: title_slug, id: id}}
                 to={linkTo}>
               <OverviewContent session={session}/>
             </Link>
-          : <a href={detail_page_url}>
+          : <a href={detail_page_url}
+               itemProp="url">
               <OverviewContent session={session}/>
             </a>
           }
