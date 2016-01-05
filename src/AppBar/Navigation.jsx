@@ -126,7 +126,11 @@ class AppNav extends React.Component {
                     <Notifications />
                     <a className="app-nav-link app-nav-link__toggle" onClick={this._toggleMenu}>
                         <span alt="Menu" className="app-nav-burger"></span>
-                        <Gravatar className="app-nav-gravatar" email={user.tf_login} size={120}/>
+                        <Gravatar
+                            className="app-nav-gravatar"
+                            email=""
+                            src={`${config.api.url}/api/hupers/me/avatar`}
+                            size={120}/>
                     </a>
                 </nav>
             </div>
