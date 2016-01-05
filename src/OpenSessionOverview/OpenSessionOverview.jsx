@@ -71,14 +71,14 @@ class OpenSessionOverview extends React.Component {
     } = this.props;
 
     const {
-      background_image_url, description, detail_page_url, duration_minutes,
+      description, detail_page_url, duration_minutes, hero_image_url,
       host, id, project, rsvp_contact_ids, session_type, start_dt_utc, tags,
       title, title_slug
     } = session;
 
     const style = {
       workshop: {
-        backgroundImage: `url(${background_image_url || host.image_url})`,
+        backgroundImage: `url(${hero_image_url || host.image_url})`,
         backgroundPosition: "50% 50%"},
       qaSession: {backgroundImage: `url(${host.image_url})`}
     }
@@ -117,7 +117,7 @@ class OpenSessionOverview extends React.Component {
               className="image-primary"
               itemProp="photo"
               style={session.isWorkshop() ? style.workshop : style.qaSession}/>
-          {session.isWorkshop() && background_image_url &&
+          {session.isWorkshop() && hero_image_url &&
             <img className="image-secondary" src={host.image_url}/>
           }
         </div>
