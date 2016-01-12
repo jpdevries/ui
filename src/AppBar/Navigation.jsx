@@ -199,7 +199,7 @@ class AppNav extends React.Component {
             </div>
             <div className="app-nav-courses app-nav-courses__center">
               <CourseLink href="//www.thinkful.com/courses/"
-                          name="Explore 1-on-1 Courses"
+                          name="Explore all courses"
                           arrow={true} />
             </div>
           </div>
