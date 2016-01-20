@@ -128,23 +128,24 @@ function load(writeKey) {
 
 // This event mirrors the call signature of global.analytics.identify
 function identify(id, traits, options, fn) {
+    if (appInfo.app != 'hawk') {
+        log.error('Identify should only be called on login.')
+    }
+
     // Argument reshuffling, from original library.
     if (is.fn(options)) fn = options, options = null;
     if (is.fn(traits)) fn = traits, options = null, traits = null;
     if (is.object(id)) options = traits, traits = id, id = user.id();
 
     let email = tryEmail();
-    if (email && !id) {
-        id = email;
-
-        // Check if we previously had a different email on file
-        // for the user, and alias this email address to it
-        if (cookies.user_email && (email !== cookies.user_email)) {
-            alias(email, cookies.user_email);
-        }
-    }
 
     traits = defaults(traits || {}, appInfo);
+
+    // We don't want to overwrite the mixpanel ID
+    if (id && is.email(id)) {
+        traits.email = id;
+        id = null;
+    }
 
     global.analytics &&
         global.analytics.identify(id, traits, options, fn);
@@ -152,6 +153,10 @@ function identify(id, traits, options, fn) {
 
 // This event mirrors the call signature of global.analytics.alias
 function alias(to, from, options, fn) {
+    if (appInfo.app != 'tailorbird') {
+        log.error('Alias should only be called on account creation.')
+    }
+
     // Argument reshuffling, from original library.
     if (is.fn(options)) fn = options, options = null;
     if (is.fn(from)) fn = from, options = null, from = null;
