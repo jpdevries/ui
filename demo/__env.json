@@ -10,6 +10,11 @@
       "host": "t.ful:5003",
       "url": "//t.ful:5003"
     },
+    "api": {
+      "displayName": "Thinkful API",
+      "host": "t.ful:5000",
+      "url": "//t.ful:5000"
+    },
     "app": {
       "displayName": "Raven",
       "host": "t.ful",
