@@ -129,7 +129,8 @@ function load(writeKey) {
 // This event mirrors the call signature of global.analytics.identify
 function identify(id, traits, options, fn) {
     if (appInfo.app != 'hawk') {
-        log.error('Identify should only be called on login.')
+        log('Identify should only be called on login.');
+        return;
     }
 
     // Argument reshuffling, from original library.
@@ -154,7 +155,8 @@ function identify(id, traits, options, fn) {
 // This event mirrors the call signature of global.analytics.alias
 function alias(to, from, options, fn) {
     if (appInfo.app != 'tailorbird') {
-        log.error('Alias should only be called on account creation.')
+        log('Alias should only be called on account creation.');
+        return;
     }
 
     // Argument reshuffling, from original library.
