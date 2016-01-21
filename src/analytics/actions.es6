@@ -179,8 +179,11 @@ function track(event, properties, options, fn) {
     // Argument reshuffling, from original library.
     if (is.fn(options)) fn = options, options = null;
     if (is.fn(properties)) fn = properties, options = null, properties = null;
+    const localInfo = {
+        email: tryEmail()
+    }
 
-    properties = defaults(properties || {}, appInfo, __env.user, urlParams);
+    properties = defaults(properties || {}, localInfo, appInfo, __env.user, urlParams);
 
     if (get(global, 'analytics.initialize')) {
         global.analytics.track(event, properties, options, fn);
