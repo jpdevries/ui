@@ -20,6 +20,16 @@ const cookies = zipObject(map(document.cookie.split('; '), function(cookie) {
     return [name, decodeURIComponent(value)];
 }));
 
+function isImpersonating() {
+  retVal = _.has(window.__env, 'user.real_admin_tf_login');
+
+  if (retVal) {
+    log('No analyitcs for impersonating users.');
+  }
+
+  return retval;
+}
+
 // Lots of ways of trying to find the user's email
 function tryEmail() {
     // Check if the user is logged in
@@ -128,6 +138,10 @@ function load(writeKey) {
 
 // This event mirrors the call signature of global.analytics.identify
 function identify(id, traits, options, fn) {
+    if (isImpersonating()) {
+      return;
+    }
+
     if (appInfo.app != 'hawk') {
         log('Identify should only be called on login.');
         return;
@@ -142,10 +156,14 @@ function identify(id, traits, options, fn) {
 
     traits = defaults(traits || {}, appInfo);
 
-    // We don't want to overwrite the mixpanel ID
+    // We don't want to overwrite the mixpanel ID unless we have aliased
     if (id && is.email(id)) {
         traits.email = id;
         id = null;
+    }
+
+    if (!id) {
+      id = window.mixpanel.get_distinct_id();
     }
 
     global.analytics &&
@@ -154,6 +172,10 @@ function identify(id, traits, options, fn) {
 
 // This event mirrors the call signature of global.analytics.alias
 function alias(to, from, options, fn) {
+    if (isImpersonating()) {
+      return;
+    }
+
     if (appInfo.app != 'tailorbird') {
         log('Alias should only be called on account creation.');
         return;
@@ -176,6 +198,10 @@ function alias(to, from, options, fn) {
 
 // This event mirrors the call signature of global.analytics.track
 function track(event, properties, options, fn) {
+    if (isImpersonating()) {
+      return;
+    }
+
     // Argument reshuffling, from original library.
     if (is.fn(options)) fn = options, options = null;
     if (is.fn(properties)) fn = properties, options = null, properties = null;
@@ -199,6 +225,10 @@ function track(event, properties, options, fn) {
 
 // This event mirrors the call signature of global.analytics.page
 function page(category, name, properties, options, fn) {
+    if (isImpersonating()) {
+      return;
+    }
+  
     // Argument reshuffling, from original library.
     if (is.fn(options)) fn = options, options = null;
     if (is.fn(properties)) fn = properties, options = properties = null;
