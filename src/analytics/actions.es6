@@ -9,7 +9,7 @@ const zipObject = require('lodash/array/zipObject');
 const map = require('lodash/collection/map');
 
 const __env = global.__env || {};
-const urlParams = Qs.parse((window.location.search || "").substring(1));
+const urlParams = Qs.parse((window.location.search || '').substring(1));
 const appInfo = {
     app: get(__env, 'config.app.name', '').toLowerCase(),
     appDisplayName: get(__env, 'config.app.displayName', '').toLowerCase(),
@@ -19,6 +19,10 @@ const cookies = zipObject(map(document.cookie.split('; '), function(cookie) {
     let [name, value] = cookie.split('=');
     return [name, decodeURIComponent(value)];
 }));
+
+function isLoggedIn() {
+  return _.has(window.__env, 'user') && is.object(window.__env.user);
+}
 
 function isImpersonating() {
   retVal = _.has(window.__env, 'user.real_admin_tf_login');
@@ -142,11 +146,6 @@ function identify(id, traits, options, fn) {
       return;
     }
 
-    if (appInfo.app != 'hawk') {
-        log('Identify should only be called on login.');
-        return;
-    }
-
     // Argument reshuffling, from original library.
     if (is.fn(options)) fn = options, options = null;
     if (is.fn(traits)) fn = traits, options = null, traits = null;
@@ -156,13 +155,22 @@ function identify(id, traits, options, fn) {
 
     traits = defaults(traits || {}, appInfo);
 
-    // We don't want to overwrite the mixpanel ID unless we have aliased
+    // Mixpanel Rules:
+    // 1. If the user is logged out, identify by the mixpanel ID
+    // 2. If you know their email, you can set that to the email trait
+    // 3. On register, alias to the users emails
+    // 4. Once logged in, you can safely identify by their email
+
+    // If someone is passing in an email, let's assign it to the traits
     if (id && is.email(id)) {
         traits.email = id;
         id = null;
     }
 
-    if (!id) {
+    // Set the id to either the mixpanel ID if logged out or email if logged in
+    if (isLoggedIn()) {
+      id = __env.user.tf_login;
+    } else {
       id = window.mixpanel.get_distinct_id();
     }
 
@@ -176,6 +184,7 @@ function alias(to, from, options, fn) {
       return;
     }
 
+    // See Mixpanel rules in identify function
     if (appInfo.app != 'tailorbird') {
         log('Alias should only be called on account creation.');
         return;
@@ -186,13 +195,8 @@ function alias(to, from, options, fn) {
     if (is.fn(from)) fn = from, options = null, from = null;
     if (is.object(from)) options = from, from = null;
 
-    // Aliasing Thinkful emails is dangerous, as we impersonate
-    if (to && to.indexOf('@thinkful.com') == -1 &&
-            (!from || from.indexOf('@thinkful.com') == -1)) {
-
-        global.analytics &&
-            global.analytics.alias(to, from, options, fn);
-    }
+    global.analytics &&
+        global.analytics.alias(to, from, options, fn);
 }
 
 
@@ -228,7 +232,7 @@ function page(category, name, properties, options, fn) {
     if (isImpersonating()) {
       return;
     }
-  
+
     // Argument reshuffling, from original library.
     if (is.fn(options)) fn = options, options = null;
     if (is.fn(properties)) fn = properties, options = properties = null;
