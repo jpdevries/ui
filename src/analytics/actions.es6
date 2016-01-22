@@ -31,7 +31,7 @@ function isImpersonating() {
     log('No analyitcs for impersonating users.');
   }
 
-  return retval;
+  return retVal;
 }
 
 // Lots of ways of trying to find the user's email
@@ -164,14 +164,20 @@ function identify(id, traits, options, fn) {
     // If someone is passing in an email, let's assign it to the traits
     if (id && is.email(id)) {
         traits.email = id;
-        id = null;
     }
 
-    // Set the id to either the mixpanel ID if logged out or email if logged in
+    // If logged in, always identify by user email
     if (isLoggedIn()) {
       id = __env.user.tf_login;
+
+    // If logged out, set the id to the mixpanel ID,
+    // unless Hawk provides one on login
     } else {
-      id = window.mixpanel.get_distinct_id();
+      if (appInfo.app == 'hawk' && id) {
+        // Keep Hawk-supplied ID
+      } else {
+        id = window.mixpanel.get_distinct_id();
+      }
     }
 
     global.analytics &&
