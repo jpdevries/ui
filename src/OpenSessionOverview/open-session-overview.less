@@ -155,7 +155,10 @@
     .subheading();
     position: absolute;
     color: @red;
-    top: -15px;
+    top: -45px;
+    @media @nonmobile {
+      top: -15px;
+    }
   }
 
   .render-mobile & {
