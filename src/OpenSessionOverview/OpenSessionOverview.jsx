@@ -123,6 +123,9 @@ class OpenSessionOverview extends React.Component {
         </div>
 
         <div className="session-overview-wrapper">
+          {!session.published_asof &&
+            <div className="session-draft-notice">Draft</div>
+          }
           {linkTo ?
             <Link
                 itemProp="url"
