@@ -25,7 +25,7 @@ function isLoggedIn() {
 }
 
 function isImpersonating() {
-  retVal = _.has(window.__env, 'user.real_admin_tf_login');
+  let retVal = _.has(window.__env, 'user.real_admin_tf_login');
 
   if (retVal) {
     log('No analyitcs for impersonating users.');
