@@ -25,13 +25,13 @@ function isLoggedIn() {
 }
 
 function isImpersonating() {
-  let retVal = _.has(window.__env, 'user.real_admin_tf_login');
+  const impersonating = _.has(window.__env, 'user.real_admin_tf_login');
 
-  if (retVal) {
+  if (impersonating) {
     log('No analyitcs for impersonating users.');
   }
 
-  return retVal;
+  return impersonating;
 }
 
 // Lots of ways of trying to find the user's email
@@ -175,6 +175,7 @@ function identify(id, traits, options, fn) {
     } else {
       if (appInfo.app == 'hawk' && id) {
         // Keep Hawk-supplied ID
+        // AKA Do nothing
       } else {
         id = window.mixpanel.get_distinct_id();
       }
