@@ -9,7 +9,7 @@ const zipObject = require('lodash/array/zipObject');
 const map = require('lodash/collection/map');
 
 const __env = global.__env || {};
-const urlParams = Qs.parse((window.location.search || "").substring(1));
+const urlParams = Qs.parse((window.location.search || '').substring(1));
 const appInfo = {
     app: get(__env, 'config.app.name', '').toLowerCase(),
     appDisplayName: get(__env, 'config.app.displayName', '').toLowerCase(),
@@ -19,6 +19,20 @@ const cookies = zipObject(map(document.cookie.split('; '), function(cookie) {
     let [name, value] = cookie.split('=');
     return [name, decodeURIComponent(value)];
 }));
+
+function isLoggedIn() {
+  return _.has(window.__env, 'user') && is.object(window.__env.user);
+}
+
+function isImpersonating() {
+  const impersonating = _.has(window.__env, 'user.real_admin_tf_login');
+
+  if (impersonating) {
+    log('No analyitcs for impersonating users.');
+  }
+
+  return impersonating;
+}
 
 // Lots of ways of trying to find the user's email
 function tryEmail() {
@@ -128,23 +142,44 @@ function load(writeKey) {
 
 // This event mirrors the call signature of global.analytics.identify
 function identify(id, traits, options, fn) {
+    if (isImpersonating()) {
+      return;
+    }
+
     // Argument reshuffling, from original library.
     if (is.fn(options)) fn = options, options = null;
     if (is.fn(traits)) fn = traits, options = null, traits = null;
     if (is.object(id)) options = traits, traits = id, id = user.id();
 
     let email = tryEmail();
-    if (email && !id) {
-        id = email;
-
-        // Check if we previously had a different email on file
-        // for the user, and alias this email address to it
-        if (cookies.user_email && (email !== cookies.user_email)) {
-            alias(email, cookies.user_email);
-        }
-    }
 
     traits = defaults(traits || {}, appInfo);
+
+    // Mixpanel Rules:
+    // 1. If the user is logged out, identify by the mixpanel ID
+    // 2. If you know their email, you can set that to the email trait
+    // 3. On register, alias to the users emails
+    // 4. Once logged in, you can safely identify by their email
+
+    // If someone is passing in an email, let's assign it to the traits
+    if (id && is.email(id)) {
+        traits.email = id;
+    }
+
+    // If logged in, always identify by user email
+    if (isLoggedIn()) {
+      id = __env.user.tf_login;
+
+    // If logged out, set the id to the mixpanel ID,
+    // unless Hawk provides one on login
+    } else {
+      if (appInfo.app == 'hawk' && id) {
+        // Keep Hawk-supplied ID
+        // AKA Do nothing
+      } else {
+        id = window.mixpanel.get_distinct_id();
+      }
+    }
 
     global.analytics &&
         global.analytics.identify(id, traits, options, fn);
@@ -152,28 +187,40 @@ function identify(id, traits, options, fn) {
 
 // This event mirrors the call signature of global.analytics.alias
 function alias(to, from, options, fn) {
+    if (isImpersonating()) {
+      return;
+    }
+
+    // See Mixpanel rules in identify function
+    if (appInfo.app != 'tailorbird') {
+        log('Alias should only be called on account creation.');
+        return;
+    }
+
     // Argument reshuffling, from original library.
     if (is.fn(options)) fn = options, options = null;
     if (is.fn(from)) fn = from, options = null, from = null;
     if (is.object(from)) options = from, from = null;
 
-    // Aliasing Thinkful emails is dangerous, as we impersonate
-    if (to && to.indexOf('@thinkful.com') == -1 &&
-            (!from || from.indexOf('@thinkful.com') == -1)) {
-
-        global.analytics &&
-            global.analytics.alias(to, from, options, fn);
-    }
+    global.analytics &&
+        global.analytics.alias(to, from, options, fn);
 }
 
 
 // This event mirrors the call signature of global.analytics.track
 function track(event, properties, options, fn) {
+    if (isImpersonating()) {
+      return;
+    }
+
     // Argument reshuffling, from original library.
     if (is.fn(options)) fn = options, options = null;
     if (is.fn(properties)) fn = properties, options = null, properties = null;
+    const localInfo = {
+        email: tryEmail()
+    }
 
-    properties = defaults(properties || {}, appInfo, __env.user, urlParams);
+    properties = defaults(properties || {}, localInfo, appInfo, __env.user, urlParams);
 
     if (get(global, 'analytics.initialize')) {
         global.analytics.track(event, properties, options, fn);
@@ -189,6 +236,10 @@ function track(event, properties, options, fn) {
 
 // This event mirrors the call signature of global.analytics.page
 function page(category, name, properties, options, fn) {
+    if (isImpersonating()) {
+      return;
+    }
+
     // Argument reshuffling, from original library.
     if (is.fn(options)) fn = options, options = null;
     if (is.fn(properties)) fn = properties, options = properties = null;
