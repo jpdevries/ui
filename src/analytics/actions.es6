@@ -1,6 +1,6 @@
 const log = require('debug')('ui:analytics');
 const Qs = require('qs');
-const is = require('is');
+const is = require('is_js');
 const superagent = require('superagent');
 
 const get = require('lodash/object/get')
@@ -65,7 +65,7 @@ function fallback(callback, postData) {
         send(postData).
         withCredentials().
         end((error, response) => {
-            is.fn(callback) && callback();
+            is.function(callback) && callback();
         });
 }
 
@@ -147,8 +147,8 @@ function identify(id, traits, options, fn) {
     }
 
     // Argument reshuffling, from original library.
-    if (is.fn(options)) fn = options, options = null;
-    if (is.fn(traits)) fn = traits, options = null, traits = null;
+    if (is.function(options)) fn = options, options = null;
+    if (is.function(traits)) fn = traits, options = null, traits = null;
     if (is.object(id)) options = traits, traits = id, id = user.id();
 
     let email = tryEmail();
@@ -198,8 +198,8 @@ function alias(to, from, options, fn) {
     }
 
     // Argument reshuffling, from original library.
-    if (is.fn(options)) fn = options, options = null;
-    if (is.fn(from)) fn = from, options = null, from = null;
+    if (is.function(options)) fn = options, options = null;
+    if (is.function(from)) fn = from, options = null, from = null;
     if (is.object(from)) options = from, from = null;
 
     global.analytics &&
@@ -214,8 +214,8 @@ function track(event, properties, options, fn) {
     }
 
     // Argument reshuffling, from original library.
-    if (is.fn(options)) fn = options, options = null;
-    if (is.fn(properties)) fn = properties, options = null, properties = null;
+    if (is.function(options)) fn = options, options = null;
+    if (is.function(properties)) fn = properties, options = null, properties = null;
     const localInfo = {
         email: tryEmail()
     }
@@ -241,9 +241,9 @@ function page(category, name, properties, options, fn) {
     }
 
     // Argument reshuffling, from original library.
-    if (is.fn(options)) fn = options, options = null;
-    if (is.fn(properties)) fn = properties, options = properties = null;
-    if (is.fn(name)) fn = name, options = properties = name = null;
+    if (is.function(options)) fn = options, options = null;
+    if (is.function(properties)) fn = properties, options = properties = null;
+    if (is.function(name)) fn = name, options = properties = name = null;
     if (is.object(category)) options = name, properties = category, name = category = null;
     if (is.object(name)) options = properties, properties = name, name = null;
     if (is.string(category) && !is.string(name)) name = category, category = null;

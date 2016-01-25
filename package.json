@@ -1,7 +1,6 @@
 {
   "name": "thinkful-ui",
-  "version": "2.0.36",
-  "version": "2.0.37",
+  "version": "2.0.38",
   "description": "Shared navigation and UI resources for Thinkful.",
   "main": "src/index.es6",
   "scripts": {
@@ -43,7 +42,9 @@
     }
   ],
   "browserify": {
-    "transform": ["babelify"]
+    "transform": [
+      "babelify"
+    ]
   },
   "dependencies": {
     "autoprefixer-loader": "^2.0.0",
@@ -64,7 +65,7 @@
     "getstream": "^2.2.2",
     "history": "^1.13.1",
     "html-loader": "^0.3.0",
-    "is": "^3.1.0",
+    "is_js": "^0.8.0",
     "json-loader": "^0.5.2",
     "jstz": "^1.0.7",
     "less": "^2.5.1",
