@@ -1,6 +1,6 @@
 const log = require('debug')('ui:analytics');
 const Qs = require('qs');
-const is = require('is');
+const is = require('is_js');
 const superagent = require('superagent');
 
 const get = require('lodash/object/get')
