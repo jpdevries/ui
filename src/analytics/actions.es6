@@ -177,7 +177,9 @@ function identify(id, traits, options, fn) {
         // Keep Hawk-supplied ID
         // AKA Do nothing
       } else {
-        id = window.mixpanel.get_distinct_id();
+        if (typeof window.mixpanel !== 'undefined') {
+          id = window.mixpanel.get_distinct_id();
+        }
       }
     }
 
