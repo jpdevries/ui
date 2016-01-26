@@ -71,7 +71,7 @@ function getUserId(id) {
   }
 
   // If logged out, set the id to the mixpanel ID,
-  if (typeof window.mixpanel !== 'undefined') {
+  if (is.function(_.get(window, 'mixpanel.get_distinct_id'))) {
     return window.mixpanel.get_distinct_id();
   }
 
@@ -200,8 +200,8 @@ function alias(to, from, options, fn) {
     }
 
     // See Mixpanel rules in identify function
-    if (appInfo.app != 'tailorbird') {
-        log('Alias should only be called on account creation.');
+    if (appInfo.app != 'tailorbird' && appInfo.app != 'pelican') {
+        log('Alias should only be called on account creation, or email capture.');
         return;
     }
 
