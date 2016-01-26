@@ -58,6 +58,27 @@ function tryEmail() {
     }
 }
 
+function getUserId(id) {
+  // If logged in, always identify by user email
+  if (isLoggedIn()) {
+    return __env.user.tf_login;
+  }
+
+  // Trust hawk to supply a valid ID, but nobody else
+  if (appInfo.app == 'hawk' && id) {
+    // Keep Hawk-supplied ID
+    return id;
+  }
+
+  // If logged out, set the id to the mixpanel ID,
+  if (typeof window.mixpanel !== 'undefined') {
+    return window.mixpanel.get_distinct_id();
+  }
+
+  // If we can't find mixpanel, fallback to null ID
+  return id;
+}
+
 // Failsafe for if segment breaks for some reason
 function fallback(callback, postData) {
     superagent.
@@ -166,22 +187,7 @@ function identify(id, traits, options, fn) {
         traits.email = id;
     }
 
-    // If logged in, always identify by user email
-    if (isLoggedIn()) {
-      id = __env.user.tf_login;
-
-    // If logged out, set the id to the mixpanel ID,
-    // unless Hawk provides one on login
-    } else {
-      if (appInfo.app == 'hawk' && id) {
-        // Keep Hawk-supplied ID
-        // AKA Do nothing
-      } else {
-        if (typeof window.mixpanel !== 'undefined') {
-          id = window.mixpanel.get_distinct_id();
-        }
-      }
-    }
+    id = getUserId(id);
 
     global.analytics &&
         global.analytics.identify(id, traits, options, fn);
@@ -228,6 +234,7 @@ function track(event, properties, options, fn) {
         global.analytics.track(event, properties, options, fn);
     } else {
         fallback(fn, {
+            'user_id': getUserId(),
             'call': 'track',
             'email': tryEmail(),
             'event': event,
