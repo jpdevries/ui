@@ -170,7 +170,7 @@ function identify(id, traits, options, fn) {
     // Argument reshuffling, from original library.
     if (is.function(options)) fn = options, options = null;
     if (is.function(traits)) fn = traits, options = null, traits = null;
-    if (is.object(id)) options = traits, traits = id, id = window.analytics._user.id();
+    if (is.object(id)) options = traits, traits = id, id = null;
 
     let email = tryEmail();
 
