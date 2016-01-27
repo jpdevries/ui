@@ -157,7 +157,7 @@ class DemoPage extends React.Component {
               }}/>
           <RouteHandler />
         </div>
-        <Footer/>
+        <Footer includeTz={true} />
       </div>);
   }
 }
