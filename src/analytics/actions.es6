@@ -76,7 +76,7 @@ function getUserId(id) {
   }
 
   // If we can't find mixpanel, fallback to null ID
-  return id;
+  return null;
 }
 
 // Failsafe for if segment breaks for some reason
