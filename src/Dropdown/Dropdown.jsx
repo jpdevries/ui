@@ -1,5 +1,6 @@
-const React = require('react');
 const cx = require('classnames');
+const React = require('react');
+const ReactDOM = require('react-dom');
 
 require('./dropdown.less');
 
@@ -39,7 +40,7 @@ const Dropdown = React.createClass({
   },
 
   _checkClickAway(e) {
-    if (!e.target.hasAttribute('data-clickable')) {
+    if (!ReactDOM.findDOMNode(this.dropdownButton).contains(e.target)) {
       this.setState({open: false});
     }
   },
@@ -89,6 +90,7 @@ const Dropdown = React.createClass({
         <div
             className="button dd-button"
             onClick={this._toggleOpen}
+            ref={c => this.dropdownButton = c}
             data-clickable>
           <span className="dropdown-text">{data[selectedInd] && data[selectedInd].displayName || defaultDisplay}</span>
           <span className="icon-navigatedown" aria-hidden="true"></span>
