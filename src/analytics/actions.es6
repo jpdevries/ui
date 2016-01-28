@@ -4,28 +4,31 @@ const is = require('is_js');
 const superagent = require('superagent');
 
 const get = require('lodash/object/get')
+const has = require('lodash/object/has')
 const defaults = require('lodash/object/defaults')
 const zipObject = require('lodash/array/zipObject');
 const map = require('lodash/collection/map');
 
-const __env = global.__env || {};
 const urlParams = Qs.parse((window.location.search || '').substring(1));
-const appInfo = {
-    app: get(__env, 'config.app.name', '').toLowerCase(),
-    appDisplayName: get(__env, 'config.app.displayName', '').toLowerCase(),
-    uiAnalytics: true
-}
 const cookies = zipObject(map(document.cookie.split('; '), function(cookie) {
     let [name, value] = cookie.split('=');
     return [name, decodeURIComponent(value)];
 }));
 
+function appInfo() {
+  return {
+      app: get(global, '__env.config.app.name', '').toLowerCase(),
+      appDisplayName: get(global, '__env.config.app.displayName', '').toLowerCase(),
+      uiAnalytics: true
+  }
+}
+
 function isLoggedIn() {
-  return _.has(window.__env, 'user') && is.object(window.__env.user);
+  return has(global, '__env.user') && is.object(global.__env.user);
 }
 
 function isImpersonating() {
-  const impersonating = _.has(window.__env, 'user.real_admin_tf_login');
+  const impersonating = has(global, '__env.user.real_admin_tf_login');
 
   if (impersonating) {
     log('No analyitcs for impersonating users.');
@@ -37,8 +40,8 @@ function isImpersonating() {
 // Lots of ways of trying to find the user's email
 function tryEmail() {
     // Check if the user is logged in
-    if (get(__env, 'user.tf_login')) {
-        return __env.user.tf_login;
+    if (has(global, '__env.user.tf_login')) {
+        return global.__env.user.tf_login;
     }
 
     // Check the URL parameters
@@ -61,17 +64,17 @@ function tryEmail() {
 function getUserId(id) {
   // If logged in, always identify by user email
   if (isLoggedIn()) {
-    return __env.user.tf_login;
+    return global.__env.user.tf_login;
   }
 
   // Trust hawk to supply a valid ID, but nobody else
-  if (appInfo.app == 'hawk' && id) {
+  if (appInfo().app == 'hawk' && id) {
     // Keep Hawk-supplied ID
     return id;
   }
 
   // If logged out, set the id to the mixpanel ID,
-  if (is.function(_.get(window, 'mixpanel.get_distinct_id'))) {
+  if (is.function(get(window, 'mixpanel.get_distinct_id'))) {
     return window.mixpanel.get_distinct_id();
   }
 
@@ -82,7 +85,7 @@ function getUserId(id) {
 // Failsafe for if segment breaks for some reason
 function fallback(callback, postData) {
     superagent.
-        post(`${__env.config.oilbird.url}/echo`).
+        post(`${global.__env.config.oilbird.url}/echo`).
         send(postData).
         withCredentials().
         end((error, response) => {
@@ -144,8 +147,8 @@ function load(writeKey) {
     }
 
     // Select from __env
-    if (!writeKey && get(__env, 'config.vendor.segment.token')) {
-        writeKey = __env.config.vendor.segment.token;
+    if (!writeKey && get(global, '__env.config.vendor.segment.token')) {
+        writeKey = global.__env.config.vendor.segment.token;
     }
 
     // Raise visibility of error… analytics are important
@@ -174,7 +177,7 @@ function identify(id, traits, options, fn) {
 
     let email = tryEmail();
 
-    traits = defaults(traits || {}, appInfo);
+    traits = defaults(traits || {}, appInfo());
 
     // Mixpanel Rules:
     // 1. If the user is logged out, identify by the mixpanel ID
@@ -200,7 +203,7 @@ function alias(to, from, options, fn) {
     }
 
     // See Mixpanel rules in identify function
-    if (appInfo.app != 'tailorbird' && appInfo.app != 'pelican') {
+    if (appInfo().app != 'tailorbird' && appInfo().app != 'pelican') {
         log('Alias should only be called on account creation, or email capture.');
         return;
     }
@@ -228,9 +231,9 @@ function track(event, properties, options, fn) {
         email: tryEmail()
     }
 
-    properties = defaults(properties || {}, localInfo, appInfo, __env.user, urlParams);
+    properties = defaults(properties || {}, localInfo, appInfo(), get(global, '__env.user', {}), urlParams);
 
-    if (get(global, 'analytics.initialize')) {
+    if (has(global, 'analytics.initialize')) {
         global.analytics.track(event, properties, options, fn);
     } else {
         fallback(fn, {
@@ -257,7 +260,7 @@ function page(category, name, properties, options, fn) {
     if (is.object(name)) options = properties, properties = name, name = null;
     if (is.string(category) && !is.string(name)) name = category, category = null;
 
-    properties = defaults(properties || {}, appInfo, __env.user);
+    properties = defaults(properties || {}, appInfo(), get(global, '__env.user', {}));
 
     global.analytics &&
         global.analytics.page(category, name, properties, options, fn);
