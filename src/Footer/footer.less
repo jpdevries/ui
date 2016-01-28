@@ -17,20 +17,17 @@
 }
 
 .footer-timezone {
-  padding-left: 15px;
-  padding-right: 15px;
-  margin-bottom: 15px;
-
-  @media @nonmobile {
-    padding-left: 0;
-    padding-right: 0;
-    margin-bottom: 30px;
-  }
-  width: @grid-width;
-  max-width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+  .proxima-light;
+  background-color: @gray15;
   color: @gray50;
+  padding: 15px;
+  margin-bottom: 0;
+  text-align: center;
+  max-width: none;
+
+  @media @mobile {
+    .body-text-small;
+  }
 }
 
 .footer-centered {
