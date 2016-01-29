@@ -15,9 +15,13 @@ const cookies = zipObject(map(document.cookie.split('; '), function(cookie) {
     return [name, decodeURIComponent(value)];
 }));
 
+function app() {
+  return get(global, '__env.config.app.name', '').toLowerCase();
+}
+
 function appInfo() {
   return {
-      app: get(global, '__env.config.app.name', '').toLowerCase(),
+      app: app(),
       appDisplayName: get(global, '__env.config.app.displayName', '').toLowerCase(),
       uiAnalytics: true
   }
@@ -68,7 +72,7 @@ function getUserId(id) {
   }
 
   // Trust hawk to supply a valid ID, but nobody else
-  if (appInfo().app == 'hawk' && id) {
+  if (app() == 'hawk' && id) {
     // Keep Hawk-supplied ID
     return id;
   }
@@ -203,7 +207,7 @@ function alias(to, from, options, fn) {
     }
 
     // See Mixpanel rules in identify function
-    if (appInfo().app != 'tailorbird' && appInfo().app != 'pelican') {
+    if (app() != 'tailorbird' && app() != 'pelican') {
         log('Alias should only be called on account creation, or email capture.');
         return;
     }
