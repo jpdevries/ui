@@ -233,7 +233,7 @@ function track(event, properties, options, fn) {
 
     properties = defaults(properties || {}, localInfo, appInfo(), get(global, '__env.user', {}), urlParams);
 
-    if (has(global, 'analytics.initialize')) {
+    if (get(global, 'analytics.initialize')) {
         global.analytics.track(event, properties, options, fn);
     } else {
         fallback(fn, {
