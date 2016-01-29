@@ -16,29 +16,29 @@ const cookies = zipObject(map(document.cookie.split('; '), function(cookie) {
 }));
 
 function app() {
-  return get(global, '__env.config.app.name', '').toLowerCase();
+    return get(global, '__env.config.app.name', '').toLowerCase();
 }
 
 function appInfo() {
-  return {
-      app: app(),
-      appDisplayName: get(global, '__env.config.app.displayName', '').toLowerCase(),
-      uiAnalytics: true
-  }
+    return {
+        app: app(),
+        appDisplayName: get(global, '__env.config.app.displayName', '').toLowerCase(),
+        uiAnalytics: true
+    }
 }
 
 function isLoggedIn() {
-  return has(global, '__env.user') && is.object(global.__env.user);
+    return has(global, '__env.user') && is.object(global.__env.user);
 }
 
 function isImpersonating() {
-  const impersonating = has(global, '__env.user.real_admin_tf_login');
+    const impersonating = has(global, '__env.user.real_admin_tf_login');
 
-  if (impersonating) {
-    log('No analyitcs for impersonating users.');
-  }
+    if (impersonating) {
+        log('No analyitcs for impersonating users.');
+    }
 
-  return impersonating;
+    return impersonating;
 }
 
 // Lots of ways of trying to find the user's email
@@ -66,24 +66,24 @@ function tryEmail() {
 }
 
 function getUserId(id) {
-  // If logged in, always identify by user email
-  if (isLoggedIn()) {
-    return global.__env.user.tf_login;
-  }
+    // If logged in, always identify by user email
+    if (isLoggedIn()) {
+        return global.__env.user.tf_login;
+    }
 
-  // Trust hawk to supply a valid ID, but nobody else
-  if (app() == 'hawk' && id) {
-    // Keep Hawk-supplied ID
-    return id;
-  }
+    // Trust hawk to supply a valid ID, but nobody else
+    if (app() == 'hawk' && id) {
+        // Keep Hawk-supplied ID
+        return id;
+    }
 
-  // If logged out, set the id to the mixpanel ID,
-  if (is.function(get(window, 'mixpanel.get_distinct_id'))) {
-    return window.mixpanel.get_distinct_id();
-  }
+    // If logged out, set the id to the mixpanel ID,
+    if (is.function(get(window, 'mixpanel.get_distinct_id'))) {
+        return window.mixpanel.get_distinct_id();
+    }
 
-  // If we can't find mixpanel, fallback to null ID
-  return null;
+    // If we can't find mixpanel, fallback to null ID
+    return null;
 }
 
 // Failsafe for if segment breaks for some reason
