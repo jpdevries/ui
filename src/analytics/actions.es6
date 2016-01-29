@@ -240,6 +240,15 @@ function track(event, properties, options, fn) {
     if (get(global, 'analytics.initialize')) {
         global.analytics.track(event, properties, options, fn);
     } else {
+        // Wait until the document has loaded so we can reliably check if
+        // Segment is actually blocked, or just still loading.
+        if (document.readyState !== 'complete') {
+            document.onreadystatechange = function() {
+                track(event, properties, options, fn);
+            }
+            return;
+        }
+
         fallback(fn, {
             'user_id': getUserId(),
             'call': 'track',
