@@ -250,7 +250,7 @@ class AppNav extends React.Component {
     render() {
         const {user, config} = this.props;
 
-        return user && user.tf_login ?
+        return user && user.tf_login && user.role !== 'guest' ?
             this.renderAuthed(user, config) : this.renderUnauthed(config);
     }
 }
