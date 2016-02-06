@@ -9,19 +9,19 @@ function generateLinkSet(config) {
   return [
     {
       'name': 'Mentors',
-      'location': `${config.www.url}/mentors`
+      'location': `${config.www.url}/mentors/`
     },
     {
       'name': 'Student reviews',
-      'location': `${config.www.url}/reviews`
+      'location': `${config.www.url}/reviews/`
     },
     {
       'name': 'Pricing',
-      'location': `${config.www.url}/pricing`
+      'location': `${config.www.url}/pricing/`
     },
     {
       'name': 'About us',
-      'location': `${config.www.url}/about`,
+      'location': `${config.www.url}/about/`,
       'subLink':
         {
           'name': "We're hiring!",
@@ -30,19 +30,19 @@ function generateLinkSet(config) {
     },
     {
       'name': 'Learning resources',
-      'location': `${config.www.url}/learn`
+      'location': `${config.www.url}/learn/`
     },
     {
       'name': 'Training for teams',
-      'location': `${config.www.url}/teams`
+      'location': `${config.www.url}/training-for-teams/`
     },
     {
       'name': 'Bootcamp prep',
-      'location': `${config.www.url}/bootcamp-prep`
+      'location': `${config.www.url}/bootcamp-prep/`
     },
     {
-      'name': 'Workshops and office hours',
-      'location': `${config.officeHours.url}/workshops`
+      'name': 'Workshops and Q&A sessions',
+      'location': `${config.officeHours.url}/workshops/`
     },
     {
       'name': 'Blog',
