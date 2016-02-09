@@ -75,13 +75,12 @@ class AppNav extends React.Component {
     renderAuthed(user, config) {
         const { className } = this.props;
         const navClassName = cx(
-            'app-nav', {'app-nav__visible': this.state.isMenuVisible},
-            className);
+            'app-nav', {'app-nav__visible': this.state.isMenuVisible});
         const navLinks = linkSet.main.filter(link => !link.search);
         const searchLink = linkSet.main.filter(link => link.search)[0];
 
         return (
-            <div className='app-nav-container'>
+            <div className={cx('app-nav-container', className)}>
                 <nav onMouseLeave={this._handleMouseLeave}
                      className={navClassName}
                      key="main-navigation"
