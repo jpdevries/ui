@@ -19,6 +19,7 @@ const linkSet = require('./linkSet');
  */
 class AppNav extends React.Component {
     static propTypes = {
+        className: React.PropTypes.string,
         user: React.PropTypes.object,
         config: React.PropTypes.object.isRequired
     }
@@ -72,8 +73,10 @@ class AppNav extends React.Component {
     }
 
     renderAuthed(user, config) {
+        const { className } = this.props;
         const navClassName = cx(
-            'app-nav', {'app-nav__visible': this.state.isMenuVisible});
+            'app-nav', {'app-nav__visible': this.state.isMenuVisible},
+            className);
         const navLinks = linkSet.main.filter(link => !link.search);
         const searchLink = linkSet.main.filter(link => link.search)[0];
 
