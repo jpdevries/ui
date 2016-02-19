@@ -149,14 +149,11 @@ class AppNav extends React.Component {
           </span>
           <div onMouseEnter={this._handleMouseEnter}
                className={dropdownContentClasses}>
-            <div className="app-nav-section-header">Workshops</div>
+            <div className="app-nav-section-header">Full-time 1-on-1 Courses</div>
             <div className="app-nav-courses">
-              <CourseLink href="//www.thinkful.com/courses/learn-nodejs-online-workshops/"
-                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/node.svg"
-                          name="Node.js" />
-              <CourseLink href="//www.thinkful.com/courses/learn-react-online-workshops/"
-                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/react.svg"
-                          name="React" />
+              <CourseLink href="//www.thinkful.com/courses/web-development-career-path/"
+                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/career.svg"
+                          name="Web Development Career Path" />
             </div>
             <div className="app-nav-section-header">Part-time 1-on-1 Courses</div>
             <div className="app-nav-courses">
@@ -190,12 +187,6 @@ class AppNav extends React.Component {
               <CourseLink href="//www.thinkful.com/courses/learn-data-science-online/"
                           icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/data.svg"
                           name="Data Science in Python" />
-            </div>
-            <div className="app-nav-section-header">Full-time 1-on-1 Courses</div>
-            <div className="app-nav-courses">
-              <CourseLink href="//www.thinkful.com/courses/web-development-career-path/"
-                          icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/career.svg"
-                          name="Web Development Career Path" />
             </div>
             <div className="app-nav-courses app-nav-courses__center">
               <CourseLink href="//www.thinkful.com/courses/"
