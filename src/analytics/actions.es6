@@ -1,3 +1,5 @@
+'use strict';
+
 const log = require('debug')('ui:analytics');
 const Qs = require('qs');
 const is = require('is_js');
@@ -207,7 +209,7 @@ function alias(to, from, options, fn) {
     }
 
     // See Mixpanel rules in identify function
-    if (app() != 'tailorbird' && app() != 'pelican') {
+    if (app() != 'tailorbird' && app() != 'pelican' && app() != 'stork') {
         log('Alias should only be called on account creation, or email capture.');
         return;
     }
