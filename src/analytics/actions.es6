@@ -1,5 +1,3 @@
-'use strict';
-
 const log = require('debug')('ui:analytics');
 const Qs = require('qs');
 const is = require('is_js');
