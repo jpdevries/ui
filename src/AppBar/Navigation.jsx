@@ -209,7 +209,7 @@ class AppNav extends React.Component {
                         {linkSet.insertCourseDropdown && <li key="courseDropdown">
                             <NavLink className='app-nav-link__mobile-only'
                                      displayName='Courses'
-                                     url={`${config.www.url}/courses`} />
+                                     url={`${config.www.url}/courses/`} />
                           </li>}
                         {linkSet.menu.map(
                             (link) => <li key={uniqueId('link_')}>
