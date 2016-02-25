@@ -200,7 +200,7 @@ class AppNav extends React.Component {
             <div className='app-nav-container app-nav-container__unauthed'>
                 <nav onMouseLeave={this._handleMouseLeave}
                      className={navClassName} rel="main-navigation">
-                    <a href={`${linkSet.home.url}?rel=nav`}>
+                    <a href={`${linkSet.home.url}/?rel=nav`}>
                       <div dangerouslySetInnerHTML={{__html: require('./images/blue_full_logo.svg')}}/>
                     </a>
                     <ul onMouseEnter={this._handleMouseEnter}
