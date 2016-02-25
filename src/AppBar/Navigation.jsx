@@ -81,7 +81,7 @@ class AppNav extends React.Component {
                     </div></a>
                     <ul className="app-nav-main">
                         {navLinks.map(
-                            (link) => <li key={uniqueId(link)}>
+                            (link) => <li key={uniqueId('link_')}>
                                 <NavLink {...link} /></li>)}
                         {searchLink &&
                           <li><SearchLink {...searchLink} config={config}/></li>}
@@ -99,7 +99,7 @@ class AppNav extends React.Component {
                     <ul onMouseEnter={this._handleMouseEnter}
                         className="app-nav-list">
                         {navLinks.map(
-                            (link) => <li key={uniqueId(link)}>
+                            (link) => <li key={uniqueId('link_')}>
                                 <NavLink
                                     className="app-nav-link__mobile-only"
                                     {...link} /></li>)}
@@ -112,7 +112,7 @@ class AppNav extends React.Component {
                                 config={config}/>
                           </li>}
                         {linkSet.menu.map(
-                            (link) => <li key={uniqueId(link)}>
+                            (link) => <li key={uniqueId('link_')}>
                                 <NavLink
                                     className="app-nav-link__in-menu"
                                     {...link}/></li>)}
@@ -200,8 +200,9 @@ class AppNav extends React.Component {
             <div className='app-nav-container app-nav-container__unauthed'>
                 <nav onMouseLeave={this._handleMouseLeave}
                      className={navClassName} rel="main-navigation">
-                    <a href={linkSet.home.url}><div dangerouslySetInnerHTML={{__html: require('./images/blue_full_logo.svg')}}>
-                    </div></a>
+                    <a href={`${linkSet.home.url}?rel=nav`}>
+                      <div dangerouslySetInnerHTML={{__html: require('./images/blue_full_logo.svg')}}/>
+                    </a>
                     <ul onMouseEnter={this._handleMouseEnter}
                         className='app-nav-list'>
                         {linkSet.insertCourseDropdown && this.renderCourseDropdown()}
@@ -211,7 +212,7 @@ class AppNav extends React.Component {
                                      url={`${config.www.url}/courses`} />
                           </li>}
                         {linkSet.menu.map(
-                            (link) => <li key={uniqueId(link)}>
+                            (link) => <li key={uniqueId('link_')}>
                                 <NavLink
                                     className='app-nav-link__in-menu'
                                     {...link}/></li>)}
