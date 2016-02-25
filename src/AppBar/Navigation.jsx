@@ -138,6 +138,7 @@ class AppNav extends React.Component {
     }
 
     renderCourseDropdown() {
+      const {config} = this.props;
       const dropdownContentClasses = cx("app-nav-course-dropdown-content",
         {"app-nav-course-dropdown-content__visible" : this.state.isCourseDropdownVisible});
 
@@ -151,45 +152,45 @@ class AppNav extends React.Component {
                className={dropdownContentClasses}>
             <div className="app-nav-section-header">Full-time 1-on-1 Courses</div>
             <div className="app-nav-courses">
-              <CourseLink href="//www.thinkful.com/courses/web-development-career-path/"
+              <CourseLink href={`${config.www.url}/courses/web-development-career-path/`}
                           icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/career.svg"
                           name="Web Development Career Path" />
             </div>
             <div className="app-nav-section-header">Part-time 1-on-1 Courses</div>
             <div className="app-nav-courses">
-              <CourseLink href="//www.thinkful.com/courses/learn-web-development-online/"
+              <CourseLink href={`${config.www.url}/courses/learn-web-development-online/`}
                           icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/frontend.svg"
                           name="Frontend Development" />
-              <CourseLink href="//www.thinkful.com/courses/learn-ux-online/"
+              <CourseLink href={`${config.www.url}/courses/learn-ux-online/`}
                           icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/uxd.svg"
                           name="User Experience Design" />
-              <CourseLink href="//www.thinkful.com/courses/learn-angularjs-online/"
+              <CourseLink href={`${config.www.url}/courses/learn-angularjs-online/`}
                           icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/angular.svg"
                           name="Frontend in AngularJS" />
-              <CourseLink href="//www.thinkful.com/courses/learn-web-design-online/"
+              <CourseLink href={`${config.www.url}/courses/learn-web-design-online/`}
                           icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/design.svg"
                           name="Modern Web Design" />
-              <CourseLink href="//www.thinkful.com/courses/learn-python-online/"
+              <CourseLink href={`${config.www.url}/courses/learn-python-online/`}
                           icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/python.svg"
                           name="Programming in Python" />
-              <CourseLink href="//www.thinkful.com/courses/learn-swift-programming-online/"
+              <CourseLink href={`${config.www.url}/courses/learn-swift-programming-online/`}
                           icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/swift.svg"
                           name="iOS Programming in Swift" />
-              <CourseLink href="//www.thinkful.com/courses/learn-ruby-on-rails-online/"
+              <CourseLink href={`${config.www.url}/courses/learn-ruby-on-rails-online/`}
                           icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/ruby.svg"
                           name="Web Development in Rails" />
-              <CourseLink href="//www.thinkful.com/courses/learn-android-programming-online/"
+              <CourseLink href={`${config.www.url}/courses/learn-android-programming-online/`}
                           icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/android.svg"
                           name="Android Mobile Development" />
-              <CourseLink href="//www.thinkful.com/courses/learn-nodejs-online/"
+              <CourseLink href={`${config.www.url}/courses/learn-nodejs-online/`}
                           icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/node.svg"
                           name="Backend in Node.js" />
-              <CourseLink href="//www.thinkful.com/courses/learn-data-science-online/"
+              <CourseLink href={`${config.www.url}/courses/learn-data-science-online/`}
                           icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/data.svg"
                           name="Data Science in Python" />
             </div>
             <div className="app-nav-courses app-nav-courses__center">
-              <CourseLink href="//www.thinkful.com/courses/"
+              <CourseLink href={`${config.www.url}/courses/`}
                           name="Explore all courses"
                           arrow={true} />
             </div>
@@ -221,7 +222,7 @@ class AppNav extends React.Component {
                         {linkSet.insertCourseDropdown && <li key="courseDropdown">
                             <NavLink className='app-nav-link__mobile-only'
                                      displayName='Courses'
-                                     url='//www.thinkful.com/courses' />
+                                     url={`${config.www.url}/courses`} />
                           </li>}
                         {linkSet.menu.map(
                             (link) => <li key={uniqueId(link)}>
