@@ -144,13 +144,13 @@ class AppNav extends React.Component {
           </span>
           <div onMouseEnter={this._handleMouseEnter}
                className={dropdownContentClasses}>
-            <div className="app-nav-section-header">Full-time 1-on-1 Courses</div>
+            <div className="app-nav-section-header">Become a developer</div>
             <div className="app-nav-courses">
               <CourseLink href={`${config.www.url}/courses/web-development-career-path/`}
                           icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/career.svg"
                           name="Web Development Career Path" />
             </div>
-            <div className="app-nav-section-header">Part-time 1-on-1 Courses</div>
+            <div className="app-nav-section-header">Master a new skill</div>
             <div className="app-nav-courses">
               <CourseLink href={`${config.www.url}/courses/learn-web-development-online/`}
                           icon="//tf-assets-prod.s3.amazonaws.com/wow-next/course-icons/frontend.svg"
