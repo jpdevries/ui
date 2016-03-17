@@ -51,18 +51,20 @@ else {
         if (user.access.indexOf('core-student') >= 0) {
             defaults(home, config.dashboard);
             main.push(home);
+            main.push(config.workshops);
         }
         else if (/tfl/.test(user.student_type)) {
             assign(home, {
-                host: config.projects.host
+                host: config.projects.host,
+                url: config.workshops.url
             });
             main.push(home);
         }
         else {
             defaults(home, config.dashboard);
             main.push(home);
+            main.push(config.workshops);
         }
-        main.push(config.workshops);
     }
 
     menu.push(config.refer);
