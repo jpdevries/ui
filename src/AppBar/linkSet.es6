@@ -54,7 +54,7 @@ else {
         }
         else if (/tfl/.test(user.student_type)) {
             assign(home, {
-                host: config.projects.host,
+                host: config.projects.host
             });
             main.push(home);
         }
