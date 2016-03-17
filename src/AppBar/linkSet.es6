@@ -11,9 +11,6 @@ if (global.__env) {
 let config = {
     workshops: {
         icon: 'users'
-    },
-    paths: {
-        icon: 'signpost'
     }
 }
 if (global.__env) {
@@ -21,13 +18,6 @@ if (global.__env) {
         global.__env.config,
         (link, key) => assign({}, link, config[key]));
 
-    // Search behaves differently because it is not actually a link
-    config['search'] = {
-        displayName: 'Search',
-        icon: 'search',
-        search: true,
-        url: `${config.projects.url}/search`
-    }
 }
 
 let home = {displayName: 'Home', icon: 'home'};
@@ -51,8 +41,6 @@ else {
 
         menu.push(config.activity);
         main.push(config.workshops);
-        main.push(config.paths);
-        main.push(config.search);
         menu.push(config.takeStudent);
 
         if (/admin/.test(user.role)) {
@@ -63,21 +51,20 @@ else {
         if (user.access.indexOf('core-student') >= 0) {
             defaults(home, config.dashboard);
             main.push(home);
-            main.push(config.paths);
+            main.push(config.workshops);
         }
         else if (/tfl/.test(user.student_type)) {
             assign(home, {
                 host: config.projects.host,
-                url: config.paths.url
+                url: config.workshops.url
             });
             main.push(home);
         }
         else {
             defaults(home, config.dashboard);
             main.push(home);
+            main.push(config.workshops);
         }
-        main.push(config.workshops);
-        main.push(config.search);
     }
 
     menu.push(config.refer);
