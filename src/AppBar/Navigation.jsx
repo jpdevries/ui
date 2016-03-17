@@ -7,7 +7,7 @@ const uniqueId = require('lodash/utility/uniqueId');
 // TUI Components
 const {Icon} = require('../Icon');
 const {Gravatar} = require('../Gravatar');
-const {NavLink, SearchLink} = require('./NavLink');
+const {NavLink} = require('./NavLink');
 const {Notifications} = require('./notifications/Notifications');
 const {CourseLink} = require('./CourseLink');
 const linkSet = require('./linkSet');
@@ -69,7 +69,6 @@ class AppNav extends React.Component {
         const navClassName = cx(
             'app-nav', {'app-nav__visible': this.state.isMenuVisible});
         const navLinks = linkSet.main.filter(link => !link.search);
-        const searchLink = linkSet.main.filter(link => link.search)[0];
 
         return (
             <div className='app-nav-container'>
@@ -83,19 +82,7 @@ class AppNav extends React.Component {
                         {navLinks.map(
                             (link) => <li key={uniqueId('link_')}>
                                 <NavLink {...link} /></li>)}
-                        {searchLink &&
-                          <li><SearchLink {...searchLink} config={config}/></li>}
                     </ul>
-                    {searchLink && searchLink.active &&
-                      <ul className="app-nav-search-mobile">
-                        <li>
-                          <SearchLink
-                              {...searchLink}
-                              className="app-nav-link__mobile-only__search"
-                              mobile={true}
-                              config={config}/>
-                        </li>
-                      </ul>}
                     <ul onMouseEnter={this._handleMouseEnter}
                         className="app-nav-list">
                         {navLinks.map(
@@ -103,14 +90,6 @@ class AppNav extends React.Component {
                                 <NavLink
                                     className="app-nav-link__mobile-only"
                                     {...link} /></li>)}
-                        {searchLink &&
-                          <li>
-                            <SearchLink
-                                {...searchLink}
-                                className="app-nav-link__mobile-only"
-                                mobile={true}
-                                config={config}/>
-                          </li>}
                         {linkSet.menu.map(
                             (link) => <li key={uniqueId('link_')}>
                                 <NavLink
