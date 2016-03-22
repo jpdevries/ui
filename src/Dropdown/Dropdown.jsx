@@ -53,8 +53,8 @@ const Dropdown = React.createClass({
           className={cx("dropdown-item", item.className)}
           id={ind}
           key={ind}
-          value={item.value}>
-          {item.displayName}
+          value={item.value || item}>
+          {item.displayName || item}
         </p>
       );
     });
@@ -76,8 +76,12 @@ const Dropdown = React.createClass({
 
   render() {
     let {
-      initialSelectedInd, selectedInd, data,
-      defaultDisplay, className} = this.props;
+      className,
+      data,
+      defaultDisplay,
+      initialSelectedInd,
+      selectedInd,
+    } = this.props;
 
     selectedInd = selectedInd === undefined ? initialSelectedInd : selectedInd;
 
@@ -92,7 +96,9 @@ const Dropdown = React.createClass({
             onClick={this._toggleOpen}
             ref={c => this.dropdownButton = c}
             data-clickable>
-          <span className="dropdown-text">{data[selectedInd] && data[selectedInd].displayName || defaultDisplay}</span>
+          <span className="dropdown-text">
+            {data[selectedInd] && data[selectedInd].displayName || defaultDisplay}
+          </span>
           <span className="icon-navigatedown" aria-hidden="true"></span>
         </div>
         <div
