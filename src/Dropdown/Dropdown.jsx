@@ -70,24 +70,52 @@ const Dropdown = React.createClass({
     handleChange(event);
   },
 
-  componentClickAway() {
-    this.setState({open: false});
+  _determineSelectedInd() {
+    const { data, initialSelectedInd, selectedInd, value } = this.props;
+
+    // Case 1: selectedInd or initialSelectedInd provided by props
+    if (selectedInd || initialSelectedInd) {
+      return selectedInd || initialSelectedInd;
+    }
+
+    // Case 2: no data provided
+    if (!data.length) {
+      return -1;
+    }
+
+    if (typeof(data[0]) === "object") {
+      // Case 3: data is array of objects with {displayName: 'foo', value: 'bar'}
+      const values = data.map(item => item.value);
+    }
+    else {
+      // Case 4: data is array of values
+      const values = data;
+    }
+
+    return data.indexOf(value);
+  },
+
+  _getDisplayText() {
+    const { data, defaultDisplay } = this.props;
+    const selectedInd = this._determineSelectedInd();
+
+    if (selectedInd === -1) {
+      return defaultDisplay;
+    }
+
+    if (typeof(data[0]) === "object") {
+      return data[selectedInd] && data[selectedInd].displayName || defaultDisplay;
+    }
+
+    return data[selectedInd]
   },
 
   render() {
-    let {
-      className,
-      data,
-      defaultDisplay,
-      initialSelectedInd,
-      selectedInd,
-    } = this.props;
-
-    selectedInd = selectedInd === undefined ? initialSelectedInd : selectedInd;
+    const { className } = this.props;
 
     const dropdownClasses = cx(
       'dd-open',
-      {'hidden': !this.state.open});
+      {hidden: !this.state.open});
 
     return (
       <div className={cx("dropdown-container", className)}>
@@ -97,7 +125,7 @@ const Dropdown = React.createClass({
             ref={c => this.dropdownButton = c}
             data-clickable>
           <span className="dropdown-text">
-            {data[selectedInd] && data[selectedInd].displayName || defaultDisplay}
+            {this._getDisplayText()}
           </span>
           <span className="icon-navigatedown" aria-hidden="true"></span>
         </div>
