@@ -51,11 +51,14 @@ const Dropdown = React.createClass({
   _generateNodes() {
     let {data} = this.props;
 
-    if (data.length && !data[0].value) {
-      data = data.map(item => {
-        return {value: item, displayName: item}
-      });
-    }
+    // Translate `data` from an array of strings, if necessary.
+    data = data.map(item => {
+      return {
+        value: item.value || item,
+        displayName: item.displayName || item,
+        className: item.className,
+      }
+    });
 
     return data.map((item, ind) => {
       return (
