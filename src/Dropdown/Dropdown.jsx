@@ -16,7 +16,10 @@ require('./dropdown.less');
 const Dropdown = React.createClass({
 
   propTypes: {
-    data: React.PropTypes.array.isRequired,
+    data: React.PropTypes.arrayOf(
+      React.PropTypes.oneOfType([
+        React.PropTypes.string, React.PropTypes.object
+      ])).isRequired,
     initialSelectedInd: React.PropTypes.number,
     selectedInd: React.PropTypes.number,
     defaultDisplay: React.PropTypes.string,
@@ -46,15 +49,22 @@ const Dropdown = React.createClass({
   },
 
   _generateNodes() {
-    const {data} = this.props;
+    let {data} = this.props;
+
+    if (data.length && !data[0].value) {
+      data = data.map(item => {
+        return {value: item, displayName: item}
+      });
+    }
+
     return data.map((item, ind) => {
       return (
         <p
           className={cx("dropdown-item", item.className)}
           id={ind}
           key={ind}
-          value={item.value || item}>
-          {item.displayName || item}
+          value={item.value}>
+          {item.displayName}
         </p>
       );
     });
@@ -78,21 +88,8 @@ const Dropdown = React.createClass({
       return selectedInd || initialSelectedInd;
     }
 
-    // Case 2: no data provided
-    if (!data.length) {
-      return -1;
-    }
-
-    if (typeof(data[0]) === "object") {
-      // Case 3: data is array of objects with {displayName: 'foo', value: 'bar'}
-      const values = data.map(item => item.value);
-    }
-    else {
-      // Case 4: data is array of values
-      const values = data;
-    }
-
-    return data.indexOf(value);
+    // Case 2: get index of `value` from data array
+    return _.map(data, item => item.value || item).indexOf(value)
   },
 
   _getDisplayText() {
@@ -103,11 +100,8 @@ const Dropdown = React.createClass({
       return defaultDisplay;
     }
 
-    if (typeof(data[0]) === "object") {
-      return data[selectedInd] && data[selectedInd].displayName || defaultDisplay;
-    }
-
-    return data[selectedInd]
+    return _.map(data,
+      item => item.displayName || item)[selectedInd] || defaultDisplay;
   },
 
   render() {
