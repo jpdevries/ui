@@ -16,7 +16,10 @@ require('./dropdown.less');
 const Dropdown = React.createClass({
 
   propTypes: {
-    data: React.PropTypes.array.isRequired,
+    data: React.PropTypes.arrayOf(
+      React.PropTypes.oneOfType([
+        React.PropTypes.string, React.PropTypes.object
+      ])).isRequired,
     initialSelectedInd: React.PropTypes.number,
     selectedInd: React.PropTypes.number,
     defaultDisplay: React.PropTypes.string,
@@ -46,7 +49,17 @@ const Dropdown = React.createClass({
   },
 
   _generateNodes() {
-    const {data} = this.props;
+    let {data} = this.props;
+
+    // Translate `data` from an array of strings, if necessary.
+    data = data.map(item => {
+      return {
+        value: item.value || item,
+        displayName: item.displayName || item,
+        className: item.className,
+      }
+    });
+
     return data.map((item, ind) => {
       return (
         <p
@@ -70,20 +83,36 @@ const Dropdown = React.createClass({
     handleChange(event);
   },
 
-  componentClickAway() {
-    this.setState({open: false});
+  _determineSelectedInd() {
+    const { data, initialSelectedInd, selectedInd, value } = this.props;
+
+    // Case 1: selectedInd or initialSelectedInd provided by props
+    if (selectedInd || initialSelectedInd) {
+      return selectedInd || initialSelectedInd;
+    }
+
+    // Case 2: get index of `value` from data array
+    return _.map(data, item => item.value || item).indexOf(value)
+  },
+
+  _getDisplayText() {
+    const { data, defaultDisplay } = this.props;
+    const selectedInd = this._determineSelectedInd();
+
+    if (selectedInd === -1) {
+      return defaultDisplay;
+    }
+
+    return _.map(data,
+      item => item.displayName || item)[selectedInd] || defaultDisplay;
   },
 
   render() {
-    let {
-      initialSelectedInd, selectedInd, data,
-      defaultDisplay, className} = this.props;
-
-    selectedInd = selectedInd === undefined ? initialSelectedInd : selectedInd;
+    const { className } = this.props;
 
     const dropdownClasses = cx(
       'dd-open',
-      {'hidden': !this.state.open});
+      {hidden: !this.state.open});
 
     return (
       <div className={cx("dropdown-container", className)}>
@@ -92,7 +121,9 @@ const Dropdown = React.createClass({
             onClick={this._toggleOpen}
             ref={c => this.dropdownButton = c}
             data-clickable>
-          <span className="dropdown-text">{data[selectedInd] && data[selectedInd].displayName || defaultDisplay}</span>
+          <span className="dropdown-text">
+            {this._getDisplayText()}
+          </span>
           <span className="icon-navigatedown" aria-hidden="true"></span>
         </div>
         <div
