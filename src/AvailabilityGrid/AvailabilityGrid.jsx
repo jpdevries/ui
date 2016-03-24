@@ -102,6 +102,12 @@ const AvailabilityGrid = React.createClass({
     onChange: React.PropTypes.func,
   },
 
+  getDefaultProps() {
+    return {
+      onChange: () => {},
+    }
+  },
+
   getInitialState() {
     const days = ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun'];
 
@@ -260,8 +266,6 @@ const AvailabilityGrid = React.createClass({
   },
 
   handleSlot(dayIndex, slotIndex, value) {
-    const onChange = this.props.onChange || () => {};
-
     if (this.state.selectionMode === 'selecting' || this.state.selectionMode === 'unselecting') {
       let days = this.state.days;
 
@@ -281,7 +285,7 @@ const AvailabilityGrid = React.createClass({
         })
       });
 
-      this.setState({days: days}, onChange);
+      this.setState({days: days}, this.props.onChange(days));
     }
   },
 
