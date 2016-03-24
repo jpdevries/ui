@@ -98,7 +98,8 @@ const AvailabilityGrid = React.createClass({
     minHour: React.PropTypes.number,
     maxHour: React.PropTypes.number,
     onPost: React.PropTypes.func,
-    disabled: React.PropTypes.bool
+    disabled: React.PropTypes.bool,
+    onChange: React.PropTypes.func,
   },
 
   getInitialState() {
@@ -259,6 +260,8 @@ const AvailabilityGrid = React.createClass({
   },
 
   handleSlot(dayIndex, slotIndex, value) {
+    const onChange = this.props.onChange || () => {};
+
     if (this.state.selectionMode === 'selecting' || this.state.selectionMode === 'unselecting') {
       let days = this.state.days;
 
@@ -278,7 +281,7 @@ const AvailabilityGrid = React.createClass({
         })
       });
 
-      this.setState({days: days});
+      this.setState({days: days}, onChange);
     }
   },
 
