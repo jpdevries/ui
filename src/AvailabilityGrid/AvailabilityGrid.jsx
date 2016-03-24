@@ -98,7 +98,14 @@ const AvailabilityGrid = React.createClass({
     minHour: React.PropTypes.number,
     maxHour: React.PropTypes.number,
     onPost: React.PropTypes.func,
-    disabled: React.PropTypes.bool
+    disabled: React.PropTypes.bool,
+    onChange: React.PropTypes.func,
+  },
+
+  getDefaultProps() {
+    return {
+      onChange: () => {},
+    }
   },
 
   getInitialState() {
@@ -278,7 +285,7 @@ const AvailabilityGrid = React.createClass({
         })
       });
 
-      this.setState({days: days});
+      this.setState({days: days}, this.props.onChange(days));
     }
   },
 
