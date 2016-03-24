@@ -1,5 +1,6 @@
 const {AppBar} = require('./AppBar');
 const {AvailabilityGrid} = require('./AvailabilityGrid');
+const {AvatarUploader} = require('./AvatarUploader');
 const {DatePicker} = require('./DatePicker');
 const {Dropdown} = require('./Dropdown');
 const {Footer} = require('./Footer');
@@ -23,6 +24,7 @@ const {models} = require('./models');
 module.exports = {
   AppBar,
   AvailabilityGrid,
+  AvatarUploader,
   DatePicker,
   Dropdown,
   Footer,
