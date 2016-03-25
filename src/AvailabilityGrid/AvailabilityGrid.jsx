@@ -219,18 +219,13 @@ const AvailabilityGrid = React.createClass({
   },
 
   getNumDaysSelected() {
-    let daysSelected = 0;
-    _.forEach(this.state.days, day => {
-      if (_.find(day.slots, 'selected')) {
-        daysSelected = daysSelected + 1;
-      }
-    });
-    return daysSelected;
+    return this.state.days.reduce((prev, day) => {
+      return prev + !!_.find(day.slots, 'selected') * 1;
+    }, 0);
   },
 
   getNumHoursSelected() {
-    let bitmap = this.getBitmap();
-    return bitmap.replace(/0/g, '').length / 4;
+    return this.getBitmap().replace(/0/g, '').length / 4;
   },
 
   getSlotsAvailable() {
