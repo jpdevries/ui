@@ -218,6 +218,16 @@ const AvailabilityGrid = React.createClass({
     }).join('');
   },
 
+  getNumDaysSelected() {
+    return this.state.days.reduce((prev, day) => {
+      return prev + !!_.find(day.slots, 'selected') * 1;
+    }, 0);
+  },
+
+  getNumHoursSelected() {
+    return this.getBitmap().replace(/0/g, '').length / 4;
+  },
+
   getSlotsAvailable() {
     return _.sum(this.state.days.map(dayData => {
       return _.sum(dayData.slots.map(slot => {
@@ -286,6 +296,9 @@ const AvailabilityGrid = React.createClass({
       });
 
       this.setState({days: days}, this.props.onChange(days));
+    }
+    else {
+      this.props.onChange(this.state.days);
     }
   },
 
