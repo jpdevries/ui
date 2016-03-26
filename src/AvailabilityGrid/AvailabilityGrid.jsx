@@ -15,13 +15,13 @@ const DESKTOP_GRID_WIDTH = 620;
 
 const AvailabilityGridSlot = React.createClass({
   propTypes: {
-    dayIndex: React.PropTypes.number,
-    mouseDown: React.PropTypes.number,
-    selectionMode: React.PropTypes.string,
-    data: React.PropTypes.object,
-    onSelectionModeChanged: React.PropTypes.func,
-    onSlotUnselected: React.PropTypes.func,
-    onSlotSelected: React.PropTypes.func,
+    dayIndex: React.PropTypes.number.isRequired,
+    mouseDown: React.PropTypes.number.isRequired,
+    selectionMode: React.PropTypes.string.isRequired,
+    data: React.PropTypes.object.isRequired,
+    onSelectionModeChanged: React.PropTypes.func.isRequired,
+    onSlotUnselected: React.PropTypes.func.isRequired,
+    onSlotSelected: React.PropTypes.func.isRequired,
     mobile: React.PropTypes.bool,
   },
 
@@ -73,9 +73,9 @@ const AvailabilityGridSlot = React.createClass({
 
 const AvailabilityGridDay = React.createClass({
   propTypes: {
-    minSlot: React.PropTypes.number,
-    maxSlot: React.PropTypes.number,
-    data: React.PropTypes.object,
+    minSlot: React.PropTypes.number.isRequired,
+    maxSlot: React.PropTypes.number.isRequired,
+    data: React.PropTypes.object.isRequired,
     onNavigateDay: React.PropTypes.func,
     isMinDay: React.PropTypes.bool,
     isMaxDay: React.PropTypes.bool,
@@ -121,9 +121,9 @@ const AvailabilityGridDay = React.createClass({
 
 const AvailabilityGrid = React.createClass({
   propTypes: {
-    slotsHour: React.PropTypes.number,
-    minHour: React.PropTypes.number,
-    maxHour: React.PropTypes.number,
+    slotsHour: React.PropTypes.number.isRequired,
+    minHour: React.PropTypes.number.isRequired,
+    maxHour: React.PropTypes.number.isRequired,
     onPost: React.PropTypes.func,
     disabled: React.PropTypes.bool,
     onChange: React.PropTypes.func,
