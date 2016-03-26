@@ -86,6 +86,11 @@ class AvatarUploader extends React.Component {
     }, this.props.onChange);
   }
 
+  _isOnMobile = () => {
+    // Smart phones have an orientation property. Use that to detect mobile
+    return typeof window.orientation !== "undefined";
+  }
+
   getValue = () => {
     return this.state.isGravatar ? ''
       : this.state.pristine ? this.state.default.imageUrl
@@ -105,14 +110,23 @@ class AvatarUploader extends React.Component {
           ref={c => this.editor = c}
           width={90}/>}
       <div className="avatar-copy">
-        <p>Drag and drop an image to update your avatar. Your photo will fall&nbsp;
-        back to one from <a href="https://www.gravatar.com" target="_blank">
-        Gravatar</a> if none is added.</p>
-        <a
-            className={cx({link__disabled: isGravatar})}
-            onClick={this._handleClearAvatar}>
-          Clear image
-        </a>
+        {this._isOnMobile() ?
+          <p>
+            Visit this page from a desktop computer to update your avatar.&nbsp;
+            Your photo will fall back to one from <a href="https://www.gravatar.com" target="_blank">
+            Gravatar</a> if none is added.
+          </p>
+        : <div>
+            <p>Drag and drop an image to update your avatar. Your photo will fall&nbsp;
+            back to one from <a href="https://www.gravatar.com" target="_blank">
+            Gravatar</a> if none is added.</p>
+            <a
+                className={cx({link__disabled: isGravatar})}
+                onClick={this._handleClearAvatar}>
+              Clear image
+            </a>
+          </div>
+        }
       </div>
     </div>
   }

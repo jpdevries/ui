@@ -1,5 +1,7 @@
 @import "~tfstyleguide/vars";
 
+@desktop-grid: ~"screen and (max-width: 620px)";
+
 .availability-grid {
   .body-text-small;
   width: 620px;
@@ -24,6 +26,11 @@
         background-color: @gray25;
       }
     }
+  }
+
+  &.availability-grid__mobile {
+    width: 200px;
+    height: 360px;
   }
 }
 
@@ -53,6 +60,45 @@
   width: 60px;
   line-height: 30px;
   margin-left: -1px;
+
+  @media @desktop-grid {
+    width: 200px;
+  }
+
+  .availability-grid-day-name {
+    @media @desktop-grid {
+      display: block;
+      padding-bottom: 15px;
+      position: relative;
+    }
+  }
+
+  .navigation {
+    position: absolute;
+    top: 8px;
+    cursor: pointer;
+
+    &.disabled {
+      color: @gray25;
+      pointer-events: none;
+      cursor: arrow;
+    }
+  }
+
+  .navigation__left {
+    left: 0;
+  }
+
+  .navigation__right {
+    right: 0;
+  }
+}
+
+.availability-grid-items {
+  @media @desktop-grid {
+    column-count: 2;
+    column-gap: 0;
+  }
 }
 
 .availability-grid-slot {
@@ -64,6 +110,14 @@
   border: mix(@gray25, @gray50, 70%) 1px solid;
   cursor: pointer;
   z-index: 1;
+
+  @media @desktop-grid {
+    -webkit-column-break-inside: avoid;
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    border-color: @gray25;
+  }
 
   &.selected {
     z-index: 2;
