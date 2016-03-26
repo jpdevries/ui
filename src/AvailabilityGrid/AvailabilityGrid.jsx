@@ -6,9 +6,12 @@ const moment = require('moment');
 const chunk = require('lodash/array/chunk');
 const difference = require('lodash/array/difference');
 const fill = require('lodash/array/fill');
+
 const { Icon } = require('../Icon');
 
 const log = require('debug')('ui:AvailabilityGrid');
+
+const DESKTOP_GRID_WIDTH = 620;
 
 const AvailabilityGridSlot = React.createClass({
   propTypes: {
@@ -90,9 +93,7 @@ const AvailabilityGridDay = React.createClass({
     })
 
     return (
-      <div className={classNames(
-          "availability-grid-day",
-          {"availability-grid-day__mobile": this.props.mobile})}>
+      <div className="availability-grid-day">
         <span className="availability-grid-day-name">
           {this.props.mobile &&
             <Icon
@@ -339,7 +340,7 @@ const AvailabilityGrid = React.createClass({
   },
 
   shouldRenderMobile() {
-    return window.innerWidth < 620;
+    return window.innerWidth < DESKTOP_GRID_WIDTH;
   },
 
   handleNavigateDay(direction) {
@@ -372,23 +373,25 @@ const AvailabilityGrid = React.createClass({
       return (
         <AvailabilityGridDay
             data={dayData}
-            selectionMode={this.state.selectionMode}
+            isMaxDay={this.state.activeDayIdx >= this.state.days.length - 1}
+            isMinDay={this.state.activeDayIdx <= 0}
+            minSlot={minSlot}
+            maxSlot={maxSlot}
+            mobile={this.shouldRenderMobile()}
+            mouseDown={this.state.mouseDown}
             onSelectionModeChanged={this.handleSelectionModeChanged}
             onSlotSelected={this.handleSlotSelected}
             onSlotUnselected={this.handleSlotUnselected}
             onNavigateDay={this.handleNavigateDay}
-            minSlot={minSlot}
-            maxSlot={maxSlot}
-            mobile={this.shouldRenderMobile()}
-            isMinDay={this.state.activeDayIdx <= 0}
-            isMaxDay={this.state.activeDayIdx >= this.state.days.length - 1}
-            mouseDown={this.state.mouseDown} />
+            selectionMode={this.state.selectionMode} />
       );
     });
 
     let classes = classNames(
-      'availability-grid',
-      {'availability-grid__disabled': this.props.disabled}
+      'availability-grid', {
+        'availability-grid__disabled': this.props.disabled,
+        'availability-grid__mobile': this.shouldRenderMobile()
+      }
     );
 
     return (
