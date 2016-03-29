@@ -38,7 +38,9 @@ class NavLink extends React.Component {
 
         const {user} = this.context;
 
-        const disabled = disableInOnboarding && user && user.onboarding_step;
+        const disabled = (
+            disableInOnboarding && user && user.onboarding_step &&
+            user.access.indexOf('cp-onboarding') > -1);
 
         return (
             <a
