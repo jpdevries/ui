@@ -9,9 +9,6 @@ if (global.__env) {
 }
 
 let config = {
-    workshops: {
-        icon: 'users'
-    },
     qaSessions: {
         icon: 'users'
     }
@@ -39,7 +36,7 @@ if(! user) {
 }
 
 else {
-  // admin, mentor
+    // admin, mentor
     if (/admin|mentor/.test(user.role)) {
         defaults(home, config.dashboard);
         main.push(home);
@@ -52,7 +49,8 @@ else {
             menu.push(config.courses);
         }
     }
-    else { // Student links
+    // Student links
+    else {
         // core student
         if (user.access.indexOf('core-student') >= 0) {
             defaults(home, config.dashboard);
@@ -67,8 +65,8 @@ else {
             });
             main.push(home);
         }
+        // Career path or full-time student
         else {
-          // CP student??
             defaults(home, config.dashboard);
             main.push(home);
             main.push(config.qaSessions);
