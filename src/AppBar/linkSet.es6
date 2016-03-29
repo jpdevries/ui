@@ -11,6 +11,9 @@ if (global.__env) {
 let config = {
     workshops: {
         icon: 'users'
+    },
+    qaSessions: {
+        icon: 'users'
     }
 }
 if (global.__env) {
@@ -26,6 +29,7 @@ let menu = [];
 let insertCourseDropdown = false;
 
 if(! user) {
+  // non-logged in user
     defaults(home, config.www);
     insertCourseDropdown = true;
     menu.push(config.mentors);
@@ -35,12 +39,13 @@ if(! user) {
 }
 
 else {
+  // admin, mentor
     if (/admin|mentor/.test(user.role)) {
         defaults(home, config.dashboard);
         main.push(home);
 
         menu.push(config.activity);
-        main.push(config.workshops);
+        main.push(config.qaSessions);
         menu.push(config.takeStudent);
 
         if (/admin/.test(user.role)) {
@@ -48,11 +53,13 @@ else {
         }
     }
     else { // Student links
+        // core student
         if (user.access.indexOf('core-student') >= 0) {
             defaults(home, config.dashboard);
             main.push(home);
-            main.push(config.workshops);
+            main.push(config.qaSessions);
         }
+        // TFL student
         else if (/tfl/.test(user.student_type)) {
             assign(home, {
                 host: config.projects.host,
@@ -61,9 +68,10 @@ else {
             main.push(home);
         }
         else {
+          // CP student??
             defaults(home, config.dashboard);
             main.push(home);
-            main.push(config.workshops);
+            main.push(config.qaSessions);
         }
     }
 
