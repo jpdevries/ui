@@ -10,7 +10,8 @@ if (global.__env) {
 
 let config = {
     workshops: {
-        icon: 'users'
+        icon: 'users',
+        disableInOnboarding: true,
     }
 }
 if (global.__env) {
