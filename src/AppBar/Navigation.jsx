@@ -23,6 +23,16 @@ class AppNav extends React.Component {
         config: React.PropTypes.object.isRequired
     }
 
+    static childContextTypes = {
+      user: React.PropTypes.object.isRequired,
+    };
+
+    getChildContext() {
+      return {
+        user: this.props.user,
+      }
+    }
+
     constructor(props) {
         super(props);
         this.state = {

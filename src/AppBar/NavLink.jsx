@@ -21,13 +21,33 @@ class NavLink extends React.Component {
         url: React.PropTypes.string.isRequired
     }
 
+    static contextTypes = {
+        user: React.PropTypes.object
+    }
+
     render() {
-        const {url, active, className, external, displayName, icon} = this.props;
+        const {
+            active,
+            className,
+            disableInOnboarding,
+            displayName,
+            external,
+            icon,
+            url,
+        } = this.props;
+
+        const {user} = this.context;
+
+        const disabled = disableInOnboarding && user && user.onboarding_step;
 
         return (
-            <a className={cx({active}, className, "app-nav-link")}
-               href={url + '?rel=nav'}
-               target={external ? "_blank" : "_self"}>
+            <a
+                    className={cx(
+                        className,
+                        "app-nav-link",
+                        {active, disabled})}
+                    href={url + '?rel=nav'}
+                    target={external ? "_blank" : "_self"}>
                 {icon &&
                     <Icon className="app-nav-icon" name={icon}/>
                 }
