@@ -10,7 +10,8 @@ if (global.__env) {
 
 let config = {
     qaSessions: {
-        icon: 'users'
+        icon: 'users',
+        disableInOnboarding: true,
     }
 }
 if (global.__env) {
