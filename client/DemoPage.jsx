@@ -117,7 +117,8 @@ class DemoPage extends React.Component {
           <Demo
             target={Loader}
             props={{
-              className: Demo.props.constant('additional-class')
+              className: Demo.props.constant('additional-class'),
+              height: Demo.props.choices(['60px', '180px', '50vh'])
             }} />
 
           <h3>OpenSessionOverview</h3>
