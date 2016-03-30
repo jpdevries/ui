@@ -11,18 +11,17 @@ class Loader extends React.Component {
     height: React.PropTypes.string
   }
 
-  render() {
-    let styleObj = {height: '60px'};
-    if (this.props.height) {
-      styleObj = {height: this.props.height };
-    }
+  static defaultProps = {
+    height: '60px'
+  }
 
+  render() {
     return <div
-      className={cx('tui-loader', this.props.className || "")}
-      style={styleObj}>
+      className={cx('tui-loader', this.props.className)}
+      style={{height: this.props.height}}>
       <svg className="tui-loader-inner" height="25" width="25">
-  <circle className="tui-loader-stroke" cx="25" cy="25" r="15" fill="none" strokeWidth="5" strokeMiterlimit="10" />
-</svg>
+        <circle className="tui-loader-stroke" cx="25" cy="25" r="15" fill="none" strokeWidth="5" strokeMiterlimit="10" />
+      </svg>
     </div>;
   }
 }
