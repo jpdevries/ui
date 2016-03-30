@@ -219,6 +219,15 @@ function alias(to, from, options, fn) {
 
     global.analytics &&
         global.analytics.alias(to, from, options, fn);
+
+    // By recommendation of Mixpanel, wait 500ms and then identify by email
+    setTimeout(function() {
+      identify(to);
+
+      // Create a track event so we can see exactly when a user is aliased,
+      // to help us better understand everything.
+      track('aliased', { 'to': to })
+    }, 500);
 }
 
 
