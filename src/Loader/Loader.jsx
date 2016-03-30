@@ -7,16 +7,21 @@ class Loader extends React.Component {
   static displayName = "Loader"
 
   static propTypes = {
-    className: React.PropTypes.string
+    className: React.PropTypes.string,
+    height: React.PropTypes.string
+  }
+
+  static defaultProps = {
+    height: '60px'
   }
 
   render() {
     return <div
-      className={cx('tui-loader', this.props.className || "")}>
-      Loading
-      <span className="tui-loader-dot"></span>
-      <span className="tui-loader-dot"></span>
-      <span className="tui-loader-dot"></span>
+      className={cx('tui-loader', this.props.className)}
+      style={{height: this.props.height}}>
+      <svg className="tui-loader-inner" height="25" width="25">
+        <circle className="tui-loader-stroke" cx="25" cy="25" r="15" fill="none" strokeWidth="5" strokeMiterlimit="10" />
+      </svg>
     </div>;
   }
 }

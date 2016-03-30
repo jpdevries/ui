@@ -1,41 +1,44 @@
 @import "~tfstyleguide/vars";
 
 .tui-loader {
-  .h3-text();
-  color: @gray75;
+  min-height: 60px;
 }
 
-.tui-loader-dot {
-  display: inline-block;
-  width: 3px;
-  height: 3px;
-  border-radius: 100%;
-  margin: 0 2px;
-  background-color: fade(@black, 100%);
-  animation: tui-loader-dot-blink 1.2s linear infinite;
+.tui-loader-inner {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 50px;
+  height: 50px;
+  animation: tui-loader-rotate 2s linear infinite;
+}
 
-  &:nth-child(3) {
-    animation-delay: 0.3s;
-  }
-  &:nth-child(4) {
-    animation-delay: 0.6s;
+.tui-loader-stroke {
+  stroke-dasharray: 30,94;
+  stroke-dashoffset: 0;
+  animation: tui-loader-dash 1.5s linear infinite;
+  stroke: @blue;
+}
+
+@keyframes tui-loader-rotate{
+  100%{
+    transform: rotate(360deg);
   }
 }
 
-@keyframes tui-loader-dot-blink {
+@keyframes tui-loader-dash{
   0% {
-    background-color: fade(@gray75, 100%);
+    stroke-dasharray: 30,94;
+    stroke-dashoffset: 0;
+    stroke: @blue;
   }
-  25% {
-    background-color: fade(@gray75, 50%);
-  }
+
   50% {
-    background-color: fade(@gray75, 0%);
+    stroke-dasharray: 94;
   }
-  75% {
-    background-color: fade(@gray75, 50%);
-  }
+
   100% {
-    background-color: fade(@gray75, 100%);
+    stroke-dasharray: 30,94;
+    stroke-dashoffset: -124;
+    stroke: @blue125;
   }
 }
