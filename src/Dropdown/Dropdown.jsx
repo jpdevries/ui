@@ -54,8 +54,8 @@ const Dropdown = React.createClass({
     // Translate `data` from an array of strings, if necessary.
     data = data.map(item => {
       return {
-        value: item.value || item,
-        displayName: item.displayName || item,
+        value: _.has(item, 'value') ? item.value : item,
+        displayName: _.has(item, 'displayName') ? item.displayName : item,
         className: item.className,
       }
     });
