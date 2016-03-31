@@ -87,8 +87,12 @@ const Dropdown = React.createClass({
     const { data, initialSelectedInd, selectedInd, value } = this.props;
 
     // Case 1: selectedInd or initialSelectedInd provided by props
-    if (selectedInd || initialSelectedInd) {
-      return selectedInd || initialSelectedInd;
+    if (typeof(selectedInd) === 'number') {
+      return selectedInd;
+    }
+
+    if (typeof(initialSelectedInd) === 'number') {
+      return initialSelectedInd;
     }
 
     // Case 2: get index of `value` from data array
