@@ -88,8 +88,10 @@ function getUserId(id) {
 
 // Failsafe for if segment breaks for some reason
 function fallback(callback, postData) {
+    const oilbirdUrl = get(global, '__env.config.oilbird.url', '//oilbird.thinkful.com');
+
     superagent.
-        post(`${global.__env.config.oilbird.url}/echo`).
+        post(`${oilbirdUrl}/echo`).
         send(postData).
         withCredentials().
         end((error, response) => {
