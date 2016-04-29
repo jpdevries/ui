@@ -56,14 +56,12 @@ class Notifications extends React.Component {
 
     _handleItemDismiss(event, id) {
       console.log("[Notifications] Dismissed notification:", id);
-      NotificationActions.markRead([id]).then(
-        () => {NotificationActions.fetchNotifications();});
+      NotificationActions.markRead([id]);
     }
 
     _handleSeen() {
       console.log("[Notifications] Seen all!");
-      NotificationActions.markSeen(true).then(
-        () => {NotificationActions.fetchNotifications();});
+      NotificationActions.markSeen(true);
     }
 
     render() {
