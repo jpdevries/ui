@@ -50,7 +50,9 @@ const processFetch = function (error, response, body) {
         time: "2015-09-23T03:17:30.280968"
         verb: "request-nps"
     */
-
+    
+    NotificationActions.fetchNotifications();
+    
     this.completed({
       unreadCount: unread,
       unseenCount: unseen,
