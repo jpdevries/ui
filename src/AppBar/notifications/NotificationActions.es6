@@ -27,7 +27,7 @@ if (CONFIG && CONFIG.vendor.getstream.userFeedToken) {
 
 const LIMIT = 5;
 
-const processFetch = function (error, response, body) {
+const processFetch = function (refetch, error, response, body) {
   if (!response || response.status === 200) {
     let unread = body.unread;
     let unseen = body.unseen;
@@ -50,7 +50,10 @@ const processFetch = function (error, response, body) {
         time: "2015-09-23T03:17:30.280968"
         verb: "request-nps"
     */
-
+    
+    if (refetch) {
+      NotificationActions.fetchNotifications();
+    }
     this.completed({
       unreadCount: unread,
       unseenCount: unseen,
@@ -68,7 +71,7 @@ const processFetch = function (error, response, body) {
 NotificationActions.fetchNotifications.listen(
   function () {
     if (!userFeed) return;
-    userFeed.get({limit: LIMIT}, processFetch.bind(this));
+    userFeed.get({limit: LIMIT}, processFetch.bind(this, false));
   });
 
 
@@ -77,7 +80,7 @@ NotificationActions.markSeen.listen(
     if (!userFeed) return;
     userFeed.get(
       {limit: LIMIT, mark_seen: markSeen},
-      processFetch.bind(this));
+      processFetch.bind(this, true));
 });
 
 NotificationActions.markRead.listen(
@@ -85,7 +88,7 @@ NotificationActions.markRead.listen(
     if (!userFeed) return;
     userFeed.get(
       {limit: LIMIT, mark_read: markRead},
-      processFetch.bind(this));
+      processFetch.bind(this, true));
 });
 
 NotificationActions.processEvent.listen(
