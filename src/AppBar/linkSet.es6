@@ -12,8 +12,8 @@ let config = {
     qaSessions: {
         icon: 'users',
         disableInOnboarding: true,
-    }
-    , goals: {
+    },
+    goals: {
         icon: 'carrot'
     }
 }
