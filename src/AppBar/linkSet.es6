@@ -13,6 +13,9 @@ let config = {
         icon: 'users',
         disableInOnboarding: true,
     }
+    , goals: {
+        icon: 'carrot'
+    }
 }
 if (global.__env) {
     config = mapValues(
@@ -45,10 +48,6 @@ else {
         menu.push(config.activity);
         main.push(config.qaSessions);
         menu.push(config.takeStudent);
-
-        if (/admin/.test(user.role)) {
-            menu.push(config.courses);
-        }
     }
     // Student links
     else {
@@ -70,6 +69,9 @@ else {
         else {
             defaults(home, config.dashboard);
             main.push(home);
+            if (user.student_type === 'career-path') {
+                main.push(config.goals);
+            }
             main.push(config.qaSessions);
         }
     }

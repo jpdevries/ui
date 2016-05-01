@@ -40,6 +40,11 @@
       "host": "t.ful:5013",
       "url": "//t.ful:5013"
     },
+    "goals": {
+      "displayName": "Goals",
+      "host": "t.ful:5013",
+      "url": "//t.ful:5013/goals"
+    },
     "enroll": {
       "displayName": "Enroll",
       "host": "t.ful:5002",
@@ -142,6 +147,11 @@
       "host": "t.ful:5008",
       "url": "//t.ful:5008"
     },
+    "qaSessions": {
+      "displayName": "Q&A Sessions",
+      "host": "t.ful:5008",
+      "url": "//t.ful:5008/open-sessions/qa-sessions"
+    },
     "wow": {
       "host": "t.ful:5016",
       "url": "//t.ful:5016"
@@ -162,6 +172,7 @@
    "last_name": "X",
    "id": 1,
    "contact_id": 1,
+   "student_type": "career-path",
    "access": ["navbar-notifications"]
  }
 }
