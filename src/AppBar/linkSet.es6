@@ -51,21 +51,15 @@ else {
     }
     // Student links
     else {
-        // core student
-        if (user.access.indexOf('core-student') >= 0) {
-            defaults(home, config.dashboard);
-            main.push(home);
-            main.push(config.qaSessions);
-        }
         // TFL student
-        else if (/tfl/.test(user.student_type)) {
+        if (/tfl/.test(user.student_type)) {
             assign(home, {
                 host: config.projects.host,
                 url: config.workshops.url
             });
             main.push(home);
         }
-        // Career path or full-time student
+        // Core, career path, or full-time student
         else {
             defaults(home, config.dashboard);
             main.push(home);

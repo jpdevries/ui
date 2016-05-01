@@ -6,7 +6,7 @@ const React = require('react');
  */
 class Icon extends React.Component {
     static displayName = "Icon"
-    
+
     static propTypes = {
         name: React.PropTypes.string.isRequired
     }
