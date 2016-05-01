@@ -51,6 +51,7 @@ else {
     }
     // Student links
     else {
+        // TFL student
         if (/tfl/.test(user.student_type)) {
             assign(home, {
                 host: config.projects.host,
@@ -58,7 +59,7 @@ else {
             });
             main.push(home);
         }
-        // Career path or full-time student
+        // Core, career path, or full-time student
         else {
             defaults(home, config.dashboard);
             main.push(home);
