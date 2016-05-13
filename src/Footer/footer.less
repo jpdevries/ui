@@ -37,6 +37,10 @@
 
 .footer-heading {
   color: @black;
+  display: none;
+  @media @nonmobile {
+    display: block;
+  }
 }
 
 .footer-link {
@@ -52,6 +56,30 @@
     display: inline-block;
     margin-right: 10px;
   }
+  &.mobileHidden {
+    display: none;
+    @media @nonmobile {
+      display: block;
+      &.icon {
+        display: inline-block;
+      }
+    }
+  }
+}
+
+.social-mobile {
+  .footer-link:last-child {
+    margin-right: 0;
+  }
+  @media @nonmobile {
+    display: none;
+  }
+}
+
+.support-mobile {
+  @media @nonmobile {
+    display: none;
+  }
 }
 
 .legal-links {
@@ -65,7 +93,33 @@
   }
 }
 
+.copyright {
+  display: block;
+  @media @nonmobile {
+    display: inline-block;
+  }
+}
+
+.support-desktop,
+.middot-desktop {
+  display: none;
+  @media @nonmobile {
+    display: inline-block;
+  }
+}
+
 .timezone {
   .body-text;
   color: @black;
+  display: none;
+  @media @nonmobile {
+    display: block;
+  }
+  &.timezone__mobile {
+    display: block;
+    margin-bottom: 25px;
+    @media @nonmobile {
+      display: none;
+    }
+  }
 }

@@ -5,6 +5,9 @@ const {Icon} = require('../Icon');
 
 require('./footer.less');
 
+const FACEBOOK_URL = 'https://www.facebook.com/thinkfulschool';
+const TWITTER_URL = 'https://twitter.com/thinkful';
+
 
 function generateLinkSet(config) {
   return [
@@ -108,11 +111,13 @@ function generateLinkSet(config) {
         },
         {
           'icon': 'facebook',
-          'location': 'https://www.facebook.com/thinkfulschool'
+          'location': FACEBOOK_URL,
+          'mobile': false
         },
         {
           'icon': 'twitter',
-          'location': 'https://twitter.com/thinkful'
+          'location': TWITTER_URL,
+          'mobile': false
         }
       ]
     }
@@ -132,12 +137,25 @@ class Footer extends React.Component {
     return (
       <div className="footer-container">
         <footer className="footer">
+          <div className="timezone timezone__mobile">
+            All times are in {user.timezone}
+          </div>
           <div className="site-links">
+            <div className="social-mobile">
+              <a className="footer-link icon" href={FACEBOOK_URL}>
+                <Icon name="facebook"/>
+              </a>
+              <a className="footer-link icon" href={TWITTER_URL}>
+                <Icon name="twitter"/>
+              </a>
+            </div>
             {linkSet.map(section => <div className="footer-column">
                 <h4 className="footer-heading">{section.heading}</h4>
                 {section.links.map(link => (
                   <a
-                      className={cx("footer-link", {icon: link.icon})}
+                      className={cx(
+                        "footer-link",
+                        {icon: link.icon, mobileHidden: !link.mobile})}
                       href={link.location}>
                     {link.icon ?
                       <Icon name={link.icon}/>
@@ -146,13 +164,19 @@ class Footer extends React.Component {
                 }
               </div>)
             }
+            <div className="support-mobile">
+              <a className="footer-link" href={`${config.www.url}/support`}>
+                Support
+              </a>
+            </div>
           </div>
           <div className="timezone">
             All times are in {user.timezone}&nbsp;&nbsp;
             <a href={`${config.settings.url}/profile`}>Change</a>
           </div>
           <div className="legal-links">
-            <span>&copy; Thinkful, Inc.</span>&nbsp;·&nbsp;
+            <span className="copyright">&copy; Thinkful, Inc.</span>
+            <span className="middot-desktop">&nbsp;·&nbsp;</span>
             <span>
               <a
                   className="footer-link"
@@ -166,8 +190,9 @@ class Footer extends React.Component {
                   href={`${config.www.url}/static/pdfs/Privacy-Policy.pdf`}>
                 Privacy policy
               </a>
-            </span>&nbsp;·&nbsp;
-            <span>
+            </span>
+            <span className="middot-desktop">&nbsp;·&nbsp;</span>
+            <span className="support-desktop">
               <a
                   className="footer-link"
                   href={`${config.www.url}/support`}>
