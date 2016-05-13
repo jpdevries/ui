@@ -207,12 +207,13 @@ class Footer extends React.Component {
   };
 
   static defaultProps = {
-    config: global.__env.config,
     user: {},
   }
 
   render() {
-    const { config, user } = this.props;
+    const { user } = this.props;
+    // Can't be set via defaultProps because of frontend testing and global.__env
+    const config = this.props.config || global.__env.config;
     const sections = generateSections(config);
 
     return (
