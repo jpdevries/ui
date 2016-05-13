@@ -10,39 +10,40 @@ const FACEBOOK_URL = 'https://www.facebook.com/thinkfulschool';
 const TWITTER_URL = 'https://twitter.com/thinkful';
 
 
-function generateLinkSet(config) {
+function generateSections(config) {
+  const wwwUrl = config.www.url;
   return [
     {
       'heading': 'Courses',
       'links': [
         {
           'name': 'Part Time Career Path',
-          'location': `${config.www.url}/courses/web-development-career-path/`,
+          'location': `${wwwUrl}/courses/web-development-career-path/`,
           'mobile': false
         },
         {
           'name': 'Full Time Career Path',
-          'location': `${config.www.url}/courses/full-time-career-path/`,
+          'location': `${wwwUrl}/courses/full-time-career-path/`,
           'mobile': false
         },
         {
           'name': 'Explore all courses',
-          'location': `${config.www.url}/courses/`,
+          'location': `${wwwUrl}/courses/`,
           'mobile': true
         },
         {
           'name': 'Corporate training',
-          'location': `${config.www.url}/training-for-teams/`,
+          'location': `${wwwUrl}/training-for-teams/`,
           'mobile': true
         },
         {
           'name': 'Bootcamp prep',
-          'location': `${config.www.url}/bootcamp-prep/`,
+          'location': `${wwwUrl}/bootcamp-prep/`,
           'mobile': false
         },
         {
           'name': 'Pricing',
-          'location': `${config.www.url}/pricing/`,
+          'location': `${wwwUrl}/pricing/`,
           'mobile': true
         }
       ]
@@ -52,32 +53,32 @@ function generateLinkSet(config) {
       'links': [
         {
           'name': '1-on-1 mentorship',
-          'location': `${config.www.url}/mentorship/`,
-          'mobile': false
-        },
-        {
-          'name': 'Career prep',
-          'location': `${config.www.url}/career-prep/`,
-          'mobile': false
-        },
-        {
-          'name': 'Job guarantee',
-          'location': `${config.www.url}/career-path-job-guarantee/`,
-          'mobile': false
-        },
-        {
-          'name': 'Student outcomes',
-          'location': `${config.www.url}/bootcamp-job-stats/`,
+          'location': `${wwwUrl}/mentorship/`,
           'mobile': false
         },
         {
           'name': 'Bootcamp Finder',
-          'location': `${config.www.url}/bootcamps/`,
+          'location': `${wwwUrl}/bootcamps/`,
           'mobile': true
         },
         {
+          'name': 'Career prep',
+          'location': `${wwwUrl}/career-prep/`,
+          'mobile': false
+        },
+        {
+          'name': 'Job guarantee',
+          'location': `${wwwUrl}/career-path-job-guarantee/`,
+          'mobile': false
+        },
+        {
           'name': 'Learning resources',
-          'location': `${config.www.url}/learn/`,
+          'location': `${wwwUrl}/learn/`,
+          'mobile': false
+        },
+        {
+          'name': 'Student outcomes',
+          'location': `${wwwUrl}/bootcamp-job-stats/`,
           'mobile': false
         }
       ]
@@ -86,37 +87,37 @@ function generateLinkSet(config) {
       'heading': 'About',
       'links': [
         {
-          'name': 'Mission',
-          'location': `${config.www.url}/about/`,
-          'mobile': true
-        },
-        {
           'name': 'Blog',
           'location': 'http://blog.thinkful.com',
           'mobile': true
         },
         {
           'name': 'Careers',
-          'location': `${config.www.url}/about/#opportunities`,
+          'location': `${wwwUrl}/about/#opportunities`,
           'mobile': false
         },
         {
           'name': 'Mentors',
-          'location': `${config.www.url}/mentors/`,
+          'location': `${wwwUrl}/mentors/`,
           'mobile': false
         },
         {
-          'name': 'Site security',
-          'location': `${config.www.url}/responsible-disclosure/`,
+          'name': 'Mission',
+          'location': `${wwwUrl}/about/`,
           'mobile': true
         },
         {
-          'icon': 'facebook',
+          'name': 'Site security',
+          'location': `${wwwUrl}/responsible-disclosure/`,
+          'mobile': true
+        },
+        {
+          'iconName': 'facebook',
           'location': FACEBOOK_URL,
           'mobile': false
         },
         {
-          'icon': 'twitter',
+          'iconName': 'twitter',
           'location': TWITTER_URL,
           'mobile': false
         }
@@ -125,22 +126,103 @@ function generateLinkSet(config) {
   ];
 }
 
-class Footer extends React.Component {
+class SectionLink extends React.Component {
   static propTypes = {
-    config: React.PropTypes.object,
+    className: React.PropTypes.string,
+    iconName: React.PropTypes.string,
+    location: React.PropTypes.string.isRequired,
+    mobile: React.PropTypes.bool,
+    name: React.PropTypes.string,
   }
 
   render() {
-    const { user={} } = this.props;
-    const config = this.props.config || global.__env.config;
-    const linkSet = generateLinkSet(config);
+    const { className, iconName, location, mobile, name } = this.props;
+
+    return <a
+        className={cx(
+          "footer-link",
+          className,
+          {icon: !!iconName, mobileHidden: !mobile})}
+        href={location}>
+      {iconName ?
+        <Icon name={iconName}/>
+      : name}
+    </a>
+  }
+}
+
+class FooterColumn extends React.Component {
+  static propTypes = {
+    heading: React.PropTypes.string.isRequired,
+    links: React.PropTypes.array.isRequired,
+  }
+
+  render() {
+    const { heading, links } = this.props;
+    return <div className="footer-column">
+      <h4 className="footer-heading">{heading}</h4>
+        {links.map((link, idx) => (<SectionLink key={idx} {...link}/>))}
+    </div>
+  }
+}
+
+
+class LegalLinks extends React.Component {
+  static propTypes = {
+    config: React.PropTypes.object.isRequired
+  }
+
+  render() {
+    const { config } = this.props;
+
+    return <div className="legal-links">
+      <span className="margin-span copyright">&copy; {moment().format('YYYY')} Thinkful, Inc.</span>
+      <span className="margin-span middot-desktop">·</span>
+      <SectionLink
+          className="margin-span"
+          location={`${config.www.url}/static/pdfs/Terms-of-Service.pdf`}
+          name="Terms of use"
+          mobile={true}/>
+      <span className="margin-span">·</span>
+      <SectionLink
+          className="margin-span"
+          location={`${config.www.url}/static/pdfs/Privacy-Policy.pdf`}
+          name="Privacy policy"
+          mobile={true}/>
+      <span className="middot-desktop margin-span">·</span>
+      <SectionLink
+          className="support-desktop margin-span"
+          location={`${config.www.url}/support/`}
+          name="Support"
+          mobile={false}/>
+    </div>
+  }
+}
+
+
+class Footer extends React.Component {
+  static propTypes = {
+    config: React.PropTypes.object,
+    user: React.PropTypes.object,
+  };
+
+  static defaultProps = {
+    config: global.__env.config,
+    user: {},
+  }
+
+  render() {
+    const { config, user } = this.props;
+    const sections = generateSections(config);
 
     return (
       <div className="footer-container">
         <footer className="footer">
-          <div className="timezone timezone__mobile">
-            All times are in {user.timezone}
-          </div>
+          {user.timezone &&
+            <div className="timezone timezone__mobile">
+              All times are in {user.timezone}
+            </div>
+          }
           <div className="site-links">
             <div className="social-mobile">
               <a className="footer-link icon" href={FACEBOOK_URL}>
@@ -150,58 +232,20 @@ class Footer extends React.Component {
                 <Icon name="twitter"/>
               </a>
             </div>
-            {linkSet.map(section => <div className="footer-column">
-                <h4 className="footer-heading">{section.heading}</h4>
-                {section.links.map(link => (
-                  <a
-                      className={cx(
-                        "footer-link",
-                        {icon: link.icon, mobileHidden: !link.mobile})}
-                      href={link.location}>
-                    {link.icon ?
-                      <Icon name={link.icon}/>
-                    : link.name}
-                  </a>))
-                }
-              </div>)
-            }
-            <div className="support-mobile">
-              <a className="footer-link" href={`${config.www.url}/support`}>
-                Support
-              </a>
+            {sections.map(section => <FooterColumn {...section}/>)}
+            <SectionLink
+                className="support-mobile"
+                location={`${config.www.url}/support`}
+                mobile={true}
+                name="Support"/>
+          </div>
+          {user.timezone &&
+            <div className="timezone">
+              All times are in {user.timezone}&nbsp;&nbsp;
+              <a href={`${config.settings.url}/profile`}>Change</a>
             </div>
-          </div>
-          <div className="timezone">
-            All times are in {user.timezone}&nbsp;&nbsp;
-            <a href={`${config.settings.url}/profile`}>Change</a>
-          </div>
-          <div className="legal-links">
-            <span className="margin-span copyright">&copy; {moment().format('YYYY')} Thinkful, Inc.</span>
-            <span className="margin-span middot-desktop">&nbsp;·&nbsp;</span>
-            <span>
-              <a
-                  className="footer-link margin-span"
-                  href={`${config.www.url}/static/pdfs/Terms-of-Service.pdf`}>
-                Terms of use
-              </a>
-            </span>
-            <span className="margin-span">&nbsp;·&nbsp;</span>
-            <span className="margin-span">
-              <a
-                  className="footer-link"
-                  href={`${config.www.url}/static/pdfs/Privacy-Policy.pdf`}>
-                Privacy policy
-              </a>
-            </span>
-            <span className="middot-desktop margin-span">&nbsp;·&nbsp;</span>
-            <span className="support-desktop margin-span">
-              <a
-                  className="footer-link"
-                  href={`${config.www.url}/support`}>
-                Support
-              </a>
-            </span>
-          </div>
+          }
+          <LegalLinks config={config}/>
         </footer>
       </div>
       );
