@@ -1,4 +1,5 @@
 const cx = require('classnames');
+const moment = require('moment');
 const React = require('react');
 
 const {Icon} = require('../Icon');
@@ -175,24 +176,25 @@ class Footer extends React.Component {
             <a href={`${config.settings.url}/profile`}>Change</a>
           </div>
           <div className="legal-links">
-            <span className="copyright">&copy; Thinkful, Inc.</span>
-            <span className="middot-desktop">&nbsp;·&nbsp;</span>
+            <span className="margin-span copyright">&copy; {moment().format('YYYY')} Thinkful, Inc.</span>
+            <span className="margin-span middot-desktop">&nbsp;·&nbsp;</span>
             <span>
               <a
-                  className="footer-link"
+                  className="footer-link margin-span"
                   href={`${config.www.url}/static/pdfs/Terms-of-Service.pdf`}>
                 Terms of use
               </a>
-            </span>&nbsp;·&nbsp;
-            <span>
+            </span>
+            <span className="margin-span">&nbsp;·&nbsp;</span>
+            <span className="margin-span">
               <a
                   className="footer-link"
                   href={`${config.www.url}/static/pdfs/Privacy-Policy.pdf`}>
                 Privacy policy
               </a>
             </span>
-            <span className="middot-desktop">&nbsp;·&nbsp;</span>
-            <span className="support-desktop">
+            <span className="middot-desktop margin-span">&nbsp;·&nbsp;</span>
+            <span className="support-desktop margin-span">
               <a
                   className="footer-link"
                   href={`${config.www.url}/support`}>
