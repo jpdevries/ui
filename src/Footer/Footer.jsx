@@ -1,135 +1,252 @@
-const React = require('react');
+const cx = require('classnames');
 const moment = require('moment');
-const jstz = require('jstz');
+const React = require('react');
+
 const {Icon} = require('../Icon');
 
 require('./footer.less');
 
-function generateLinkSet(config) {
+const FACEBOOK_URL = 'https://www.facebook.com/thinkfulschool';
+const TWITTER_URL = 'https://twitter.com/thinkful';
+
+
+function generateSections(config) {
+  const wwwUrl = config.www.url;
   return [
     {
-      'name': 'Mentors',
-      'location': `${config.www.url}/mentors/`
-    },
-    {
-      'name': 'Student reviews',
-      'location': `${config.www.url}/reviews/`
-    },
-    {
-      'name': 'Pricing',
-      'location': `${config.www.url}/pricing/`
-    },
-    {
-      'name': 'About us',
-      'location': `${config.www.url}/about/`,
-      'subLink':
+      'heading': 'Courses',
+      'links': [
         {
-          'name': "We're hiring!",
-          'location': `${config.www.url}/about/#opportunities`
+          'name': 'Part Time Career Path',
+          'location': `${wwwUrl}/courses/web-development-career-path/`,
+          'mobile': false
+        },
+        {
+          'name': 'Full Time Career Path',
+          'location': `${wwwUrl}/courses/full-time-career-path/`,
+          'mobile': false
+        },
+        {
+          'name': 'Explore all courses',
+          'location': `${wwwUrl}/courses/`,
+          'mobile': true
+        },
+        {
+          'name': 'Corporate training',
+          'location': `${wwwUrl}/training-for-teams/`,
+          'mobile': true
+        },
+        {
+          'name': 'Bootcamp prep',
+          'location': `${wwwUrl}/bootcamp-prep/`,
+          'mobile': false
+        },
+        {
+          'name': 'Pricing',
+          'location': `${wwwUrl}/pricing/`,
+          'mobile': true
         }
+      ]
     },
     {
-      'name': 'Learning resources',
-      'location': `${config.www.url}/learn/`
+      'heading': 'Education',
+      'links': [
+        {
+          'name': '1-on-1 mentorship',
+          'location': `${wwwUrl}/mentorship/`,
+          'mobile': false
+        },
+        {
+          'name': 'Bootcamp Finder',
+          'location': `${wwwUrl}/bootcamps/`,
+          'mobile': true
+        },
+        {
+          'name': 'Career prep',
+          'location': `${wwwUrl}/career-prep/`,
+          'mobile': false
+        },
+        {
+          'name': 'Job guarantee',
+          'location': `${wwwUrl}/career-path-job-guarantee/`,
+          'mobile': false
+        },
+        {
+          'name': 'Learning resources',
+          'location': `${wwwUrl}/learn/`,
+          'mobile': false
+        },
+        {
+          'name': 'Student outcomes',
+          'location': `${wwwUrl}/bootcamp-job-stats/`,
+          'mobile': false
+        }
+      ]
     },
     {
-      'name': 'Training for teams',
-      'location': `${config.www.url}/training-for-teams/`
-    },
-    {
-      'name': 'Bootcamp prep',
-      'location': `${config.www.url}/bootcamp-prep/`
-    },
-    {
-      'name': 'Workshops and Q&A sessions',
-      'location': `${config.officeHours.url}/workshops/`
-    },
-    {
-      'name': 'Blog',
-      'location': `//blog.thinkful.com`
+      'heading': 'About',
+      'links': [
+        {
+          'name': 'Blog',
+          'location': 'http://blog.thinkful.com',
+          'mobile': true
+        },
+        {
+          'name': 'Careers',
+          'location': `${wwwUrl}/about/#opportunities`,
+          'mobile': false
+        },
+        {
+          'name': 'Mentors',
+          'location': `${wwwUrl}/mentors/`,
+          'mobile': false
+        },
+        {
+          'name': 'Mission',
+          'location': `${wwwUrl}/about/`,
+          'mobile': true
+        },
+        {
+          'name': 'Site security',
+          'location': `${wwwUrl}/responsible-disclosure/`,
+          'mobile': true
+        },
+        {
+          'iconName': 'facebook',
+          'location': FACEBOOK_URL,
+          'mobile': false
+        },
+        {
+          'iconName': 'twitter',
+          'location': TWITTER_URL,
+          'mobile': false
+        }
+      ]
     }
   ];
 }
 
-class Footer extends React.Component {
+class SectionLink extends React.Component {
   static propTypes = {
-    config: React.PropTypes.object,
-    includeTz: React.PropTypes.bool
-  }
-
-  static defaultProps = {
-    includeTz: false
+    className: React.PropTypes.string,
+    iconName: React.PropTypes.string,
+    location: React.PropTypes.string.isRequired,
+    mobile: React.PropTypes.bool,
+    name: React.PropTypes.string,
   }
 
   render() {
-    const {includeTz, user} = this.props;
-    const config = this.props.config || global.__env.config;
-    const linkSet = generateLinkSet(config);
+    const { className, iconName, location, mobile, name } = this.props;
+
+    return <a
+        className={cx(
+          "footer-link",
+          className,
+          {icon: !!iconName, mobileHidden: !mobile})}
+        href={location}>
+      {iconName ?
+        <Icon name={iconName}/>
+      : name}
+    </a>
+  }
+}
+
+class FooterColumn extends React.Component {
+  static propTypes = {
+    heading: React.PropTypes.string.isRequired,
+    links: React.PropTypes.array.isRequired,
+  }
+
+  render() {
+    const { heading, links } = this.props;
+    return <div className="footer-column">
+      <h4 className="footer-heading">{heading}</h4>
+        {links.map((link, idx) => (<SectionLink key={idx} {...link}/>))}
+    </div>
+  }
+}
+
+
+class LegalLinks extends React.Component {
+  static propTypes = {
+    config: React.PropTypes.object.isRequired
+  }
+
+  render() {
+    const { config } = this.props;
+
+    return <div className="legal-links">
+      <span className="margin-span copyright">&copy; {moment().format('YYYY')} Thinkful, Inc.</span>
+      <span className="margin-span middot-desktop">·</span>
+      <SectionLink
+          className="margin-span"
+          location={`${config.www.url}/static/pdfs/Terms-of-Service.pdf`}
+          name="Terms of use"
+          mobile={true}/>
+      <span className="margin-span">·</span>
+      <SectionLink
+          className="margin-span"
+          location={`${config.www.url}/static/pdfs/Privacy-Policy.pdf`}
+          name="Privacy policy"
+          mobile={true}/>
+      <span className="middot-desktop margin-span">·</span>
+      <SectionLink
+          className="support-desktop margin-span"
+          location={`${config.www.url}/support/`}
+          name="Support"
+          mobile={false}/>
+    </div>
+  }
+}
+
+
+class Footer extends React.Component {
+  static propTypes = {
+    config: React.PropTypes.object,
+    user: React.PropTypes.object,
+  };
+
+  static defaultProps = {
+    config: global.__env.config,
+    user: {},
+  }
+
+  render() {
+    const { config, user } = this.props;
+    const sections = generateSections(config);
 
     return (
       <div className="footer-container">
-        {includeTz &&
-          <p className="footer-timezone">All times are displayed in {
-            (user && user.timezone) ? user.timezone : jstz.determine().name()}.
-            &nbsp;{user && <a href={`${config.settings.url}`}>Change</a>}
-          </p>
-        }
-        <div className="footer">
-          <div className="footer-centered">
-            <div className="footer-site-links">
-              <a
-                  className="button button__white"
-                  href={`${config.accounts.url}/login`}>
-                Sign in
-              </a>
-              {linkSet.map((link, idx) => {
-                return (
-                  <div className="footer-link" key={idx}>
-                    <a className="footer-main-link" href={link.location}>{link.name}</a>
-                    {link.subLink &&
-                      <a className="footer-sub-link" href={link.subLink.location}>{link.subLink.name}</a>}
-                  </div>
-                  )
-                })
-              }
-              <div className="footer-social-links">
-                <a
-                    className="footer-social-link"
-                    href="https://www.facebook.com/thinkfulschool"
-                    target="_blank">
-                  <Icon name="facebook"/>
-                </a>
-                <a
-                    className="footer-social-link"
-                    href="https://twitter.com/thinkful"
-                    target="_blank">
-                  <Icon name="twitter"/>
-                </a>
-              </div>
+        <footer className="footer">
+          {user.timezone &&
+            <div className="timezone timezone__mobile">
+              All times are in {user.timezone}
             </div>
-            <div className="footer-contact-links">
-              <a
-                  className="footer-main-link mobile-hidden"
-                  href="mailto:hello@thinkful.com">
-                Email us: hello@thinkful.com
+          }
+          <div className="site-links">
+            <div className="social-mobile">
+              <a className="footer-link icon" href={FACEBOOK_URL}>
+                <Icon name="facebook"/>
               </a>
-              <a
-                  className="footer-main-link phone-link"
-                  href="tel:+18583673232">Call us +1 (858) 367-3232</a>
-              <div className="copyright mobile-hidden">&copy; {moment().format('YYYY')} Thinkful, Inc.</div>
-              <a
-                  className="footer-main-link"
-                  href="https://www.thinkful.com/static/pdfs/Privacy-Policy.pdf">
-                Privacy policy
-              </a>
-              <a
-                  className="footer-main-link"
-                  href="https://www.thinkful.com/static/pdfs/Terms-of-Service.pdf">
-                Terms of service
+              <a className="footer-link icon" href={TWITTER_URL}>
+                <Icon name="twitter"/>
               </a>
             </div>
+            {sections.map(section => <FooterColumn {...section}/>)}
+            <SectionLink
+                className="support-mobile"
+                location={`${config.www.url}/support`}
+                mobile={true}
+                name="Support"/>
           </div>
-        </div>
+          {user.timezone &&
+            <div className="timezone">
+              All times are in {user.timezone}&nbsp;&nbsp;
+              <a href={`${config.settings.url}/profile`}>Change</a>
+            </div>
+          }
+          <LegalLinks config={config}/>
+        </footer>
       </div>
       );
   }

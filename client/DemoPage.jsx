@@ -158,7 +158,7 @@ class DemoPage extends React.Component {
               }}/>
           <RouteHandler />
         </div>
-        <Footer includeTz={true} />
+        <Footer user={{timezone: 'America/New_York'}} />
       </div>);
   }
 }
