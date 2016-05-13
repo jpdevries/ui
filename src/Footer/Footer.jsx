@@ -1,52 +1,120 @@
+const cx = require('classnames');
 const React = require('react');
-const moment = require('moment');
-const jstz = require('jstz');
+
 const {Icon} = require('../Icon');
 
 require('./footer.less');
 
+
 function generateLinkSet(config) {
   return [
     {
-      'name': 'Mentors',
-      'location': `${config.www.url}/mentors/`
-    },
-    {
-      'name': 'Student reviews',
-      'location': `${config.www.url}/reviews/`
-    },
-    {
-      'name': 'Pricing',
-      'location': `${config.www.url}/pricing/`
-    },
-    {
-      'name': 'About us',
-      'location': `${config.www.url}/about/`,
-      'subLink':
+      'heading': 'Courses',
+      'links': [
         {
-          'name': "We're hiring!",
-          'location': `${config.www.url}/about/#opportunities`
+          'name': 'Part Time Career Path',
+          'location': `${config.www.url}/courses/web-development-career-path/`,
+          'mobile': false
+        },
+        {
+          'name': 'Full Time Career Path',
+          'location': `${config.www.url}/courses/full-time-career-path/`,
+          'mobile': false
+        },
+        {
+          'name': 'Explore all courses',
+          'location': `${config.www.url}/courses/`,
+          'mobile': true
+        },
+        {
+          'name': 'Corporate training',
+          'location': `${config.www.url}/training-for-teams/`,
+          'mobile': true
+        },
+        {
+          'name': 'Bootcamp prep',
+          'location': `${config.www.url}/bootcamp-prep/`,
+          'mobile': false
+        },
+        {
+          'name': 'Pricing',
+          'location': `${config.www.url}/pricing/`,
+          'mobile': true
         }
+      ]
     },
     {
-      'name': 'Learning resources',
-      'location': `${config.www.url}/learn/`
+      'heading': 'Education',
+      'links': [
+        {
+          'name': '1-on-1 mentorship',
+          'location': `${config.www.url}/mentorship/`,
+          'mobile': false
+        },
+        {
+          'name': 'Career prep',
+          'location': `${config.www.url}/career-prep/`,
+          'mobile': false
+        },
+        {
+          'name': 'Job guarantee',
+          'location': `${config.www.url}/career-path-job-guarantee/`,
+          'mobile': false
+        },
+        {
+          'name': 'Student outcomes',
+          'location': `${config.www.url}/bootcamp-job-stats/`,
+          'mobile': false
+        },
+        {
+          'name': 'Bootcamp Finder',
+          'location': `${config.www.url}/bootcamps/`,
+          'mobile': true
+        },
+        {
+          'name': 'Learning resources',
+          'location': `${config.www.url}/learn/`,
+          'mobile': false
+        }
+      ]
     },
     {
-      'name': 'Training for teams',
-      'location': `${config.www.url}/training-for-teams/`
-    },
-    {
-      'name': 'Bootcamp prep',
-      'location': `${config.www.url}/bootcamp-prep/`
-    },
-    {
-      'name': 'Workshops and Q&A sessions',
-      'location': `${config.officeHours.url}/workshops/`
-    },
-    {
-      'name': 'Blog',
-      'location': `//blog.thinkful.com`
+      'heading': 'About',
+      'links': [
+        {
+          'name': 'Mission',
+          'location': `${config.www.url}/about/`,
+          'mobile': true
+        },
+        {
+          'name': 'Blog',
+          'location': 'http://blog.thinkful.com',
+          'mobile': true
+        },
+        {
+          'name': 'Careers',
+          'location': `${config.www.url}/about/#opportunities`,
+          'mobile': false
+        },
+        {
+          'name': 'Mentors',
+          'location': `${config.www.url}/mentors/`,
+          'mobile': false
+        },
+        {
+          'name': 'Site security',
+          'location': `${config.www.url}/responsible-disclosure/`,
+          'mobile': true
+        },
+        {
+          'icon': 'facebook',
+          'location': 'https://www.facebook.com/thinkfulschool'
+        },
+        {
+          'icon': 'twitter',
+          'location': 'https://twitter.com/thinkful'
+        }
+      ]
     }
   ];
 }
@@ -54,82 +122,60 @@ function generateLinkSet(config) {
 class Footer extends React.Component {
   static propTypes = {
     config: React.PropTypes.object,
-    includeTz: React.PropTypes.bool
-  }
-
-  static defaultProps = {
-    includeTz: false
   }
 
   render() {
-    const {includeTz, user} = this.props;
+    const { user={} } = this.props;
     const config = this.props.config || global.__env.config;
     const linkSet = generateLinkSet(config);
 
     return (
       <div className="footer-container">
-        {includeTz &&
-          <p className="footer-timezone">All times are displayed in {
-            (user && user.timezone) ? user.timezone : jstz.determine().name()}.
-            &nbsp;{user && <a href={`${config.settings.url}`}>Change</a>}
-          </p>
-        }
-        <div className="footer">
-          <div className="footer-centered">
-            <div className="footer-site-links">
+        <footer className="footer">
+          <div className="site-links">
+            {linkSet.map(section => <div className="footer-column">
+                <h4 className="footer-heading">{section.heading}</h4>
+                {section.links.map(link => (
+                  <a
+                      className={cx("footer-link", {icon: link.icon})}
+                      href={link.location}>
+                    {link.icon ?
+                      <Icon name={link.icon}/>
+                    : link.name}
+                  </a>))
+                }
+              </div>)
+            }
+          </div>
+          <div className="timezone">
+            All times are in {user.timezone}&nbsp;&nbsp;
+            <a href={`${config.settings.url}/profile`}>Change</a>
+          </div>
+          <div className="legal-links">
+            <span>&copy; Thinkful, Inc.</span>&nbsp;·&nbsp;
+            <span>
               <a
-                  className="button button__white"
-                  href={`${config.accounts.url}/login`}>
-                Sign in
+                  className="footer-link"
+                  href={`${config.www.url}/static/pdfs/Terms-of-Service.pdf`}>
+                Terms of use
               </a>
-              {linkSet.map((link, idx) => {
-                return (
-                  <div className="footer-link" key={idx}>
-                    <a className="footer-main-link" href={link.location}>{link.name}</a>
-                    {link.subLink &&
-                      <a className="footer-sub-link" href={link.subLink.location}>{link.subLink.name}</a>}
-                  </div>
-                  )
-                })
-              }
-              <div className="footer-social-links">
-                <a
-                    className="footer-social-link"
-                    href="https://www.facebook.com/thinkfulschool"
-                    target="_blank">
-                  <Icon name="facebook"/>
-                </a>
-                <a
-                    className="footer-social-link"
-                    href="https://twitter.com/thinkful"
-                    target="_blank">
-                  <Icon name="twitter"/>
-                </a>
-              </div>
-            </div>
-            <div className="footer-contact-links">
+            </span>&nbsp;·&nbsp;
+            <span>
               <a
-                  className="footer-main-link mobile-hidden"
-                  href="mailto:hello@thinkful.com">
-                Email us: hello@thinkful.com
-              </a>
-              <a
-                  className="footer-main-link phone-link"
-                  href="tel:+18583673232">Call us +1 (858) 367-3232</a>
-              <div className="copyright mobile-hidden">&copy; {moment().format('YYYY')} Thinkful, Inc.</div>
-              <a
-                  className="footer-main-link"
-                  href="https://www.thinkful.com/static/pdfs/Privacy-Policy.pdf">
+                  className="footer-link"
+                  href={`${config.www.url}/static/pdfs/Privacy-Policy.pdf`}>
                 Privacy policy
               </a>
+            </span>&nbsp;·&nbsp;
+            <span>
               <a
-                  className="footer-main-link"
-                  href="https://www.thinkful.com/static/pdfs/Terms-of-Service.pdf">
-                Terms of service
+                  className="footer-link"
+                  href={`${config.www.url}/support`}>
+                Support
               </a>
-            </div>
+            </span>
           </div>
-        </div>
+        </footer>
       </div>
       );
   }
