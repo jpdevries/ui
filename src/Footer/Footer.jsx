@@ -180,13 +180,13 @@ class LegalLinks extends React.Component {
       <span className="margin-span middot-desktop">·</span>
       <SectionLink
           className="margin-span"
-          location={`${config.www.url}/static/pdfs/Terms-of-Service.pdf`}
+          location={`${config.www.url}/terms-of-service/`}
           name="Terms of use"
           mobile={true}/>
       <span className="margin-span">·</span>
       <SectionLink
           className="margin-span"
-          location={`${config.www.url}/static/pdfs/Privacy-Policy.pdf`}
+          location={`${config.www.url}/privacy-policy/`}
           name="Privacy policy"
           mobile={true}/>
       <span className="middot-desktop margin-span">·</span>
