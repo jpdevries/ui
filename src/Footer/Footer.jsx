@@ -219,7 +219,7 @@ class Footer extends React.Component {
     return (
       <div className="footer-container">
         <footer className="footer">
-          {user.timezone &&
+          {user && user.timezone &&
             <div className="timezone timezone__mobile">
               All times are in {user.timezone}
             </div>
@@ -240,7 +240,7 @@ class Footer extends React.Component {
                 mobile={true}
                 name="Support"/>
           </div>
-          {user.timezone &&
+          {user && user.timezone &&
             <div className="timezone">
               All times are in {user.timezone}&nbsp;&nbsp;
               <a href={`${config.settings.url}/profile`}>Change</a>
