@@ -78,7 +78,7 @@ function generateSections(config) {
         },
         {
           'name': 'Student outcomes',
-          'location': `${wwwUrl}/bootcamp-job-stats/`,
+          'location': `${wwwUrl}/bootcamp-jobs-stats/`,
           'mobile': false
         }
       ]
