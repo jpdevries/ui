@@ -78,9 +78,9 @@ class OpenSessionOverview extends React.Component {
 
     const style = {
       workshop: {
-        backgroundImage: `url(${hero_image_url || host.image_url})`,
+        backgroundImage: hero_image_url || host.image_url,
         backgroundPosition: "50% 50%"},
-      qaSession: {backgroundImage: `url(${host.image_url})`}
+      qaSession: {backgroundImage: host.image_url}
     }
 
     return (
@@ -113,10 +113,11 @@ class OpenSessionOverview extends React.Component {
               {session.startDtLocal(user).format('MMM Do')}
             </div>
           }
-          <div
+          <img
               className="image-primary"
               itemProp="photo"
-              style={session.isWorkshop() ? style.workshop : style.qaSession}/>
+              alt={host.name + '\'s Profile Photo'}
+              src={(session.isWorkshop() ? style.workshop : style.qaSession)['backgroundImage']}/>
           {session.isWorkshop() && hero_image_url &&
             <img className="image-secondary" src={host.image_url}/>
           }
