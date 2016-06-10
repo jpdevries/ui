@@ -70,9 +70,9 @@ class NotificationView extends React.Component {
     const hasNotifications = !_.isEmpty(notifications.filter(notif => ! notif.is_read));
 
     return (<div className="tui-notification-view">
-      <a onClick={this.toggle} className="tui-notification-toggle">
+      <a onClick={this.toggle} className="tui-notification-toggle" aria-label="Notification Toggle">
         <span className={countClasses}>
-        {unseenCount || <Icon name="notification" />}
+        {unseenCount || <Icon name="notification" alt="Notification" />}
         </span>
       </a>
       <div className={containerClasses}>

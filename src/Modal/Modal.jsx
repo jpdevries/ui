@@ -51,7 +51,7 @@ class Modal extends React.Component {
         <div className="tui-modal-curtain" onClick={closeModal}/>
         <div className={modalClasses}>
           <a className="tui-modal-close-button" onClick={closeModal}>
-            <Icon name="close" />
+            <Icon name="close" alt="Close" />
           </a>
           {this.props.children}
         </div>

@@ -101,8 +101,8 @@ class OpenSessionOverview extends React.Component {
             <div className="session-time-alert">Happening now!</div>
           }
           {linkedSession ?
-            <Icon name="navigateright" className="linked-session-icon"/>
-          : (attending && <Icon name="alarmclock" className="alarm-icon"/>)
+            <Icon name="navigateright" className="linked-session-icon" alt="Navigate Right" />
+          : (attending && <Icon name="alarmclock" className="alarm-icon" alt="Alarm Clock" />)
           }
           {!session.isPast() &&
             <div itemProp="startDate"
@@ -175,13 +175,13 @@ class OpenSessionOverview extends React.Component {
               params={{slug: title_slug, id: id}}
               to={linkTo}>
             View details
-            <Icon name="navigateright" className="button-right-icon"/>
+            <Icon name="navigateright" className="button-right-icon" alt="Navigate Right"/>
           </Link>
         : <a
               className="button"
               href={detail_page_url}>
             View details
-            <Icon name="navigateright" className="button-right-icon"/>
+            <Icon name="navigateright" className="button-right-icon" alt="Navigate Right"/>
           </a>
         }
       </div>
@@ -206,13 +206,13 @@ class OpenSessionOverview extends React.Component {
               className="button"
               href={detail_page_url}>
             View on calendar
-            <Icon name="navigateright" className="button-right-icon"/>
+            <Icon name="navigateright" className="button-right-icon" alt="Navigate Right"/>
           </a>
         : (
           !userIsActive ?
             <a className="button" href={`${config.tfl_enroll.url}?rel=qa-session-details`}>
               RSVP
-              <Icon name="navigateright" className="button-right-icon"/>
+              <Icon name="navigateright" className="button-right-icon" alt="Navigate Right"/>
             </a>
           : hosting ?
             <div className="host-ctas">
@@ -222,7 +222,7 @@ class OpenSessionOverview extends React.Component {
                     {"disabled": previewing})}
                   href={session.session_room_url}>
                 Go to room
-                <Icon name="navigateright" className="button-right-icon"/>
+                <Icon name="navigateright" className="button-right-icon" alt="Navigate Right"/>
               </a>
               {!previewing &&
                 <div>
@@ -241,7 +241,7 @@ class OpenSessionOverview extends React.Component {
           : session.isUpcoming() ?
             <a className="button button__black" href={session.session_room_url}>
               Go to room
-              <Icon name="navigateright" className="button-right-icon"/>
+              <Icon name="navigateright" className="button-right-icon" alt="Navigate Right"/>
             </a>
           : attending ?
             <div className="user-attending">
@@ -252,7 +252,7 @@ class OpenSessionOverview extends React.Component {
             </div>
           : <div className="button" onClick={e => handleRSVPClick(id)}>
               RSVP
-              <Icon name="navigateright" className="button-right-icon"/>
+              <Icon name="navigateright" className="button-right-icon" alt="Navigate Right"/>
             </div>
         )}
       </div>

@@ -107,7 +107,7 @@ class AppNav extends React.Component {
                                     {...link}/></li>)}
                     </ul>
                     <Notifications />
-                    <a className="app-nav-link app-nav-link__toggle" onClick={this._toggleMenu}>
+                    <a className="app-nav-link app-nav-link__toggle" onClick={this._toggleMenu} aria-label="Toggle Menu">
                         <span alt="Menu" className="app-nav-burger"></span>
                         <Gravatar
                             className="app-nav-gravatar"
@@ -129,7 +129,7 @@ class AppNav extends React.Component {
         <div className="app-nav-course-dropdown">
           <span className='app-nav-link'
                 onClick={this._toggleCourseDropdown}>Courses
-            <Icon className='app-nav-link-down-arrow' name='navigatedown' />
+            <Icon className='app-nav-link-down-arrow' name='navigatedown' alt="Navigate Down" />
           </span>
           <div onMouseEnter={this._handleMouseEnter}
                className={dropdownContentClasses}>

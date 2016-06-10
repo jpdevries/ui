@@ -185,7 +185,7 @@ class SearchBar extends React.Component {
           <form
               className="search-form"
               onSubmit={this._handleSubmitForm}>
-            <Icon name="search" className="icon-search"/>
+            <Icon name="search" className="icon-search" alt="Search" />
             <input
                 className={cx("search-input", inputClassName)}
                 ref={ref => this.input = ref}
@@ -206,7 +206,7 @@ class SearchBar extends React.Component {
                 {"search-home-link__active-hidden": !searchTerm.length})}
               href={`${config.projects.url}/search`}>
             Browse by topic
-            <Icon name="navigateright"/>
+            <Icon name="navigateright" alt="Navigate Right" />
           </a>
         </div>
         {!!suggestions.length &&

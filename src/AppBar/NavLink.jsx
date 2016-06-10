@@ -51,7 +51,7 @@ class NavLink extends React.Component {
                     href={url + '?rel=nav'}
                     target={external ? "_blank" : "_self"}>
                 {icon &&
-                    <Icon className="app-nav-icon" name={icon}/>
+                    <Icon className="app-nav-icon" name={icon} alt={displayName} />
                 }
                 {displayName
                     && <span className="app-nav-text">{displayName}</span>
@@ -144,7 +144,7 @@ class SearchLink extends React.Component {
                 <a className={cx(className, "app-nav-link")}
                    onClick={this._handleSearchClick}>
                     {icon &&
-                        <Icon className="app-nav-icon" name={icon}/>
+                        <Icon className="app-nav-icon" name={icon} alt={displayName} />
                     }
                     {displayName
                         && <span className="app-nav-text">{displayName}</span>

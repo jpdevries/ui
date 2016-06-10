@@ -113,11 +113,13 @@ function generateSections(config) {
         },
         {
           'iconName': 'facebook',
+          'name': 'Facebook',
           'location': FACEBOOK_URL,
           'mobile': false
         },
         {
           'iconName': 'twitter',
+          'name': 'Twitter',
           'location': TWITTER_URL,
           'mobile': false
         }
@@ -145,7 +147,7 @@ class SectionLink extends React.Component {
           {icon: !!iconName, mobileHidden: !mobile})}
         href={location}>
       {iconName ?
-        <Icon name={iconName}/>
+        <Icon name={iconName} alt={name} />
       : name}
     </a>
   }
@@ -227,10 +229,10 @@ class Footer extends React.Component {
           <div className="site-links">
             <div className="social-mobile">
               <a className="footer-link icon" href={FACEBOOK_URL}>
-                <Icon name="facebook"/>
+                <Icon name="facebook" alt="Facebook"/>
               </a>
               <a className="footer-link icon" href={TWITTER_URL}>
-                <Icon name="twitter"/>
+                <Icon name="twitter" alt="Twitter"/>
               </a>
             </div>
             {sections.map(section => <FooterColumn {...section}/>)}

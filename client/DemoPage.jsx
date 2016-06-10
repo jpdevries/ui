@@ -89,7 +89,8 @@ class DemoPage extends React.Component {
             target={Icon}
             props={{
               name: Demo.props.string('pointupright'),
-              className: Demo.props.string('additional-class')
+              className: Demo.props.string('additional-class'),
+              alt:Demo.props.string('Point Up Right')
             }} />
 
           <h3>Dropdown</h3>

@@ -238,7 +238,7 @@ class TopicPicker extends React.Component {
               <div
                   className="topic-delete-button"
                   onClick={(event) => this._handleRemoveTopic(topic)}>
-                <Icon name="close"/>
+                <Icon name="close" alt="Close" />
               </div>
             </Tag>
           );

@@ -24,7 +24,7 @@ class MenuItem extends React.Component {
 
     return (
       <div className={itemClasses} onClick={handleClick}>
-        <Icon name="navigateright"/>
+        <Icon name="navigateright" alt="Navigate Right" />
         {this.props.children}
       </div>
     );
