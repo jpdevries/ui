@@ -55,7 +55,9 @@ class TopicPicker extends React.Component {
     activeTopics: [],
     maxSuggestions: 10,
     minTopicLength: DEFAULT_MIN_TOPIC_LENGTH,
-    placeholderText: "Add a tag (hit 'return' after each one)",
+    labelText: "Add a tag ",
+    inputId:"topic-form-input",
+    placeholderText: "(hit 'return' after each one)",
     // if parent doesn't pass in callback, to avoid conditionals inline
     handleUpdateTopics: () => null,
   }
@@ -220,63 +222,68 @@ class TopicPicker extends React.Component {
 
   render() {
     const {pattern, topics, selectedSuggestionIndex, isFocused} = this.state;
-    const {className, placeholderText} = this.props;
+    const {className, placeholderText, labelText, inputId} = this.props;
     return (
-      <div
-        className={cx(
-          'topic-picker',
-          className,
-          isFocused && 'topic-picker-focus')}>
-
-        {/* The existing topics */}
-        {topics.map((topic, index) => {
-          return (
-            <Tag
-              key={index}
-              className='topic'
-              displayName={topic}>
-              <div
-                  className="topic-delete-button"
-                  onClick={(event) => this._handleRemoveTopic(topic)}>
-                <Icon name="close"/>
-              </div>
-            </Tag>
-          );
-        })}
-
+      <div>
+        <label htmlFor={inputId}>{labelText}</label>
         <div
-            className="topic-form"
-            onKeyDown={this._handleKeyDown}
-            onSubmit={this._handleTopicSubmit}>
-          <input
-              onFocus={this._toggleFocus}
-              onBlur={this._toggleFocus}
-              className="topic-form-input"
-              type="text"
-              value={pattern}
-              placeholder={placeholderText}
-              onChange={this._handlePatternChange}/>
+          className={cx(
+            'topic-picker',
+            className,
+            isFocused && 'topic-picker-focus')}>
 
-          {/* The list of topic suggestions */}
-          {pattern && (
-            <ul className="topic-suggestion-list">
-              {this._filterTopicList().map((topic, index) => {
-                return (
-                  <li
-                    key={index}
-                    className={cx(
-                      'topic-list-item',
-                      {selected: index === selectedSuggestionIndex})
-                    }
-                    onClick={(event) => this._handleAddTopic(
-                      topic.replace(/\*/g, ''))
-                    }
-                    dangerouslySetInnerHTML={{__html: marked(topic)}}/>
-                );
-              })}
-            </ul>
-            )
-          }
+
+          {/* The existing topics */}
+          {topics.map((topic, index) => {
+            return (
+              <Tag
+                key={index}
+                className='topic'
+                displayName={topic}>
+                <div
+                    className="topic-delete-button"
+                    onClick={(event) => this._handleRemoveTopic(topic)}>
+                  <Icon name="close"/>
+                </div>
+              </Tag>
+            );
+          })}
+
+          <div
+              className="topic-form"
+              onKeyDown={this._handleKeyDown}
+              onSubmit={this._handleTopicSubmit}>
+            <input
+                id={inputId}
+                onFocus={this._toggleFocus}
+                onBlur={this._toggleFocus}
+                className="topic-form-input"
+                type="text"
+                value={pattern}
+                placeholder={placeholderText}
+                onChange={this._handlePatternChange}/>
+
+            {/* The list of topic suggestions */}
+            {pattern && (
+              <ul className="topic-suggestion-list">
+                {this._filterTopicList().map((topic, index) => {
+                  return (
+                    <li
+                      key={index}
+                      className={cx(
+                        'topic-list-item',
+                        {selected: index === selectedSuggestionIndex})
+                      }
+                      onClick={(event) => this._handleAddTopic(
+                        topic.replace(/\*/g, ''))
+                      }
+                      dangerouslySetInnerHTML={{__html: marked(topic)}}/>
+                  );
+                })}
+              </ul>
+              )
+            }
+          </div>
         </div>
       </div>
     );
