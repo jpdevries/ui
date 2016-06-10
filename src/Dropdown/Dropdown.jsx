@@ -39,16 +39,16 @@ const Dropdown = React.createClass({
     let {data} = this.props;
     let {indentation} = this.props;
 
-    return data.map((item, ind) => (
-      makeOptions(item,ind,0)
+    return data.map((item) => (
+      makeOptions(item,0)
     ));
 
-    function makeOptions(item,ind,depth) {
+    function makeOptions(item,depth) {
       let items = [];
 
-      if(item.options !== undefined) {
+      if(_.has(item, 'options')) {
         var optionsDOM = item.options.map((item, ind) => (
-          makeOptions(item,ind,depth + 1)
+          makeOptions(item,depth + 1)
         ));
         var indent = '';
         for(var i = 0; i < depth; i++) indent += indentation;
@@ -59,43 +59,42 @@ const Dropdown = React.createClass({
         );
       }
 
-      if(typeof(item) !== 'object') { // it is a string
+      if(_.isString(item)) { // it is a string
         items.push({
           item:{
-            value:item,
+            value:cssSafe(item),
             displayName:item
-          },ind:ind
+          }
         });
       } else {
-        if(item.length !== undefined) { // it is an Array
-          for(var i = 0; i < item.length; i++) {
+        if(_.isArray(item)) { // it is an Array of strings
+          _.each(item, function(item) {
             items.push({
               item:{
-                value:item[i],
-                displayName:item[i]
-              },
-              ind:ind.toString() + '-' + i.toString()
+                value:cssSafe(item),
+                displayName:item
+              }
             });
-          }
-        } else { // it is an Object
-          items.push({
-            item:item,
-            ind:ind
-          });
+          })
+        } else { // it is a simple Object
+          items.push({ item:item });
         }
       }
 
       // one or more options
       return items.map((data) => (
         <option
-          id={data.ind}
-          key={data.ind}
+          key={data.item.value}
           label={data.item.label}
           selected={data.item.selected}
           value={data.item.value}>
           {data.item.displayName}
         </option>
       ));
+
+      function cssSafe(name) {
+        return name.toLowerCase().replace(/[!\"#$%&'\(\)\*\+,\.\/:;<=>\?\@\[\\\]\^`\{\|\}~]/g, '');
+      }
     }
   },
 
