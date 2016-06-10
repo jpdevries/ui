@@ -90,6 +90,7 @@ const Dropdown = React.createClass({
         <option
           id={data.ind}
           key={data.ind}
+          label={data.item.label}
           selected={data.item.selected}
           value={data.item.value}>
           {data.item.displayName}

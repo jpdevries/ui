@@ -23,7 +23,7 @@ class DemoPage extends React.Component {
     const sampleDropdownData = [{
       label:'Foods',
       options:[
-        { value: 'pizza', displayName: "Tasty Pizza"},
+        { value: 'pizza', displayName: "Super Tasty Pizza", label:"Tasty Pizza"},
         { value: 'waffles', displayName: "Delicious Waffles"},
         { value: 'felafel', displayName: "I'm feelin Falafel"}
       ]
@@ -44,7 +44,7 @@ class DemoPage extends React.Component {
         options:['Trail Blazers','Kings']
       },{
         label:'Football',
-        options:['49ers','Raiders'] 
+        options:['49ers','Raiders']
       }]
     }
     ];
