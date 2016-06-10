@@ -112,9 +112,11 @@ const Dropdown = React.createClass({
     return (
       <label>
         {label}
-        <select className={cx("dropdown-container", className)} onChange={this._handleChange} value={this.state.value}>
-          {this._generateNodes()}
-        </select>
+        <div className={cx("dropdown-container", className)}>
+          <select onChange={this._handleChange} value={this.state.value}>
+            {this._generateNodes()}
+          </select>
+        </div>
       </label>
     );
   }
