@@ -21,13 +21,15 @@ class Gravatar extends React.Component {
     static defaultProps = {
         default: 'retro',
         size: 200,
-        style: {}
+        style: {},
+        alt:'Gravatar'
     }
 
     render() {
-        const {className, style, email='', size, ...props} = this.props;
+        const {className, style, email='', size, alt, ...props} = this.props;
         return <img
             className={cx("gravatar", className)}
+            alt={alt}
             src={`${URL}/${MD5.hash(email)}?d=${this.props.default}&s=${size}`}
             style={style || {}}
             {...props}/>
