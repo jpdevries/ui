@@ -46,7 +46,9 @@ class DemoPage extends React.Component {
         label:'Football',
         options:['49ers','Raiders']
       }]
-    }
+    },
+    'Bacon',
+    'Cheese'
     ];
 
     const sampleNotifications = [
