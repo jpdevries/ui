@@ -20,11 +20,33 @@ require('./styles/demo.less')
 
 class DemoPage extends React.Component {
   render() {
-    const sampleDropdownData = [
-      { value: 'pizza', displayName: "Tasty Pizza"},
-      { value: 'waffles', displayName: "Delicious Waffles"},
-      { value: 'felafel', displayName: "I'm feelin Falafel"},
-      { value: 'bose', displayName: "No highs no lows, must be Bose"}
+    const sampleDropdownData = [{
+      label:'Foods',
+      options:[
+        { value: 'pizza', displayName: "Tasty Pizza"},
+        { value: 'waffles', displayName: "Delicious Waffles"},
+        { value: 'felafel', displayName: "I'm feelin Falafel"}
+      ]
+    },
+    { value: 'react', displayName: "React", selected:true},
+    { value: 'angular', displayName: "AngularJS"},
+    { value: 'bose', displayName: "No highs no lows, must be Bose"},
+    {
+      label:'States',
+      options:[
+        'California','Oregon','New York'
+      ]
+    },
+    {
+      label:'Sports',
+      options:[{
+        label:'Basketball',
+        options:['Trail Blazers','Kings']
+      },{
+        label:'Football',
+        options:['49ers','Raiders'] 
+      }]
+    }
     ];
 
     const sampleNotifications = [
@@ -97,9 +119,9 @@ class DemoPage extends React.Component {
             target={Dropdown}
             props={{
               data: Demo.props.constant(sampleDropdownData),
-              initialSelectedInd: Demo.props.choices([undefined,0,1,2]),
-              defaultDisplay: Demo.props.string("Choose something awesome"),
-              handleChange: Demo.props.callback.log(e => e.target.getAttribute('value'))
+              handleChange: Demo.props.callback.log(e => e.target.value),
+              label:Demo.props.string("Choose something awesome"),
+              indentation:Demo.props.string("")
             }} />
 
           <h3>DatePicker</h3>

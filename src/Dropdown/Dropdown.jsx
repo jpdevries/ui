@@ -20,122 +20,101 @@ const Dropdown = React.createClass({
       React.PropTypes.oneOfType([
         React.PropTypes.string, React.PropTypes.object
       ])).isRequired,
-    initialSelectedInd: React.PropTypes.number,
-    selectedInd: React.PropTypes.number,
-    defaultDisplay: React.PropTypes.string,
     handleChange: React.PropTypes.func.isRequired
   },
 
   getInitialState() {
-    return {open: false};
+    return {value:undefined};
   },
 
   getDefaultProps() {
-    return {data: []};
-  },
-
-  componentDidMount() {
-    document.addEventListener('click', this._checkClickAway);
-  },
-
-  componentWillUnmount() {
-    document.removeEventListener('click', this._checkClickAway);
-  },
-
-  _checkClickAway(e) {
-    if (!ReactDOM.findDOMNode(this.dropdownButton).contains(e.target)) {
-      this.setState({open: false});
-    }
+    return {
+      data: [],
+      label:'',
+      indentation:' • '
+    };
   },
 
   _generateNodes() {
     let {data} = this.props;
+    let {indentation} = this.props;
 
-    // Translate `data` from an array of strings, if necessary.
-    data = data.map(item => {
-      return {
-        value: _.has(item, 'value') ? item.value : item,
-        displayName: _.has(item, 'displayName') ? item.displayName : item,
-        className: item.className,
+    return data.map((item, ind) => (
+      makeOptions(item,ind,0)
+    ));
+
+    function makeOptions(item,ind,depth) {
+      let items = [];
+
+      if(item.options !== undefined) {
+        var optionsDOM = item.options.map((item, ind) => (
+          makeOptions(item,ind,depth + 1)
+        ));
+        var indent = '';
+        for(var i = 0; i < depth; i++) indent += indentation;
+        return (
+          <optgroup label={indent + item.label}>
+            {optionsDOM}
+          </optgroup>
+        );
       }
-    });
 
-    return data.map((item, ind) => {
-      return (
-        <p
-          className={cx("dropdown-item", item.className)}
-          id={ind}
-          key={ind}
-          value={item.value}>
-          {item.displayName}
-        </p>
-      );
-    });
-  },
+      if(typeof(item) !== 'object') { // it is a string
+        items.push({
+          item:{
+            value:item,
+            displayName:item
+          },ind:ind
+        });
+      } else {
+        if(item.length !== undefined) { // it is an Array
+          for(var i = 0; i < item.length; i++) {
+            items.push({
+              item:{
+                value:item[i],
+                displayName:item[i]
+              },
+              ind:ind.toString() + '-' + i.toString()
+            });
+          }
+        } else { // it is an Object
+          items.push({
+            item:item,
+            ind:ind
+          });
+        }
+      }
 
-  _toggleOpen() {
-    this.setState({open: !this.state.open});
+      // one or more options
+      return items.map((data) => (
+        <option
+          id={data.ind}
+          key={data.ind}
+          selected={data.item.selected}
+          value={data.item.value}>
+          {data.item.displayName}
+        </option>
+      ));
+    }
   },
 
   _handleChange(event) {
     let {handleChange} = this.props;
-    this._toggleOpen();
+    this.setState({value: event.target.value});
     handleChange(event);
-  },
-
-  _determineSelectedInd() {
-    const { data, initialSelectedInd, selectedInd, value } = this.props;
-
-    // Case 1: selectedInd or initialSelectedInd provided by props
-    if (typeof(selectedInd) === 'number') {
-      return selectedInd;
-    }
-
-    if (typeof(initialSelectedInd) === 'number') {
-      return initialSelectedInd;
-    }
-
-    // Case 2: get index of `value` from data array
-    return _.map(data, item => item.value || item).indexOf(value)
-  },
-
-  _getDisplayText() {
-    const { data, defaultDisplay } = this.props;
-    const selectedInd = this._determineSelectedInd();
-
-    if (selectedInd === -1) {
-      return defaultDisplay;
-    }
-
-    return _.map(data,
-      item => item.displayName || item)[selectedInd] || defaultDisplay;
   },
 
   render() {
     const { className } = this.props;
-
-    const dropdownClasses = cx(
-      'dd-open',
-      {hidden: !this.state.open});
+    let { label } = this.props;
 
     return (
-      <div className={cx("dropdown-container", className)}>
-        <div
-            className="button dd-button"
-            onClick={this._toggleOpen}
-            ref={c => this.dropdownButton = c}
-            data-clickable>
-          <span className="dropdown-text">
-            {this._getDisplayText()}
-          </span>
-          <span className="icon-navigatedown" aria-hidden="true"></span>
-        </div>
-        <div
-          className={dropdownClasses}
-          onClick={this._handleChange}>
+      <label>
+        {label}
+        <select className={cx("dropdown-container", className)} onChange={this._handleChange} value={this.state.value}>
           {this._generateNodes()}
-        </div>
-      </div>
+        </select>
+      </label>
     );
   }
 });
